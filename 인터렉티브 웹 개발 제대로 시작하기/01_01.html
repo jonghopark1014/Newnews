@@ -1,0 +1,66 @@
+<!-- 
+transform
+-> transform은 해당 요소의 중간을 기준으로 처리, 회전, 등등
+-> 하드웨어 가속을 사용해서 하는경우 성능이 좋음 -> gpu를 사용
+
+꿀팁
+-> 'box' class를 가진 a 요소 추가 : a .box (default 태그는 div)
+-> 여러개면 *n 
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Web</title>
+    <style>
+        .box-container {
+            display: flex;
+        }
+        .box {
+            width: 100px;
+            height: 100px;
+            border: 2px solid black;
+            background: rgba(255, 255, 0, 0.7);
+        }
+        .box:hover {
+            /* width, heigth를 건드리면 전체페이지를 리로드하면서 다른 요소를 밀어냄 */
+            /* width: 200px;
+            height: 200px; */
+
+            /* 
+            해당 요소만 리로드하면서 다른 요소를 밀어내지 않고 성능이 좋음 
+            여러 요소를 적용시 한 칸 띄워서 추가
+            */
+            /* transform: scale(2) rotate(15deg); */
+            /* transform: skew(15deg); */
+            /* transform: skewY(15deg); */
+            /* transform: translate(30px, 10px); */
+            transform: scale(1.5) rotate(15deg);
+            /* transform 기준점 변경 */
+            /* transform-origin: top left; */
+            /* transform-origin: 30% 50%; */
+            transform-origin: right bottom;
+        }
+    </style>
+</head>
+<body>
+    <h1>CSS Transform</h1>
+    <!-- lorem100 : lorem 100자 소환 -->
+    <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eius repellendus vitae magnam quod, debitis odit fugit possimus rerum! Nesciunt distinctio harum praesentium facilis! Eos culpa, eaque repellendus sunt facere beatae commodi, quisquam officia earum cum corrupti sit fuga possimus laboriosam adipisci ad unde quibusdam, temporibus doloremque reprehenderit eius rerum nobis eum esse? Incidunt eveniet aspernatur facilis? Hic mollitia minus corporis exercitationem nesciunt reprehenderit quis modi explicabo cum veniam possimus asperiores eaque nihil, minima impedit doloribus! Quibusdam maiores debitis, sapiente fuga temporibus illo quis dicta! Possimus dolor quibusdam eaque obcaecati eius totam maiores deserunt at, numquam, temporibus aperiam necessitatibus odit sit!
+    </p>
+    <div class="box-container">
+        <div class="box">A</div>
+        <div class="box">B</div>
+        <div class="box">C</div>
+        <div class="box">D</div>
+        <div class="box">E</div>
+    </div>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas dolor eius, ab eos voluptate quia odio nam facilis obcaecati tempora. Nisi quae labore consequuntur amet beatae unde eaque sint repellendus. Fuga voluptas minima, maiores neque enim vitae quaerat rerum repudiandae a dolores ab quis? Recusandae iusto consequuntur, facere voluptates temporibus reprehenderit, labore debitis porro repudiandae libero harum. Dolore praesentium eos excepturi nisi labore, assumenda deserunt cupiditate iusto unde porro ex debitis doloribus vero modi aut fugit, vitae consequatur numquam rerum tempore nobis maxime reprehenderit minima sapiente. Ipsa quo velit unde modi enim praesentium consequuntur deserunt, ipsum magni, recusandae, perspiciatis cumque!
+    </p>
+</body>
+</html>

@@ -1,0 +1,99 @@
+html {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+body {
+	margin: 0;
+}
+div, section, header, footer, p, h1, h2 {
+	box-sizing: border-box;
+}
+a {
+	color: royalblue;
+}
+img {
+	max-width: 100%;
+	height: auto;
+}
+.global-width {
+	max-width: 620px;
+	margin: 0 auto;
+	padding: 0 15px;
+}
+.graphic-item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	transition: 0.5s;
+	/* 브라우저에 알려줌, 남발하면 부하가 큼 */
+	will-change: opacity;
+}
+.visible {
+	opacity: 1;
+}
+.scroll-graphic {
+	/* 새가 날아가면서 생긴 좌우스크롤 제거 */
+	overflow-x: hidden;
+	position: sticky;
+	/* sticky의 위치에 top에 닿으면 이동하지 않음 */
+	top: 0;
+	/* sticky는 높이를 따로 차지하지않기 때문에 높이 지정 */
+	height: 100vh;
+}
+.scene-img {
+	max-height: 100vh;
+}
+.scroll-text {
+	/* positino의 기본값은 static, static이 아니면 html순서에 맞춰 z-index 부여*/
+	position: relative;
+	/* 마진 병합 현상으로 .step의 bottom margin이 없어져서 부모인 scroll-text의 높이가 모자라는 현상 해결 */
+	/* (참조 : https://www.youtube.com/watch?v=c19Mjg-ivxc&ab_channel=%EB%B9%94%EC%BA%A0%ED%94%84CSS ) */
+	/* 
+	마진 병합 현상
+	-> 안정적으로 화면을 구성하기 위해 필요한 좋은 기능
+	마진 병합 현상의 조건 
+	1. 인접해있는 "Block 요소" 끼리만 
+	2. 상하단만 해당됨 
+		-> 자식요소의 마진와 부모요소의 마진도 합쳐지는 현상 발생 
+			-> 부모요소에 padding or border을 줘서 마진이 겹치는 문제 해결
+				-> padding; 1px;
+				-> border: 1px solid transparent;
+			-> 자식요소를 inline block 처리해도 됨 -> 위아래 두요소의 margin이 병합되지 않아 디자인이 깨짐
+			-> 부모요소에 overflow: hidden; 을 줘도 해결됨 (참조 : 오버플로우 https://www.youtube.com/watch?v=O-n1EjDEuIc&ab_channel=%EB%B9%94%EC%BA%A0%ED%94%84CSS )
+	*/
+	padding-bottom: 1px;
+}
+.step {
+	/* vh: 현재 창사이즈에 비해서 */
+	margin-bottom: 60vh;
+	padding: 0.5rem 1rem;
+	border-radius: 10px;
+	background: rgba(255, 255, 255, 0.8);
+	box-shadow: rgba(0, 0, 0, 0.3) 0 0 3px;
+}
+.bird {
+	position: absolute;
+	left: 0;
+	bottom: 70%;
+	width: 10vh;
+	/* 내 크기의 %만큼 */
+	transform: translateX(-100%);
+	/* transition은 가속도가 있음 */
+	transition: 1.5s 0.5s linear;
+}
+[data-index="5"] .bird {
+	left: 30%;
+	bottom: 30%;
+}
+.global-footer {
+	padding: 2rem 0;
+	text-align: center;
+}
+.strikethrough {
+	text-decoration: line-through;
+}
