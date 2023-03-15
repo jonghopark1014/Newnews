@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            display: flex;
+            /* flex-direction: column; */
+            /* 축의 방향이 가로 default == row */
+            /* justify-content: space-around; */
+            /* 축에서 정렬을 하는애 
+            space-around 처음과 끝에도 여백이 있다 
+            space-between 처음이랑 끝에 여백이 없다 */
+            align-items: stretch;
+            /* 수직방향으로 정렬하는거임
+            flex-start 
+            */
+            height: 80vh;
+            background: gray;
+        }
+        .item{
+            /* flex-grow: 1; */
+            /* 너비를 나눠 갖는게 아니라 여백을 1로 갖는걸 여백의 비율을 갖는것 */
+            flex-basis: 1;
+            /* padding: 2em; */
+            border: 3px solid black;
+            font-size: 3rem;
+            background: white;
+        }
+        /* .item:nth-child(1) {flex-grow: 1;}
+        .item:nth-child(2) {flex-grow: 5;}
+        .item:nth-child(3) {flex-grow: 2;}
+        .item:nth-child(4) {flex-grow: 3;}
+        .item:nth-child(5) {flex-grow: 1;} */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="item">AAA</div>
+        <div class="item">BBB</div>
+        <div class="item">CCCCCCCC</div>
+        <div class="item">DDDDD</div>
+        <div class="item">E</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Interactive Web</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <style>
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .characters {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            background: #fff000;
+        }
+        .ilbuni {
+            width: 100px;
+            cursor: pointer;
+        }
+        .characters .ilbuni {
+            display: inline-block;
+        }
+        .special {
+            border: 10px dashed red;
+        }
+    </style>
+</head>
+<body>
+    <div class="characters">    
+        <div class="ilbuni a">
+            <img src="images/ilbuni_0.png" alt="일분이">
+        </div>
+        <div class="ilbuni b">
+            <img src="images/ilbuni_1.png" alt="일분이">
+        </div>
+        <div class="ilbuni c">
+            <img src="images/ilbuni_2.png" alt="일분이">
+        </div>
+        <div class="ilbuni d">
+            <img src="images/ilbuni_3.png" alt="일분이">
+        </div>
+    </div>
+
+    <script>
+        // window.addEventListener('DOMContentLoaded', function() {
+            // DOMContentLoaded DOM 구조만 로드되면 가져올수 있다
+            // body에 쓰는이유는 굳이 위에것을 쓰지 않아도 된다 
+        (function() {
+            const ilbuni = document.querySelector(".characters")
+            //전역변수 (최소화 해야된다)
+            // function clickInbuniHandler(e) {
+                // ilbuni.classList.toggle('special')
+                // console.log(this)
+                // console.log(e)
+            // }
+            function clickHandler(e) {
+                console.log(this)
+                // console.log(e.currentTarget)
+                // console.log(e.target)
+            }
+            ilbuni.addEventListener('click', clickHandler)           
+        })()
+        // })
+
+    </script>
+</body>
+</html>
