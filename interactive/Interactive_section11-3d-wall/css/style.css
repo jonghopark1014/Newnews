@@ -1,0 +1,57 @@
+body {
+    /* height: 500vw; */
+    font-family: 'Apple SD Gothic Neo', 'Roboto', 'Noto Sans KR', NanumGothic, 'Malgun Gothic', sans-serif;
+    -webkit-overflow-scrolling: touch;
+    color: #555;
+    background: #fff000;
+    /* transition: background .5s; */
+}
+.world{
+    position: fixed;
+    /* 고정되어야된다 */
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    perspective: 1000px;
+    /* 3d로 만들기 위해 원근이 적용되게 */
+}
+.stage{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    transform-style: preserve-3d;
+    /* 자식들까지 잘 전달해주기 위해 */
+}
+.house{
+    width: 100vw;
+    height: 100vh;
+    transform: translateZ(-490vw);
+    transform-style: preserve-3d;
+
+}
+.wall{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(255,255, 255, 0.8);
+}
+.wall-left{
+    width: 1000vw;
+}
+.wall-right{
+    width: 1000vw;
+}
+.wall-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.wall-title{
+    font-size: 5rem;
+}

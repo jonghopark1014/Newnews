@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object</title>
+</head>
+<body>
+    <h1>Object</h1>
+
+    <script>
+        // const person ={
+        //     name: '이기용',
+        //     age: 30,
+        //     introduce :function () {
+        //     console.log('안녕 나는'+ this.name + '이고 나이는' + this.age+'이야')
+        // }}
+
+        // const person2 ={
+        //     name: '이규진',
+        //     age: 28,
+        //     introduce : function () {
+        //     console.log('안녕 나는'+ this.name + '이고 나이는' + this.age+'이야')
+        // }}
+        // person.introduce()
+        // console.log(person.name)
+        // person.introduce()
+        // person.name = '이기용'
+        // person.age = 30
+        // person.introduce = function () {
+        //     console.log('안녕 나는 이기용이고 나이는 30이야')
+        // }
+        // person.introduce()
+        
+        // 틀을 만들어야겠다 구조는 같고 안에 내용은 다르게 
+        
+        // 생성자는 대문자로 먼저 쓴다
+        function Person(nickname, age) {
+            this.nickname = nickname
+            this.age = age
+        }
+
+        Person.prototype.introduce = function () {
+            console.log('안녕 나는' + this.nickname + '이고 나이는' + this.age+'이야')
+            }
+
+        // 인스턴스(instance)
+        const person1 = new Person('일분이', 10)
+        const person2 = new Person('이분이', 14)
+
+        person1.introduce()
+        person2.introduce()
+
+    </script>
+</body>
+</html>

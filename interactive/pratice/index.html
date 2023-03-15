@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box-container{
+            display: flex;
+        }
+        .box{
+            width: 100px;
+            height: 100px;
+            border: 2px solid black;
+            background: rgba(255, 255, 0, 0.7);
+            transition: 1s;
+            /* 애니메이션 들어가기위해 재생시간, 딜레이시간 */
+        }
+        .box:hover{
+            /* transform: scale(2) rotate(15deg); */
+                /* 크기조절  돌리기 deg=각도*/
+            /* transform: skew(30deg);  */
+                /* 비틀기 */
+            /* transform: translate(30px, 10px); */
+                /* 이동하기 x축 y축*/
+            transform: scale(1.5);
+            transform-origin: left top;
+                /*기준점 가로방향 세로방향 %로 하는게 좋음*/
+        }
+    </style>
+</head>
+<body>
+    <h1>CSS Transform</h1>
+    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem quae quaerat enim est atque! Repellendus veniam molestias ex, labore expedita optio explicabo, a dicta quis provident commodi consectetur sit eaque!</p>
+    <div class="box-container">
+        <div class="box">A</div>
+        <div class="box">B</div>
+        <div class="box">C</div>
+        <div class="box">D</div>
+        <div class="box">E</div>
+    </div>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio doloremque id nostrum sed, quos voluptas laborum enim minima modi earum molestias adipisci sint magnam sequi reiciendis libero soluta dolore pariatur!</p>
+</body>
+</html>

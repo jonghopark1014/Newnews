@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Object</title>
+    <style>
+    .card {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100px;
+        height: 150px;
+        border: 2px solid black;
+        border-radius: 10px;
+        font-size: 3rem;
+        font-weight: 900;
+    }
+    </style>
+</head>
+<body>
+    <script>
+    // function Card(num, color) {
+    //     this.num = num
+    //     this.color = color
+    // }
+
+    // Card.prototype.width = 100
+    // Card.prototype.height = 100
+
+
+    function Card(num, color) {
+        this.num = num;
+        this.color = color;
+        this.init();
+    }
+
+    Card.prototype = {
+        // 셋팅을 꼭 해줘야 된다 
+        constructor: Card,
+        // 초기화하는 메서드
+        init: function() {
+            const mainElem = document.createElement('div');
+            // mainElem.style.color = this.color;
+            mainElem.style.background = this.color
+            mainElem.innerHTML = this.num;
+            mainElem.classList.add('card');
+            document.body.appendChild(mainElem);
+        }
+    };
+
+    const card1 = new Card(1, 'green');
+    const card2 = new Card(7, 'blue');
+    </script>
+</body>
+</html>
