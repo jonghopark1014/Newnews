@@ -20,3 +20,5 @@ git commit -m "FEAT: BE_새로운기능"
 
 - **`BE`** : 백엔드 수정
 - **`FE`** : 프론트엔드 수정
+
+dev/BE init용 README파일 입니다.
