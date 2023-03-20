@@ -1,9 +1,38 @@
-export function test(){
-    return null;
+import { Outlet } from 'react-router-dom'
+import { Footer } from '../components/Footer';
+
+export function DefaultPage(){
+    return(
+        <div>
+            <Outlet />
+            <Footer />
+        </div>
+    );
 }
 
-export function DefaultPages(){
+export function SearchDefaultPage(){
     return(
-        <div>Default Page</div>
+        <div>
+            <Outlet />
+            <Footer />
+        </div>
+    );
+}
+
+export function BookMarkDefaultPage(){
+    return(
+        <div>
+            <Outlet />
+            <Footer />
+        </div>
+    );
+}
+
+export function MyDefaultPage(){
+    return(
+        <div>
+            <Outlet />
+            <Footer />
+        </div>
     );
 }
