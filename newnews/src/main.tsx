@@ -8,6 +8,7 @@ import './index.css'
 const container = document.getElementById('root') as HTMLElement;
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
+  // 메인 페이지
   {
     path: '/',
     element: <DefaultPages />,
@@ -18,7 +19,11 @@ const router = createBrowserRouter([
       },
     ]
   },
-  
+  // 검색 페이지
+
+  // 북마크 페이지
+
+  // 마이 페이지
 
 ]);
 
