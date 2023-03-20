@@ -4,7 +4,7 @@ import { DefaultPages } from './pages/DefaultPages'
 import { SearchPages } from './pages/SearchPages'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import './index.css'
+import './index.scss'
 
 const container = document.getElementById('root') as HTMLElement;
 const queryClient = new QueryClient();
