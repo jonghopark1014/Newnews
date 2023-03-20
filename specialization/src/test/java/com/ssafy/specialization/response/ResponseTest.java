@@ -1,7 +1,6 @@
 package com.ssafy.specialization.response;
 
-import com.ssafy.specialization.response.Response;
-import com.ssafy.specialization.response.ResponseDto;
+import com.ssafy.specialization.response.Response.ResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -10,6 +9,10 @@ import org.springframework.http.ResponseEntity;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+
+/*
+com.ssafy.specialization.response Response의 ResponseDto private -> public으로 변경 후 테스트 진행
+ */
 @Slf4j
 class ResponseTest {
 
