@@ -4,7 +4,7 @@ import { DefaultPage, SearchDefaultPage, BookMarkDefaultPage, MyDefaultPage } fr
 import { SearchPages } from './pages/SearchPages'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import './index.css'
+import './index.scss'
 import { MainPage } from './pages/main/MainPage';
 import { BookMarkPage } from './pages/bookmark/BookMarkPage';
 import { MyPage } from './pages/mypage/MyPage';
