@@ -1,5 +1,3 @@
-import { AiOutlineHome } from "react-icons/ai";
-
 export type iconName = "home" | "search" | "arrowDown" | "arrowRight";
 
 type icon = {
