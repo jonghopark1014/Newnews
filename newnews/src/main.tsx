@@ -1,6 +1,7 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { DefaultPages } from './pages/DefaultPages'
+import { SearchPages } from './pages/SearchPages'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import './index.css'
@@ -20,7 +21,16 @@ const router = createBrowserRouter([
     ]
   },
   // 검색 페이지
-
+  {
+    path: '/',
+    element: <SearchPages />,
+    children: [
+      {
+        path: 'search',
+        element: <SearchPages />,
+      },
+    ]
+  },
   // 북마크 페이지
 
   // 마이 페이지
