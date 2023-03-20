@@ -1,3 +1,18 @@
 .html{
     font-size: 14px;
 }
+.searchbar{
+    width: 400px;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    border: 2px solid;
+    border-color: #0096ED ;
+    background-color: #0096ED;
+}
+.searchInput{
+    width :95%;
+}
+.searchInput:target-text{
+    border-color: #0096ED;
+}

@@ -1,5 +1,4 @@
-import { AiOutlineSearch } from "react-icons/ai"
-import { SearchBar } from "../components/Search";
+import { SearchBar } from "../components/SearchBar";
 
 
 export function SearchPages(){
