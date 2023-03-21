@@ -6,12 +6,11 @@
 }
 .popularSearchTerms{
     position: relative;
-    top: 10vh;
     left: 2vh;
 }
 @media (min-width: 1024px) {
     .popularSearchTerms{
-        top: 14vh;
+        top: 5vh;
         left: 25vw;
     }
 }

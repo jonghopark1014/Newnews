@@ -1,0 +1,62 @@
+.headerStyle{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    height: 10vh;
+    max-width: 800px;
+    max-height: 100px;
+    margin: 0 auto;
+}
+.h1Style{
+    position: relative;
+}
+// .headerNavigator{
+    
+// }
+.icons{
+    position: relative;
+    top: 1vh;
+    width: 10%;
+    height: 40%;
+    color: #363636;
+}
+.slide {
+/* layout */
+display: flex;
+flex-wrap: nowrap;
+/* 컨테이너의 내용물이 컨테이너 크기(width, height)를 넘어설 때 보이지 않도록 하기 위해 hidden을 준다. */
+overflow: hidden;
+
+/* position */
+/* slide_button의 position absolute가 컨테이너 안쪽에서 top, left, right offset이 적용될 수 있도록 relative를 준다. (기본값이 static인데, static인 경우 그 상위 컨테이너로 나가면서 현재 코드에선 html을 기준으로 offset을 적용시키기 때문) */
+position: relative;
+
+/* size */
+width: 100%;
+}
+.slideItem {
+/* layout */
+display: flex;
+align-items: center;
+justify-content: center;
+
+/* position - 버튼 클릭시 left offset값을 적용시키기 위해 */
+position: relative;
+left: 0px;
+
+/* size */
+width: 100%;
+height: 300px;
+/* flex item의 flex-shrink는 기본값이 1이므로 컨테이너 크기에 맞게 줄어드는데, 슬라이드를 구현할 것이므로 줄어들지 않도록 0을 준다. */
+flex-shrink: 0;
+
+/* transition */
+transition: left 0.15s;
+}
+.slide_item:nth-child(1) {
+    background-color: darkgoldenrod;
+}
+#object{
+	background-color: #fe5652;
+	visibility: hidden;
+}
