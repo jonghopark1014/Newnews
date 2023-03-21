@@ -2,28 +2,30 @@ import { GrHomeRounded } from "react-icons/gr";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FiBookmark } from "react-icons/fi";
 import { HiUserCircle } from "react-icons/hi";
-import { Link } from "react-router-dom"
-import { useState } from "react"
+import { Link, Location } from "react-router-dom"
+import { useState, useEffect } from "react"
 import "../styles/FooterBar.scss"
 
-type navigation = 'home' | 'search' | 'bookmark' | 'mypage';
-type footerState = 'footer-navigator' | 'footer-navigator-now';
+type navigation = '' | 'search' | 'bookmark' | 'mypage';
+type footerState = 'icons' | 'icons-now';
 
 export function Footer(){
-    const [page, setPage] = useState<navigation>('home');
-    const setStyle = (state: boolean)=>{
-        if (state) {
-            return 'footer-navigator-now';
+    const pageState = location.pathname.slice(1)
+
+    const setStyle = (state: navigation)=>{
+        if (state === pageState) {
+            return 'icons-now';
         } else {
-            return 'footer-navigator';
+            return 'icons';
         }
-    }
+    };
+    
     return (
         <div className="footer">
-            <Link to="/" className="footer-navigator"><GrHomeRounded className="icons"/></Link>
-            <Link to="/search" className="footer-navigator"><AiOutlineSearch className="icons"/></Link>
-            <Link to="/bookmark" className="footer-navigator"><FiBookmark className="icons"/></Link>
-            <Link to="mypage" className="footer-navigator"><HiUserCircle className="icons"/></Link>
+            <Link to="/" id="home" className={"footer-navigator " + setStyle('')}  ><GrHomeRounded /></Link>
+            <Link to="/search" id="search" className={"footer-navigator " + setStyle('search')} ><AiOutlineSearch /></Link>
+            <Link to="/bookmark" id="bookmark" className={"footer-navigator " + setStyle('bookmark')} ><FiBookmark /></Link>
+            <Link to="mypage" id="mypage" className={"footer-navigator " + setStyle('mypage')} ><HiUserCircle /></Link>
         </div>
     )
 }
