@@ -14,9 +14,9 @@ export function Footer(){
 
     const setStyle = (state: navigation)=>{
         if (state === pageState) {
-            return 'icons-now';
+            return 'footer-icons-now';
         } else {
-            return 'icons';
+            return 'footer-icons';
         }
     };
     
