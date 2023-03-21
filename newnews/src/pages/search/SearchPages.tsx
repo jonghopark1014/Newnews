@@ -1,5 +1,6 @@
-import { SearchBar } from "../components/SearchBar";
-import "../styles/SearchPages.scss"
+import { SearchBar } from "../../components/SearchBar";
+import "../../styles/SearchPages.scss"
+import { Button } from "../../components/Button";
 
 export function SearchPages(){
     
