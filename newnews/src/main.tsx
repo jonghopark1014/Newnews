@@ -1,13 +1,14 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import { DefaultPage, SearchDefaultPage, BookMarkDefaultPage, MyDefaultPage } from './pages/DefaultPages'
-import { SearchPages } from './pages/SearchPages'
+import { DefaultPage, SearchDefaultPage, BookMarkDefaultPage, MyDefaultPage, BellDefalutPage } from './pages/DefaultPages'
+import { SearchPages } from './pages/search/SearchPages'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import './index.scss'
 import { MainPage } from './pages/main/MainPage';
 import { BookMarkPage } from './pages/bookmark/BookMarkPage';
 import { MyPage } from './pages/mypage/MyPage';
+import { BellPages } from './pages/search/BellPages';
 
 const container = document.getElementById('root') as HTMLElement;
 const queryClient = new QueryClient();
@@ -53,6 +54,17 @@ const router = createBrowserRouter([
       {
         path: 'mypage',
         element: <MyPage />,
+      },
+    ]
+  },
+  //알림페이지
+  {
+    path: '/',
+    element: <BellDefalutPage />,
+    children: [
+      {
+        path: 'bell',
+        element: <BellPages />,
       },
     ]
   },

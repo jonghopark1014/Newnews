@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai"
-import Icon from "./Icon";
 import "../styles/SearchBar.scss";
 
 // 검색창 컴포넌트
+
+interface text  {
+    text: any,
+}
+
 export function SearchBar(){
     const [text, setText] = useState('');
 
@@ -19,7 +23,6 @@ export function SearchBar(){
             onChange={onChange} value={text}/> 
             <AiOutlineSearch className="searchIcon"/>
         </div>
-        <Icon size={40} icon="search"></Icon>
     </div>
     )
 }
