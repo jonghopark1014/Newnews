@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class BookmarkService {
 
     private final BookmarkRepository bookmarkRepository;
@@ -37,6 +38,7 @@ public class BookmarkService {
         bookmarkRepository.save(bookmark);
     }
 
+    @Transactional
     public void deleteBookmark(RequestBookmarkDto requestBookmarkDto){
         bookmarkRepository.deleteByUserIdAndNewsId(
                 requestBookmarkDto.getUserId(),

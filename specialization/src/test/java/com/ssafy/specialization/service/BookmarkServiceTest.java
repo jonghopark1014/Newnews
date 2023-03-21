@@ -29,7 +29,7 @@ class BookmarkServiceTest {
                 .build();
 
         bookmarkService.addBookmark(dto);
-        bookmarkRepository.deleteByUserIdAndNewsId(1L, 1L);
+        bookmarkService.deleteBookmark(dto);
         assertThat(bookmarkRepository.findAll().size()).isEqualTo(0);
 
     }
