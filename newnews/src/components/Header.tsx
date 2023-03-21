@@ -1,7 +1,6 @@
 import { Link, useNavigate } from "react-router-dom"
 import { VscBell  } from "react-icons/vsc"
 import { VscBellDot  } from "react-icons/vsc"
-import 'animate.css'
 import "../styles/Header.scss"
 
 interface icon {

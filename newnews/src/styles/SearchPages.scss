@@ -1,8 +1,9 @@
 .searchSection{
-    max-width: max-content;
-    max-height: max-content;
+    max-width: 100vw;
+    max-height: 100vh;
     width: 100vw;
     height: 100vh;
+    overflow: hidden;
 }
 .popularSearchTerms{
     position: relative;
