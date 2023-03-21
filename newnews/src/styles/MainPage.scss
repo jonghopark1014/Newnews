@@ -1,8 +1,10 @@
 // header
 .newstopic {
+    height: 29px;
     font-size: 1.5rem;
     font-weight: lighter;
     color: #363636;
+    margin: 0 0.5rem;
 }
 
 .focus {
@@ -12,6 +14,9 @@
 
 .main-page-tab {
     display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 1rem 1rem;
 }
 
 // contents
