@@ -2,12 +2,14 @@ package com.ssafy.specialization.entity;
 
 import com.ssafy.specialization.entity.enums.Category;
 import com.ssafy.specialization.entity.enums.Press;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@Getter
 public class News {
 
     @Column(name = "news_id")
