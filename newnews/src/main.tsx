@@ -60,6 +60,7 @@ const router = createBrowserRouter([
 
 createRoot(container).render(
   <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
+    <div id="blank"></div>
+    <RouterProvider router={router} />
   </QueryClientProvider>
 );
