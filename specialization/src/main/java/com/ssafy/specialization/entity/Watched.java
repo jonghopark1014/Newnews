@@ -22,8 +22,7 @@ public class Watched {
     private News news;
 
     @Builder
-    public Watched(long id, User user, News news) {
-        this.id = id;
+    public Watched(User user, News news) {
         this.user = user;
         this.news = news;
     }

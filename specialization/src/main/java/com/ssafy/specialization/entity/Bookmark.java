@@ -23,8 +23,7 @@ public class Bookmark {
     private News news;
 
     @Builder
-    public Bookmark(long id, User user, News news) {
-        this.id = id;
+    public Bookmark(User user, News news) {
         this.user = user;
         this.news = news;
     }

@@ -9,6 +9,7 @@ import com.ssafy.specialization.repository.NewsRepository;
 import com.ssafy.specialization.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,12 +20,14 @@ public class BookmarkService {
     private final NewsRepository newsRepository;
 
     //북마크 추가
+    @Transactional
     public void addBookmark(RequestBookmarkDto requestBookmarkDto){
+        User user = userRepository.findById(requestBookmarkDto.getUserId())
+                .orElseThrow(() -> new IllegalArgumentException("유저가 비어있습니다."));
+
         News news = newsRepository.findById(requestBookmarkDto.getNewsId())
                 .orElseThrow(() -> new IllegalArgumentException("뉴스가 비어있습니다."));
 
-        User user = userRepository.findById(requestBookmarkDto.getUserId())
-                .orElseThrow(() -> new IllegalArgumentException("유저가 비어있습니다."));
 
         Bookmark bookmark = Bookmark.builder()
                 .news(news)
@@ -35,12 +38,8 @@ public class BookmarkService {
     }
 
     public void deleteBookmark(RequestBookmarkDto requestBookmarkDto){
-        Bookmark bookmark = bookmarkRepository
-                .findBookmarkByUserIdAndNewsId(
-                        requestBookmarkDto.getUserId(),
-                        requestBookmarkDto.getNewsId())
-                .orElseThrow(() -> new IllegalArgumentException("해당 북마크가 없습니다."));
-
-        bookmarkRepository.delete(bookmark);
+        bookmarkRepository.deleteByUserIdAndNewsId(
+                requestBookmarkDto.getUserId(),
+                requestBookmarkDto.getNewsId());
     }
 }
