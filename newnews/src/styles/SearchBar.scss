@@ -4,7 +4,6 @@
 .searchbar {
     position: relative;
     justify-content: space-around;
-    top : 10vh;
     left : 5vw;
     width: 360px;
     border: 2px solid;
@@ -21,6 +20,11 @@
     border-radius: 4px;
     max-width: 720px;
     border-color: #0096ED;
+}
+.searchInput:focus-visible{
+    background-color: #ffffff;
+    border-color: #ffffff;
+    border-width: 0;
 }
 .searchIcon{
     position: relative;
