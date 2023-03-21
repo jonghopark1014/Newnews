@@ -8,6 +8,7 @@ import './index.scss'
 import { MainPage } from './pages/main/MainPage';
 import { BookMarkPage } from './pages/bookmark/BookMarkPage';
 import { MyPage } from './pages/mypage/MyPage';
+import { RecoilRoot } from 'recoil'
 
 const container = document.getElementById('root') as HTMLElement;
 const queryClient = new QueryClient();
@@ -60,7 +61,9 @@ const router = createBrowserRouter([
 
 createRoot(container).render(
   <QueryClientProvider client={queryClient}>
-    <div id="blank"></div>
-    <RouterProvider router={router} />
+    <RecoilRoot>
+      <div id="blank"></div>
+      <RouterProvider router={router} />
+    </RecoilRoot>
   </QueryClientProvider>
 );
