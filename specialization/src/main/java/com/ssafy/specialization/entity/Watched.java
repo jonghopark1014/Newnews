@@ -1,8 +1,13 @@
 package com.ssafy.specialization.entity;
 
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Watched {
     @Column(name = "watched_id")
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,4 +20,10 @@ public class Watched {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "news_id")
     private News news;
+
+    @Builder
+    public Watched(User user, News news) {
+        this.user = user;
+        this.news = news;
+    }
 }
