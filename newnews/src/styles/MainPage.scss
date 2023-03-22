@@ -13,10 +13,33 @@
 }
 
 .main-page-tab {
+    padding: 0 1rem;
+    display: flex;
+}
+
+.main-page-tab-topic {
     display: flex;
     align-items: center;
+    stroke-width: 1rem;
     width: 100%;
-    padding: 1rem 1rem;
+    overflow: auto;
+    white-space: nowrap;
+}
+.main-page-tab-topic::-webkit-scrollbar {
+    display: none;
+}
+
+.main-page-tab-topic-plus {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    padding: 0;
+    color: #363636;
+    svg {
+        height: 100%;
+        width: 100%;
+    }
 }
 
 // contents

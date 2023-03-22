@@ -10,6 +10,7 @@ import { BookMarkPage } from './pages/bookmark/BookMarkPage';
 import { MyPage } from './pages/mypage/MyPage';
 import { RecoilRoot } from 'recoil'
 import { BellPages } from './pages/search/BellPages';
+import { MainPageSetTopics } from './pages/main/MainPageSetTopics';
 
 const container = document.getElementById('root') as HTMLElement;
 const queryClient = new QueryClient();
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: '',
         element: <MainPage />,
+      },
+      {
+        path: 'topics',
+        element: <MainPageSetTopics />,
       },
     ]
   },
