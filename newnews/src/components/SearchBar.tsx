@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai"
-import "../styles/SearchBar.scss";
+import styles from "../styles/SearchBar.module.scss";
 
 // 검색창 컴포넌트
 
-interface text  {
+interface icons{
     text: any,
 }
 
@@ -17,11 +17,11 @@ export function SearchBar(){
     };
 
     return (
-    <div className="container">
-        <div className="searchbar">
-            <input className="searchInput" type="search" placeholder="검색어를 입력해주세요"
+    <div className={styles.container}>
+        <div className={styles.searchbar}>
+            <input className={styles.searchInput} type="search" placeholder="검색어를 입력해주세요"
             onChange={onChange} value={text}/> 
-            <AiOutlineSearch className="searchIcon"/>
+            <AiOutlineSearch className={styles.searchIcon}/>
         </div>
     </div>
     )
