@@ -1,11 +1,12 @@
-import { MainPageTab } from "../../components/mainpage/MainPageTab";
+import { MainPageTab } from "@/components/mainpage/MainPageTab";
+import { MainPageContent } from "./MainPageContent";
 
 
 export function MainPage(){
     return (
         <div>
             <MainPageTab />
-            뉴스내용
+            <MainPageContent />
         </div>
     )
 }

@@ -1,10 +1,14 @@
 import { MainPageTabTopic } from "./MainPageTabTopic";
-import "@styles/MainPage.scss"
+import "@/styles/MainPage.scss"
 import { useRecoilState } from "recoil"
 import { topicAtom, topicStateType } from "../../stores/NewsTopics"
+import { useState } from "react";
+import { BsPlus } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 export function MainPageTab(){
     const [topicState, setTopicState] = useRecoilState<topicStateType>(topicAtom);
+    const [topicLen, setTopicLen] = useState<number>(topicState.focused.length)
 
     const setState = (f: string)=>{
         const state = {...topicState};
@@ -14,8 +18,12 @@ export function MainPageTab(){
 
     return (
         <div className="main-page-tab">
-            {topicState.topics.map((topic, index)=>{return <MainPageTabTopic topic={topic} focus={(topic === topicState.focused)} setState={(f)=>setState(f)} key={index}/>})}
+            <div className="main-page-tab-topic">
+                {topicState.topics.map((topic, index)=>{return <MainPageTabTopic topic={topic} focus={(topic === topicState.focused)} setState={(f)=>setState(f)} key={index}/>;})}
+            </div>
+            <Link to="/topics" className="main-page-tab-topic-plus">
+                <BsPlus viewBox="-4 0 24 16"/>
+            </Link>
         </div>
     )
 }
-
