@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom'
 import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
 
+// OutLet에 main.tsx의 path에 해당하는 element의 children이 들어감
 export function DefaultPage(){
     return(
         <div>
