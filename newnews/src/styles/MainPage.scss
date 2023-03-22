@@ -1,7 +1,6 @@
-// header
+// main header
 .newstopic {
     height: 29px;
-    font-size: 1.5rem;
     font-weight: lighter;
     color: #363636;
     margin: 0 0.5rem;
@@ -41,6 +40,44 @@
         width: 100%;
     }
 }
+// contents-main
 
-// contents
+
+
+// settopic header
+.set-topic-header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    height: 4rem;
+
+    svg {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translate(0, -50%);
+        width: 2rem;
+        height: 2rem;
+    }
+
+    div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+// contents-set topic
+.set-topic-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    div {
+        color: #363636;
+        h3 {
+            font-weight: bold;
+        }
+    }
+    .chosen {
+        color: #0096ED
+    }
+}
 

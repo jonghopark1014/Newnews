@@ -1,6 +1,6 @@
 // :root => html
 :root {
-	font-size: 12px;
+	font-size: 16px;
 	line-height: 1.5;
 	font-weight: 400;
 	color-scheme: light dark;
@@ -20,10 +20,15 @@
 	min-height: 100vh;
 }
 h1{
-	font-size: 2rem;
+	font-size: 3.5rem;
 }
 h2{
-	font-size: 1.5rem;
+	font-size: 2rem;
+}
+h3{
+	font-size: 1.25rem;
+	font-weight: 100;
+	margin: 0;
 }
 @media (prefers-color-scheme: light) {
 	:root {

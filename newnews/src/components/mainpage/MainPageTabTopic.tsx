@@ -18,8 +18,8 @@ export function MainPageTabTopic({topic, focus, setState}: Iprops){
     }
 
     return (
-        <div className={"newstopic " + focusedTopic()} onClick={()=>{setState(topic);}}>
+        <h3 className={"newstopic " + focusedTopic()} onClick={()=>{setState(topic);}}>
             {topic}
-        </div>
+        </h3>
     )
 }
