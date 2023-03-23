@@ -79,4 +79,9 @@ class UserServiceTest {
             userService.join(requestDto2);
         });
     }
+
+    @Test
+    void 아이디중복검사() {
+        assertThat(userService.isExistUsername("test@gmail.com")).isEqualTo(true);
+    }
 }
