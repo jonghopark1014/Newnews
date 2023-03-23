@@ -1,5 +1,5 @@
 import { topicStateType } from "../../stores/NewsTopics"
-import "@styles/MainPage.scss"
+import "@/styles/MainPage.scss"
 
 interface Iprops {
     topic: string,
@@ -18,8 +18,8 @@ export function MainPageTabTopic({topic, focus, setState}: Iprops){
     }
 
     return (
-        <div className={"newstopic " + focusedTopic()} onClick={()=>{setState(topic);}}>
+        <h3 className={"newstopic " + focusedTopic()} onClick={()=>{setState(topic);}}>
             {topic}
-        </div>
+        </h3>
     )
 }

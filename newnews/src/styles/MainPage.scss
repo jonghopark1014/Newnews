@@ -1,7 +1,6 @@
-// header
+// main header
 .newstopic {
     height: 29px;
-    font-size: 1.5rem;
     font-weight: lighter;
     color: #363636;
     margin: 0 0.5rem;
@@ -13,11 +12,72 @@
 }
 
 .main-page-tab {
+    padding: 0 1rem;
     display: flex;
-    align-items: center;
-    width: 100%;
-    padding: 1rem 1rem;
 }
 
-// contents
+.main-page-tab-topic {
+    display: flex;
+    align-items: center;
+    stroke-width: 1rem;
+    width: 100%;
+    overflow: auto;
+    white-space: nowrap;
+}
+.main-page-tab-topic::-webkit-scrollbar {
+    display: none;
+}
+
+.main-page-tab-topic-plus {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    padding: 0;
+    color: #363636;
+    svg {
+        height: 100%;
+        width: 100%;
+    }
+}
+// contents-main
+
+
+
+// settopic header
+.set-topic-header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    height: 4rem;
+
+    svg {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translate(0, -50%);
+        width: 2rem;
+        height: 2rem;
+    }
+
+    div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+// contents-set topic
+.set-topic-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    div {
+        color: #363636;
+        h3 {
+            font-weight: bold;
+        }
+    }
+    .chosen {
+        color: #0096ED
+    }
+}
 
