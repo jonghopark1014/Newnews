@@ -24,7 +24,7 @@ public class UserController {
     @GetMapping("/user/exist/{username}")
     public ResponseEntity isExistUsername(@PathVariable String username) {
         return userService.isExistUsername(username) ?
-                Response.success(HttpStatus.OK) : Response.fail(HttpStatus.CONFLICT, "해당 아이디는 이미 사용중");
+                Response.fail(HttpStatus.CONFLICT, "해당 아이디는 이미 사용중") : Response.success(HttpStatus.OK);
     }
 
     @ExceptionHandler(BadCredentialsException.class)
