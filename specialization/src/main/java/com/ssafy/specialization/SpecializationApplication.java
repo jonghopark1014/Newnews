@@ -13,8 +13,4 @@ public class SpecializationApplication {
 		SpringApplication.run(SpecializationApplication.class, args);
 	}
 
-	@Bean
-	public PasswordEncoder encoder() {
-		return new BCryptPasswordEncoder();
-	}
 }
