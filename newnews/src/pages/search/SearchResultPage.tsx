@@ -1,7 +1,8 @@
 import { SearchBar } from "../../components/SearchBar";
 import styles from "../../styles/SearchPages.module.scss"
 import { ArticleCard} from "../../components/ArticleCard"
-export function SearchPages(){
+
+export function SearchResultPage(){
     
     return (
         <section className={styles.searchSection}>
