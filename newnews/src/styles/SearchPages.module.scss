@@ -9,6 +9,11 @@
     position: relative;
     left: 2vh;
 }
+.center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 @media (min-width: 1024px) {
     .popularSearchTerms{
         top: 5vh;
