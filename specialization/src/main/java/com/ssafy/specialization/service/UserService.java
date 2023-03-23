@@ -55,4 +55,9 @@ public class UserService {
             throw new IllegalStateException("이미 존재하는 회원");
         }
     }
+
+    public boolean isExistUsername(String username) {
+        Optional<User> findUser = userRepository.findByUsername(username);
+        return findUser.isEmpty() ? false : true;
+    }
 }

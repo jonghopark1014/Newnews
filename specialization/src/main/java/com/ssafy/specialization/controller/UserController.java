@@ -15,10 +15,16 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping
+    @PostMapping("/regist")
     public ResponseEntity join(@RequestBody JoinRequestDto requestDto) {
         userService.join(requestDto);
         return Response.success(HttpStatus.CREATED);
+    }
+
+    @GetMapping("/user/exist/{username}")
+    public ResponseEntity isExistUsername(@PathVariable String username) {
+        return userService.isExistUsername(username) ?
+                Response.success(HttpStatus.OK) : Response.fail(HttpStatus.CONFLICT, "해당 아이디는 이미 사용중");
     }
 
     @ExceptionHandler(BadCredentialsException.class)
