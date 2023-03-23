@@ -5,6 +5,12 @@
     font-size: 1.5rem;
     width: auto;
     height: auto;
-    border-color: red;
-    border: 2px solid;
+    opacity: 1;
+    .buttonGrid{
+        display: flex;
+        flex-direction: column;
+        button{
+            margin-top: 5px;
+        }
+    }
 }

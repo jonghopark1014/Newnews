@@ -2,6 +2,9 @@ import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { DefaultPage, SearchDefaultPage, BookMarkDefaultPage, MyDefaultPage, BellDefalutPage } from './pages/DefaultPages'
 import { SearchPages } from './pages/search/SearchPages'
+import { SearchResultPage } from './pages/search/SearchResultPage'
+import { SearchResultErrorPage } from './pages/search/SearchResultErrorPage'
+
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import './index.scss'
@@ -32,6 +35,14 @@ const router = createBrowserRouter([
       {
         path: 'search',
         element: <SearchPages />,
+      },
+      {
+        path: 'result',
+        element: <SearchResultPage />
+      },
+      {
+        path: 'search/error',
+        element: <SearchResultErrorPage />
       },
     ]
   },
