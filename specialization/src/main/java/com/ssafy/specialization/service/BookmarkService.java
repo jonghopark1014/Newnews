@@ -1,6 +1,5 @@
 package com.ssafy.specialization.service;
 
-import com.ssafy.specialization.dto.RequestBookmarkDto;
 import com.ssafy.specialization.entity.Bookmark;
 import com.ssafy.specialization.entity.News;
 import com.ssafy.specialization.entity.User;
@@ -22,11 +21,13 @@ public class BookmarkService {
 
     //북마크 추가
     @Transactional
-    public void addBookmark(RequestBookmarkDto requestBookmarkDto){
-        User user = userRepository.findById(requestBookmarkDto.getUserId())
+    public Long addBookmark(Long userId, Long newsId){
+        checkDuplicatedBookmark(userId, newsId);
+
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("유저가 비어있습니다."));
 
-        News news = newsRepository.findById(requestBookmarkDto.getNewsId())
+        News news = newsRepository.findById(newsId)
                 .orElseThrow(() -> new IllegalArgumentException("뉴스가 비어있습니다."));
 
 
@@ -35,13 +36,25 @@ public class BookmarkService {
                 .user(user)
                 .build();
 
-        bookmarkRepository.save(bookmark);
+        Bookmark savedBookmark = bookmarkRepository.save(bookmark);
+        return savedBookmark.getId();
+    }
+
+//    북마크 중복 체크
+    public void checkDuplicatedBookmark(Long userId, Long newsId){
+        if(!bookmarkRepository.findByUserIdAndNewsId(userId, newsId).isEmpty()){
+            throw new IllegalArgumentException("이미 북마크가 등록되었습니다.");
+        }
     }
 
     @Transactional
-    public void deleteBookmark(RequestBookmarkDto requestBookmarkDto){
-        bookmarkRepository.deleteByUserIdAndNewsId(
-                requestBookmarkDto.getUserId(),
-                requestBookmarkDto.getNewsId());
+    public int deleteBookmark(Long userId, Long newsId){
+        int deleteCount = bookmarkRepository.deleteByUserIdAndNewsId(userId, newsId);
+        if(deleteCount==1){
+            return deleteCount;
+        }else{
+            throw new IllegalArgumentException("해당 북마크가 존재하지 않습니다.");
+        }
+
     }
 }

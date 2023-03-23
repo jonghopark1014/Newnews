@@ -2,12 +2,14 @@ package com.ssafy.specialization.entity;
 
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class Bookmark {
     @Column(name = "bookmark_id")
     @Id

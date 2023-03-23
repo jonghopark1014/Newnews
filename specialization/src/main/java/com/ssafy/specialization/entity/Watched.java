@@ -2,12 +2,14 @@ package com.ssafy.specialization.entity;
 
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class Watched {
     @Column(name = "watched_id")
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
