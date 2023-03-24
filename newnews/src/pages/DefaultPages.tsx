@@ -15,7 +15,7 @@ export function DefaultPage(){
 export function SearchDefaultPage(){
     return(
         <div>
-            <Header />
+            <Header children={"logo"}/>
             <Outlet />
             <Footer />
         </div>
@@ -25,7 +25,7 @@ export function SearchDefaultPage(){
 export function BookMarkDefaultPage(){
     return(
         <div>
-            <Header />
+            <Header children={"내가 저장한 기사"}/>
             <Outlet />
             <Footer />
         </div>
@@ -35,7 +35,7 @@ export function BookMarkDefaultPage(){
 export function MyDefaultPage(){
     return(
         <div>
-            <Header />
+            <Header children={"마이페이지"}/>
             <Outlet />
             <Footer />
         </div>
@@ -46,6 +46,24 @@ export function BellDefalutPage(){
     return(
         <div>
             <Outlet />
+        </div>
+    );
+}
+export function LoginDefalutPage(){
+    return(
+        <div>
+            <Header children={"로그인"}/>
+            <Outlet />
+            <Footer />
+        </div>
+    );
+}
+export function MembershipDefalutPage(){
+    return(
+        <div>
+            <Header children={"회원가입"}/>
+            <Outlet />
+            <Footer />
         </div>
     );
 }

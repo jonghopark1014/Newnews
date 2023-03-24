@@ -25,7 +25,7 @@ export function BellHeader(){
         <div className={styles.bellBar}>
             <IoIosArrowBack className={styles.goBack} onClick={ goBack }/>
             <div className={styles.alert}>
-                <h1>알림센터</h1>
+                <h2>알림센터</h2>
             </div>
             {isOpenModal && (
             <Modal onClickToggleModal={onClickToggleModal} >
