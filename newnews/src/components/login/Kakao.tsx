@@ -1,41 +1,12 @@
-import axios from "axios";
-
-
 export function KakaoLogin() {
-    Kakao.Auth.authorize({
-        redirectUri: 'https://developers.kakao.com/tool/demo/oauth',
-    });
-
-    // 아래는 데모를 위한 UI 코드입니다.
-    displayToken()
-    function displayToken() {
-    var token = getCookie('authorize-access-token');
-
-    if(token) {
-        Kakao.Auth.setAccessToken(token);
-        Kakao.Auth.getStatusInfo()
-        .then(function(res :any) {
-            if (res.status === 'connected') {
-            document.getElementById('token-result').innerText
-                = 'login success, token: ' + Kakao.Auth.getAccessToken();
-            }
-        })
-        .catch(function(err : any) {
-            Kakao.Auth.setAccessToken(null);
-        });
-    }
-    }
-
-    function getCookie(name : any) {
-    var parts = document.cookie.split(name + '=');
-    if (parts.length === 2) {
-        return parts[1].split(';')[0]; 
-    }}
+    const REST_API_KEY = '5317e0638f8f88c67b9615a25adf06fa'
+    const REDIRECT_URI = "http://localhost:5173/oauth/callback/kakao"
+    const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`
 
     return(
         <div>
-            <a id="kakao-login-btn" href="javascript:loginWithKakao()">
-                <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222"
+            <a id="kakao-login-btn" href={KAKAO_AUTH_URL}>
+                <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="191"
                     alt="카카오 로그인 버튼" />
             </a>
             <p id="token-result"></p>
