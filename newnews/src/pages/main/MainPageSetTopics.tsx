@@ -26,20 +26,22 @@ export function MainPageSetTopics(){
         let topics:string[] = [];
         let focused:string = chosenTopic.focused;
         let temTopics:boolean[] = [...topicState];
+        let temp = 0;
         
         if (temTopics[i]){
             temTopics[i] = false;
         } else {
             temTopics[i] = true;
         }
+
         for (let a=0; a < temTopics.length; a++){
             if (temTopics[a]){
-                topics[a] = defaultTopics[a];
+                topics[temp] = defaultTopics[a];
+                temp++;
             }
         }
 
         topics = ["연관뉴스", ...topics];
-
         setChosenTopic({topics, focused});
         setTopicState(temTopics);
     }
