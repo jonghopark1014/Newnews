@@ -30,12 +30,21 @@ public class Watched {
     }
 
     //연관관계 메소드
-    public void setUser(User user){
+    private void setUser(User user){
         this.user = user;
         user.getWatchedList().add(this);
     }
 
-    public void setNews(News news){
+    private void setNews(News news){
         this.news = news;
+    }
+
+    //생성 메소드
+    public static Watched createWatched(User user, News news ) {
+        Watched watched = new Watched();
+        watched.setUser(user);
+        watched.setNews(news);
+
+        return watched;
     }
 }

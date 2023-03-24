@@ -31,12 +31,21 @@ public class Bookmark {
     }
 
     //연관관계 메소드
-    public void setUser(User user){
+    private void setUser(User user){
         this.user = user;
         user.getBookmarkList().add(this);
     }
 
-    public void setNews(News news){
+    private void setNews(News news){
         this.news = news;
+    }
+
+    //생성 메소드
+    public static Bookmark createBookmark(User user, News news){
+        Bookmark bookmark = new Bookmark();
+        bookmark.setUser(user);
+        bookmark.setNews(news);
+
+        return bookmark;
     }
 }
