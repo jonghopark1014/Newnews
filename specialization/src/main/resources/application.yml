@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: #
-    password: #
-    url: jdbc:mysql://localhost:3306/newnews?
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    url: jdbc:mysql://${DB_DOMAIN}:${DB_PORT}/newnews?
   jpa:
     hibernate:
       ddl-auto: update
@@ -13,4 +13,4 @@ spring:
         format_sql: true
 logging:
   level:
-    org.hibernate.type.descriptor.sql : trace
+    org.hibernate.type.descriptor.sql: trace
