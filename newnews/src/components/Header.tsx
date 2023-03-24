@@ -1,25 +1,25 @@
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { VscBell, VscBellDot  } from "react-icons/vsc"
 import styles from "../styles/Header.module.scss"
 
-interface icon {
-    slide : void
+interface Iprops {
+    children?: React.ReactNode,
 }
 
-export function Header(){
+/**
+ * 
+ * @param param0 상단위의 이름
+ * @returns 상단 바 
+ */
+export function Header({children}: Iprops) {
 
     const navigate = useNavigate();
 
-    function onClickBell(e:any) {
-        
-        navigate('/bell')
-    }
-    
     return (
         <div>
             <div className={styles.headerStyle}>
-                <h1 className={styles.h1Style}>logo</h1>
-                <VscBell className={styles.icons} onClick={onClickBell}/>
+                <h2 className={styles.h1Style}>{children}</h2>
+                <VscBell className={styles.icons} onClick={() => {navigate('/bell')}}/>
             </div>
             {/* 알림이 뜨면 이미지가 변환해야됨 */}
         </div>

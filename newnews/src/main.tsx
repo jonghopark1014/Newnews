@@ -1,9 +1,11 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import { DefaultPage, SearchDefaultPage, BookMarkDefaultPage, MyDefaultPage, BellDefalutPage } from './pages/DefaultPages'
+import { DefaultPage, SearchDefaultPage, BookMarkDefaultPage, MyDefaultPage, BellDefalutPage, LoginDefalutPage, MembershipDefalutPage } from './pages/DefaultPages'
 import { SearchPages } from './pages/search/SearchPages'
 import { SearchResultPage } from './pages/search/SearchResultPage'
 import { SearchResultErrorPage } from './pages/search/SearchResultErrorPage'
+import { LoginPage } from '@/pages/Login/LoginPage'
+import { MembershipPage } from '@/pages/membership/MembershipPage'
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -85,7 +87,31 @@ const router = createBrowserRouter([
       },
     ]
   },
+  //로그인페이지
+  {
+    path: '/',
+    element: <LoginDefalutPage />,
+    children: [
+      {
+        path: 'login',
+        element: <LoginPage />,
+      },
+    ]
+  },
+  //회원가입페이지
+  {
+    path: '/',
+    element: <MembershipDefalutPage />,
+    children: [
+      {
+        path: 'membership',
+        element: <MembershipPage />,
+      },
+    ]
+  },
 ]);
+  
+  
 
 createRoot(container).render(
   <QueryClientProvider client={queryClient}>

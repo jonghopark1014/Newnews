@@ -6,6 +6,12 @@ interface Props {
     onClick: () => void;
 }
 
+
+/**
+ * 
+ * @param param0 버튼 안에 이름
+ * @returns button component
+ */
 export const Button: React.FC<Props> = ({ 
     children,
     onClick, 
