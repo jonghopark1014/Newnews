@@ -1,14 +1,13 @@
 import { MainPageTabTopic } from "./MainPageTabTopic";
-import "@/styles/MainPage.scss"
+import "@styles/MainPageStyle.scss"
 import { useRecoilState } from "recoil"
 import { topicAtom, topicStateType } from "../../stores/NewsTopics"
 import { useEffect, useState } from "react";
 import { BsPlus } from "react-icons/bs";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export function MainPageTab(){
     const [topicState, setTopicState] = useRecoilState<topicStateType>(topicAtom);
-    const topicTab = document.querySelector<HTMLParagraphElement>(".main-page-tab-topic");
     const [scrollX, setScrollX] = useState(0);
 
     const setState = (f: string)=>{
@@ -28,7 +27,6 @@ export function MainPageTab(){
         }
         for (let i = 0; i < elems.length; i++){
             if (elems[i].dataset.focus === "true"){
-                // boundingRectX = elems[i].getBoundingClientRect().x * 1;
                 boundingRectX = elems[i].offsetLeft * 1;
                 boundingRectWidth = elems[i].getBoundingClientRect().width * 1;
             }

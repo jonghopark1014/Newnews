@@ -47,9 +47,14 @@ h3{
 
 @media (max-width:767px) {
 	#root {
+		display: flex;
+		flex-direction: column;
 		#blank {
 			width: 100%;
 			height: 51px;
+		}
+		#blank+div {
+			flex: 1
 		}
 	}
 }
