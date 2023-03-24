@@ -2,6 +2,7 @@ import { Button } from "@components/Button";
 import styles from "@/styles/login/Login.module.scss"
 import { useState } from "react";
 import { KakaoLogin } from "@/components/login/Kakao";
+import { GoogleLogin } from "@components/login/google";
 
 export function LoginPage() {
     const [inputs, setInputs] = useState('');
@@ -38,10 +39,11 @@ export function LoginPage() {
             {/* 소셜로그인 */}
             <div className={styles.snsGrid}>
             <KakaoLogin />
+            <GoogleLogin />
             </div>
             {/* 회원가입 | 아이디찾기 | 비밀번호 찾기 */}
             <div className={styles.modifyGrid}>
-
+                <p>회원가입 | 아이디 찾기 | 비밀번호 찾기</p>
             </div>
         </div>
     )

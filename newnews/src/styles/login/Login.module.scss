@@ -1,28 +1,40 @@
 .inputSytle{
+    height: 8%;
     display: flex;
     flex-direction: column;
     margin: auto;
 }
 .idInput{
+    height: 100%;
     width: 50%;
+    margin:auto;
+
 }
 .pwInput{
     width: 50%;
+    margin: auto;
 }
 .checkBox{
-    
+    display: flex;
+    margin: auto;
 }
 .buttonGrid{
-
+    display: flex;
+    margin: auto;
 }
 .hrStyles{
+    display: flex;
     border: 1px;
     border-style: dashed;
     width: 80%;
+    margin: auto;
 }
 .snsGrid{
-
+    display: flex;
+    flex-direction: column;
+    margin: auto;
 }
 .modifyGrid{
-
+    display: flex;
+    margin: auto;
 }
