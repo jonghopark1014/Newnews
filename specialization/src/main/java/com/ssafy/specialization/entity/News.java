@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -30,7 +31,7 @@ public class News {
     private Press press;
 
     @OneToMany(mappedBy = "news")
-    private List<NewsImage> newsImageList;
+    private List<NewsImage> newsImageList = new ArrayList<>();
 
     @Builder
     public News(Category category, String title, String content, LocalDateTime newsDate, String reporter, Press press, List<NewsImage> newsImageList) {
