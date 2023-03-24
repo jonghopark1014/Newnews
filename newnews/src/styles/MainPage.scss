@@ -14,15 +14,26 @@
 .main-page-tab {
     padding: 0 1rem;
     display: flex;
+    height: 3rem;
 }
 
 .main-page-tab-topic {
+    position: relative;
     display: flex;
     align-items: center;
     stroke-width: 1rem;
     width: 100%;
     overflow: auto;
     white-space: nowrap;
+    #underline {
+        position: absolute;
+        // left: 0;
+        bottom: 0;
+        width: 0;
+        height: 3px;
+        background-color: #0096ED;
+        border-bottom: 3px #0096ED;
+    }
 }
 .main-page-tab-topic::-webkit-scrollbar {
     display: none;
@@ -49,7 +60,7 @@
     position: relative;
     display: flex;
     justify-content: center;
-    height: 4rem;
+    height: 3rem;
 
     svg {
         position: absolute;
@@ -64,15 +75,29 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        h3 {
+            font-weight: bold;
+        }
     }
 }
 // contents-set topic
 .set-topic-content {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 0.5rem;
+    row-gap: 0.5rem;
     div {
+        display: flex;
+        place-self: center center;
+        justify-content: center;
+        align-items: center;
+        width: 28vw;
+        height: 28vw;
         color: #363636;
+        box-shadow: 0px 4px 4px #36363640;
+        border-radius: 4px;
         h3 {
+            font-size: 1.5rem;
             font-weight: bold;
         }
     }

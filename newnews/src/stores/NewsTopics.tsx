@@ -8,7 +8,7 @@ export interface topicStateType {
 export const topicAtom = atom<topicStateType>({
     key: "topicAtom",
     default: {
-        topics: ["연관뉴스", "정치", "연애", "IT/과학", "해외축구"],
-        focused: "정치",
+        topics: ["연관뉴스", "경제", "IT/과학", "국내축구", "해외축구", "연예"],
+        focused: "연관뉴스",
     },
 });
