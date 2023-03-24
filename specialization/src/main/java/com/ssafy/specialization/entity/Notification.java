@@ -1,10 +1,7 @@
 package com.ssafy.specialization.entity;
 
 import com.ssafy.specialization.entity.enums.Status;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -36,12 +33,26 @@ public class Notification {
     }
 
     //연관관계 메소드
-    public void setUser(User user){
+    private void setUser(User user){
         this.user = user;
         user.getNotificationList().add(this);
     }
 
-    public void setNews(News news){
+    private void setNews(News news){
         this.news = news;
+    }
+
+    private void setStatus(Status status) {
+        this.status = status;
+    }
+
+    //생성 메소드
+    public static Notification createNotification(User user, News news) {
+        Notification notification = new Notification();
+        notification.setUser(user);
+        notification.setNews(news);
+        notification.setStatus(Status.NOTREAD);
+
+        return notification;
     }
 }
