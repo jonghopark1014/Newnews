@@ -14,15 +14,26 @@
 .main-page-tab {
     padding: 0 1rem;
     display: flex;
+    height: 3rem;
 }
 
 .main-page-tab-topic {
+    position: relative;
     display: flex;
     align-items: center;
     stroke-width: 1rem;
     width: 100%;
     overflow: auto;
     white-space: nowrap;
+    #underline {
+        position: absolute;
+        // left: 0;
+        bottom: 0;
+        width: 0;
+        height: 3px;
+        background-color: #0096ED;
+        border-bottom: 3px #0096ED;
+    }
 }
 .main-page-tab-topic::-webkit-scrollbar {
     display: none;
@@ -49,7 +60,7 @@
     position: relative;
     display: flex;
     justify-content: center;
-    height: 4rem;
+    height: 3rem;
 
     svg {
         position: absolute;
@@ -64,6 +75,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        h3 {
+            font-weight: bold;
+        }
     }
 }
 // contents-set topic
