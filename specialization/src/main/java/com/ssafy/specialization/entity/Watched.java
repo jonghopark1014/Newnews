@@ -28,4 +28,14 @@ public class Watched {
         this.user = user;
         this.news = news;
     }
+
+    //연관관계 메소드
+    public void setUser(User user){
+        this.user = user;
+        user.getWatchedList().add(this);
+    }
+
+    public void setNews(News news){
+        this.news = news;
+    }
 }

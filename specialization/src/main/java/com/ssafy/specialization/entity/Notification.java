@@ -34,4 +34,14 @@ public class Notification {
         this.user = user;
         this.news = news;
     }
+
+    //연관관계 메소드
+    public void setUser(User user){
+        this.user = user;
+        user.getNotificationList().add(this);
+    }
+
+    public void setNews(News news){
+        this.news = news;
+    }
 }
