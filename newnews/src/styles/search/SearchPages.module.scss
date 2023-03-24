@@ -1,0 +1,47 @@
+.searchSection{
+    max-width: 100vw;
+    max-height: 100vh;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+.popularSearchTerms{
+    position: relative;
+    margin: 5%;
+}
+.center{
+    display: flex;
+    position: relative;
+    top: 25vh;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+}
+.popularContent{
+    position: relative;
+    left: 2vh;
+    width: auto;
+    max-width: 300px;
+    border-bottom: 1px solid ;
+    margin: 5%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    word-break: keep-all;   // 문단으로 끊어져서 줄바꿈 됨
+}
+.popularContentGrid{
+    position: relative;
+}
+@media (min-width: 1024px) {
+    .popularSearchTerms{
+        margin: auto;
+        top: 5vh;
+        left: 25vw;
+    }
+    .popularContent{
+        display: none;
+    }
+}

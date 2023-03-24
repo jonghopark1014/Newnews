@@ -1,0 +1,23 @@
+.Modalsection{
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100vw;
+    height: 100vh;
+    opacity: 1;
+}
+.container{
+    position: relative;
+    top: 5vh;
+
+    width: 30%;
+    margin-left:auto;
+    margin-right: 3vw;
+    font-size: 1.5rem;
+    .buttonGrid{
+        display: flex;
+        flex-direction: column;
+        button{
+            margin-top: 1.5vh;
+        }
+    }
+}
