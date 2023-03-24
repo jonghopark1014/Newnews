@@ -24,7 +24,7 @@ public class NewsImage {
     }
 
     //생성 메소드
-    public NewsImage createNewsImage(String url) {
+    public static NewsImage createNewsImage(String url) {
         NewsImage newsImage = new NewsImage();
         newsImage.setUrl(url);
 
