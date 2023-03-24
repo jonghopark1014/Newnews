@@ -1,5 +1,5 @@
 import { SearchBar } from "../../components/SearchBar";
-import styles from "../../styles/SearchPages.module.scss"
+import styles from "@/styles/search/SearchPages.module.scss"
 import { Button } from "../../components/Button";
 import { useNavigate } from "react-router";
 
@@ -12,7 +12,7 @@ interface icons{
     onClick(): React.MouseEvent<HTMLDivElement>,
 }
 
-export function SearchResultErrorPage( value : icons ){
+export function SearchResultErrorPage() {
     const navigate = useNavigate()
     
     return (

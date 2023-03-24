@@ -32,9 +32,16 @@
     -webkit-box-orient: vertical;
     word-break: keep-all;   // 문단으로 끊어져서 줄바꿈 됨
 }
+.popularContentGrid{
+    position: relative;
+}
 @media (min-width: 1024px) {
     .popularSearchTerms{
+        margin: auto;
         top: 5vh;
         left: 25vw;
+    }
+    .popularContent{
+        display: none;
     }
 }

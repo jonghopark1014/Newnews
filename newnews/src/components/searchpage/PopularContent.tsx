@@ -1,10 +1,10 @@
-import styles from "../../styles/SearchPages.module.scss"
+import styles from "@/styles/search/SearchPages.module.scss"
 
 
 export function PopularContent() {
     return (
         <div>
-            <div>
+            <div className={styles.popularContentGrid}>
                 <p className={styles.popularContent}>1. 추천검색어 올라오는 곳</p>
                 <p className={styles.popularContent}>2. 추천검색어 올라오는 곳</p>
                 <p className={styles.popularContent}>3. 추천검색어 올라오는 곳</p>

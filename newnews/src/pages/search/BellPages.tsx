@@ -1,5 +1,4 @@
 import { Button } from "../../components/Button"
-import styles from "../../styles/BellPages.module.scss"
 import { BellHeader } from "../../components/alert/BellHeader";
 
 

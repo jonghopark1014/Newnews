@@ -5,8 +5,15 @@ import styles from "../../styles/Modal.module.scss"
 
 interface ModalDefaultType {
     onClickToggleModal: () => void;
+    childern? : React.ReactNode
 }
 
+
+/**
+ * 
+ * @param param0 모달안에 들어갈 이름
+ * @returns 모달창을 보여준다
+ */
 function Modal({ onClickToggleModal, children,}: PropsWithChildren<ModalDefaultType>) {
     return (
         <section className={styles.Modalsection} onClick={(e: React.MouseEvent) => {

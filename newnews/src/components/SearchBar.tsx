@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai"
 import { useNavigate } from "react-router";
-import styles from "../styles/SearchBar.module.scss";
+import styles from "@/styles/search/SearchBar.module.scss";
 
 // 검색창 컴포넌트
 
@@ -9,7 +9,10 @@ interface icons{
     onClick(): React.MouseEvent<HTMLDivElement>,
     onChange(): React.ChangeEvent<HTMLInputElement>,
 }
-
+/**
+ * 
+ * @returns searchBar component
+ */
 export function SearchBar(){
 
     const [inputs, setInputs] = useState('');

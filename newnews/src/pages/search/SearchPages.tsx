@@ -1,5 +1,5 @@
 import { SearchBar } from "../../components/SearchBar";
-import styles from "../../styles/SearchPages.module.scss"
+import styles from "@/styles/search/SearchPages.module.scss"
 import { Button } from "../../components/Button";
 import { ArticleCard} from "../../components/ArticleCard"
 import { PopularContent } from "../../components/searchpage/PopularContent";
