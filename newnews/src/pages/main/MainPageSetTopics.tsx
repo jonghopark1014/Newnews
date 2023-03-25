@@ -51,7 +51,7 @@ export function MainPageSetTopics(){
             <div className="set-topic-header">
                 <IoIosArrowBack onClick={()=> navigate(-1)}/>
                 <div>
-                    <h3>더 많은 토픽</h3>
+                    <h4>더 많은 토픽</h4>
                 </div>
             </div>
             <div className="set-topic-content">

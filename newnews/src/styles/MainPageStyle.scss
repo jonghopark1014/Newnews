@@ -2,11 +2,12 @@
 .main-page {
     display: flex;
     flex-direction: column;
+    height: 100%;
     
     .main-page-tab {
         padding: 0 1rem;
         display: flex;
-        flex: 3rem;
+        height: 3rem;
     }
     
     .main-page-tab-topic {
@@ -31,7 +32,7 @@
         #underline {
             position: absolute;
             // left: 0;
-            bottom: 0;
+            bottom: 0.1rem;
             width: 0;
             height: 3px;
             background-color: #0096ED;
@@ -57,13 +58,27 @@
     // contents-main
     .main-page-content {
         flex: 1;
+        overflow: scroll;
         .main-page-content-card {
-            background: linear-gradient(#00000000 70%, #000000c0 85%, #000000c0 100%);
+            position: relative;
+            height: 100%;
+            // background: linear-gradient(#00000000 70%, #000000c0 85%, #000000c0 100%);
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
-            h3 {
+            > h3 {
+                position: absolute;
+                top: 78%;
+                margin: 1rem;
                 font-size: 1.5rem;
+                color: #fff;
+            }
+            > h4 {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                margin: 1rem;
+                color: #fff;
             }
         }
     }
@@ -91,7 +106,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        h3 {
+        h4 {
             font-weight: bold;
         }
     }
@@ -118,7 +133,7 @@
         }
     }
     .chosen {
-        color: #0096ED
+        color: #0096ED;
     }
 }
 

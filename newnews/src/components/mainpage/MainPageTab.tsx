@@ -18,7 +18,7 @@ export function MainPageTab(){
     
     useEffect(()=>{
         const underline = document.getElementById("underline");
-        const elems = document.querySelectorAll<HTMLParagraphElement>('h3#MainPageTabTopic');
+        const elems = document.querySelectorAll<HTMLParagraphElement>('h4#MainPageTabTopic');
         let boundingRectX;
         let boundingRectWidth;
 
