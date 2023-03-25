@@ -106,6 +106,7 @@ const router = createBrowserRouter([
         path: 'oauth/callback/google',
         element: <GoogleRedirect />,
       },
+      
     ]
   },
   //회원가입페이지

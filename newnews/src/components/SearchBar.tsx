@@ -5,7 +5,7 @@ import styles from "@/styles/search/SearchBar.module.scss";
 
 // 검색창 컴포넌트
 
-interface icons{
+interface Props{
     onClick(): React.MouseEvent<HTMLDivElement>,
     onChange(): React.ChangeEvent<HTMLInputElement>,
 }
@@ -22,7 +22,6 @@ export function SearchBar(){
      * 결과 페이지로 가는 함수
      */
     function resultPage (e: string) {
-        console.log('dddd', e)
         navigate('/result')
     }
     /**
