@@ -7,13 +7,15 @@ interface Card {
     id: number;
     url: string;
     title: string;
+    width: number;
 };
 
 interface Props {
-data: Array<Card>;
+    data: Array<Card>;
 };
 
-export const ArticleCard = ({data}: Props) => {
+// export const ArticleCard = ({data}: Props) => {
+export const ArticleCard = () => {
     const [activeId, setActiveId] = React.useState<number>(1)
 
     const onClick = (id: number) => setActiveId(id);
@@ -33,7 +35,7 @@ export const ArticleCard = ({data}: Props) => {
                 <img src={bondee} />
                 {/* <img src={`${url}`} alt="" /> */}
                 <div className={styles.gradation}>
-                    <h2>본디 신상정보 사실이 아니다 </h2>
+                    <h3>본디 신상정보 사실이 아니다본디 신상정보 사실이 아니다본디 신상정보 사실이 아니다 </h3>
                     <BsBookmarkPlus className={styles.icons}/>
                     {/* <BsBookmarkDashFill className={styles.icons}/> */}
                     {/* <div className={styles.icons}> </div> */}
