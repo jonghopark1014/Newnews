@@ -10,7 +10,7 @@ RUN npm install
 
 RUN npm install -g typescript
 
-RUN npm run build-ts
+RUN npm run build
 
 FROM nginx
 
