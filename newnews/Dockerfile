@@ -8,7 +8,9 @@ COPY . /app
 
 RUN npm install
 
-RUN npm run build
+RUN npm install -g typescript
+
+RUN npm run build-ts
 
 FROM nginx
 
