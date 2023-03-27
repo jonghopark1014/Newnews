@@ -1,7 +1,10 @@
 package com.ssafy.specialization.entity;
 
 import com.ssafy.specialization.entity.enums.Status;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
