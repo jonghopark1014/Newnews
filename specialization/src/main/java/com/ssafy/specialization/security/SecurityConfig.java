@@ -42,10 +42,12 @@ public class SecurityConfig {
         return http
                 .csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/api/regist").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().disable()
                 .logout()
+                .logoutUrl("/api/logout")
                 .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
                 .and()
                 .apply(new MyCustomFilter())
@@ -64,7 +66,7 @@ public class SecurityConfig {
             AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
 
             CustomUsernamePasswordAuthenticationFilter customUsernamePasswordAuthenticationFilter = new CustomUsernamePasswordAuthenticationFilter(authenticationManager, om);
-            customUsernamePasswordAuthenticationFilter.setFilterProcessesUrl("/login");
+            customUsernamePasswordAuthenticationFilter.setFilterProcessesUrl("/api/login");
             customUsernamePasswordAuthenticationFilter.setAuthenticationSuccessHandler(new CustomAuthenticationSuccessHandler(userRepository, om));
             customUsernamePasswordAuthenticationFilter.setAuthenticationFailureHandler(new CustomAuthenticationFailureHandler());
 

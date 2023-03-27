@@ -25,7 +25,7 @@ public class News {
     private Category category;
     private String title;
     private String content;
-    private LocalDateTime newsDate;
+    private String newsDate;
     private String reporter;
     @Enumerated(EnumType.STRING)
     private Press press;
@@ -34,7 +34,7 @@ public class News {
     private List<NewsImage> newsImageList = new ArrayList<>();
 
     @Builder
-    public News(Category category, String title, String content, LocalDateTime newsDate, String reporter, Press press, List<NewsImage> newsImageList) {
+    public News(Category category, String title, String content, String newsDate, String reporter, Press press, List<NewsImage> newsImageList) {
         this.category = category;
         this.title = title;
         this.content = content;
@@ -56,7 +56,7 @@ public class News {
         this.content = content;
     }
 
-    private void setNewsDate(LocalDateTime newsDate) {
+    private void setNewsDate(String newsDate) {
         this.newsDate = newsDate;
     }
 
@@ -73,7 +73,7 @@ public class News {
     }
 
     //생성 메소드
-    public static News createNews(Category category, String title, String content, LocalDateTime newsDate,
+    public static News createNews(Category category, String title, String content, String newsDate,
                                   String reporter, Press press, NewsImage... newsImages) {
         News news = new News();
         news.setCategory(category);
