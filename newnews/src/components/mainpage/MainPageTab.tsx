@@ -1,5 +1,5 @@
 import { MainPageTabTopic } from "./MainPageTabTopic";
-import "@styles/MainPageStyle.scss"
+import "@styles/MainPageStyles.scss"
 import { useRecoilState } from "recoil"
 import { topicAtom, topicStateType } from "../../stores/NewsTopics"
 import { useEffect, useState } from "react";
