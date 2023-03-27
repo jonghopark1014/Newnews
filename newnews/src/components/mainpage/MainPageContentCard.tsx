@@ -1,5 +1,6 @@
 import "@styles/MainPageStyles.scss";
 import { useEffect } from "react"
+import { useNavigate } from "react-router-dom";
 
 
 interface Iprops {
@@ -11,6 +12,7 @@ interface Iprops {
 }
 
 export function MainPageContentCard(props: Iprops){
+    const navigate = useNavigate();
     const title = props.title;
     const press = props.press;
     const newsImage = props.newsImage;
@@ -19,7 +21,6 @@ export function MainPageContentCard(props: Iprops){
     useEffect(()=>{
         const newsCardUpper = document.querySelector<HTMLElement>(`div.main-page-content-card:nth-child(${newsIndex})>.upper-half`);
         const newsCardLower = document.querySelector<HTMLElement>(`div.main-page-content-card:nth-child(${newsIndex})>.lower-half`);
-        // console.log(newsCard);
         if (newsCardUpper && newsCardLower) {
             newsCardUpper.style.backgroundImage = `linear-gradient(#00000000 70%, #000000c0 85%, #000000c0 100%), url("${newsImage}")`;
             newsCardLower.style.backgroundImage = `linear-gradient(#00000000 70%, #000000c0 85%, #000000c0 100%), url("${newsImage}")`;
@@ -28,7 +29,7 @@ export function MainPageContentCard(props: Iprops){
     }, [])
 
     return (
-        <div className="main-page-content-card">
+        <div className="main-page-content-card" onClick={()=>navigate("/detail", { state: { newsId: props.newsId } })}>
             <div className="upper-half">
 
             </div>
