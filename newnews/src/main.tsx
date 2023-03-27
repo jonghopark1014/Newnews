@@ -7,7 +7,9 @@ import { SearchResultErrorPage } from './pages/search/SearchResultErrorPage'
 import { LoginPage } from '@/pages/Login/LoginPage'
 import { MembershipPage } from '@/pages/membership/MembershipPage'
 
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { KakaoRedirect } from '@/components/login/KakaoRedirect'
+import { GoogleRedirect } from '@/components/login/GoogleRedirect'
+import { createBrowserRouter, Route, RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import './index.scss'
 import { MainPage } from './pages/main/MainPage';
@@ -96,6 +98,15 @@ const router = createBrowserRouter([
         path: 'login',
         element: <LoginPage />,
       },
+      {
+        path: 'oauth/callback/kakao',
+        element: <KakaoRedirect />,
+      },
+      {
+        path: 'oauth/callback/google',
+        element: <GoogleRedirect />,
+      },
+      
     ]
   },
   //회원가입페이지

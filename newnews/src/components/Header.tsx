@@ -16,12 +16,12 @@ export function Header({children}: Iprops) {
     const navigate = useNavigate();
 
     return (
-        <div>
+        <header>
             <div className={styles.headerStyle}>
                 <h2 className={styles.h1Style}>{children}</h2>
                 <VscBell className={styles.icons} onClick={() => {navigate('/bell')}}/>
             </div>
             {/* 알림이 뜨면 이미지가 변환해야됨 */}
-        </div>
+        </header>
     )
 }
