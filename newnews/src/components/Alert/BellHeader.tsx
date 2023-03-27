@@ -27,7 +27,7 @@ export function BellHeader(){
             <div className={styles.alert}>
                 <h2>알림센터</h2>
             </div>
-            {isOpenModal && (
+            {isOpenModal && ( 
             <Modal onClickToggleModal={onClickToggleModal} >
                 전체 알림 삭제
                 <br />
