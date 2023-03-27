@@ -3,7 +3,7 @@ import styles from "../../styles/BellHeader.module.scss";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import Modal from "./Modal";
+import Modal from "@/components/Alert/Modal";
 
 
 export function BellHeader(){
