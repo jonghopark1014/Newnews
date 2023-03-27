@@ -62,23 +62,39 @@
         .main-page-content-card {
             position: relative;
             height: 100%;
-            // background: linear-gradient(#00000000 70%, #000000c0 85%, #000000c0 100%);
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            > h3 {
-                position: absolute;
-                top: 78%;
-                margin: 1rem;
-                font-size: 1.5rem;
-                color: #fff;
+            > .upper-half {
+                position: relative;
+                height: 50%;
+                // background: linear-gradient(#00000000 70%, #000000c0 85%, #000000c0 100%);
+                background-size: auto 200%;
+                background-repeat: no-repeat;
+                background-position: center top;
+                transform-origin: bottom;
+                transition: transform 0.1s;
             }
-            > h4 {
-                position: absolute;
-                bottom: 0;
-                right: 0;
-                margin: 1rem;
-                color: #fff;
+            > .lower-half {
+                position: relative;
+                height: 50%;
+                // background: linear-gradient(#00000000 70%, #000000c0 85%, #000000c0 100%);
+                background-size: auto 200%;
+                background-repeat: no-repeat;
+                background-position: center bottom;
+                transform-origin: top;
+                transition: transform 0.1s;
+                > h3 {
+                    position: absolute;
+                    top: 58%;
+                    margin: 1rem;
+                    font-size: 1.5rem;
+                    color: #fff;
+                }
+                > h4 {
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                    margin: 1rem;
+                    color: #fff;
+                }
             }
         }
     }

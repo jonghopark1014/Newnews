@@ -19,6 +19,7 @@ import { MyPage } from './pages/mypage/MyPage';
 import { RecoilRoot } from 'recoil'
 import { BellPages } from './pages/search/BellPages';
 import { MainPageSetTopics } from './pages/main/MainPageSetTopics';
+import { MainDetailPage } from '@pages/main/MainDetailPage'
 
 const container = document.getElementById('root') as HTMLElement;
 const queryClient = new QueryClient();
@@ -36,6 +37,11 @@ const router = createBrowserRouter([
         path: 'topics',
         element: <MainPageSetTopics />,
       },
+      {
+        path: 'detail',
+        element: <MainDetailPage />,
+      },
+      
     ]
   },
   // 검색 페이지
