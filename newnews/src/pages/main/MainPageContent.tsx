@@ -1,11 +1,15 @@
+import { useEffect, useState } from 'react';
+import '@styles/MainPageStyles.scss';
 import { MainPageContentCard } from "@components/mainpage/MainPageContentCard";
 
-const dummy:{
+interface newsMain {
     newsId : number,
     title : string,
     press : string,
     newsImage : string,
-}[] = [{
+};
+
+const dummy: newsMain[] = [{
     newsId : 2342346,
     title : "1번",
     press : "일번일보",
@@ -23,11 +27,59 @@ const dummy:{
 }];
 
 export function MainPageContent(){
+    const [news, setNews] = useState(dummy);
+    // const [news, setNews] = useState(dummy);
+    const options = {
+        root: document.querySelector('.main-page-content'),
+        rootMargin: '0px',
+        threshold: 0.9
+    }
+    let ioIndex: any;
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            // entry의 target으로 DOM에 접근
+            const $target = entry.target;
+            const newsElems = document.querySelectorAll<HTMLElement>('.main-page-content-card');
+            let news;
 
+            // 화면에 노출 상태에 따라 해당 엘리먼트의 class를 컨트롤
+            if (entry.isIntersecting) {
+                ioIndex = Number($target.id);
+                console.log(ioIndex);
+                if (newsElems[ioIndex - 1]) {
+                    // newsElems[ioIndex - 1].classList.add();
+                }
+                if (newsElems[ioIndex]) {
+                    // newsElems[ioIndex].classList.add();
+                }
+                if (newsElems[ioIndex + 1]) {
+                    // newsElems[ioIndex + 1].classList.add();
+                }
+            } else {
+                // $target.classList.remove("screening");
+            }
+        });
+    }, options);
+
+    useEffect(()=>{
+        const newsElems = document.querySelectorAll<HTMLElement>('.main-page-content-card');
+        const mainpage = document.querySelector('.main-page-content');
+        
+        for (let i = 0; i < newsElems.length; i++) {
+            newsElems[i].id = String(i);
+            io.observe(newsElems[i]);
+        }
+
+        if (mainpage) {
+            mainpage.addEventListener('scroll', (e)=>{
+                console.log(ioIndex);
+            })
+        }
+    }, [])
 
     return (
         <div className="main-page-content">
-            {dummy.map((news, index)=>{return <MainPageContentCard newsId={news.newsId} title={news.title} press={news.press} newsImage={news.newsImage} newsIndex={index} key={index}/>})}
+            {news.map((news, index)=>{return <MainPageContentCard newsId={news.newsId} title={news.title} press={news.press} newsImage={news.newsImage} newsIndex={index} key={index}/>})}
         </div>
     )
 }
