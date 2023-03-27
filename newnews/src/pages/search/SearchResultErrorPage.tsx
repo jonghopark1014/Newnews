@@ -3,15 +3,15 @@ import styles from "@/styles/search/SearchPages.module.scss"
 import { Button } from "../../components/Button";
 import { useNavigate } from "react-router";
 
-/**
- * 
- * @returns 검색 결과가 없을때 페이지
- */
+
 
 interface icons{
     onClick(): React.MouseEvent<HTMLDivElement>,
 }
-
+/**
+ * 
+ * @returns 검색 결과가 없을때 페이지
+ */
 export function SearchResultErrorPage() {
     const navigate = useNavigate()
     
@@ -29,6 +29,5 @@ export function SearchResultErrorPage() {
                 </Button>
             </div>
         </section>
-
     )
 }

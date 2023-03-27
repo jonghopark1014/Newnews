@@ -24,8 +24,8 @@ export const Button: React.FC<Props> = ({
         if (buttonSytle) {
             buttonSytle.style.width=`${width}px`
         }
-        console.log(width)
-        console.log('dddd', buttonSytle)
+        // console.log(width)
+        // console.log('dddd', buttonSytle)
     }, [])
 
 return (
