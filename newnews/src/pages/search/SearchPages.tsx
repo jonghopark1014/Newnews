@@ -14,9 +14,9 @@ export function SearchPages(){
             <SearchBar/>
             <div>
                 <h2 className={styles.popularSearchTerms}>
-                    추천검색어
+                    추천 키워드
                 </h2>
-                <PopularContent />
+                <PopularContent  />
             </div>
         </section>
 
