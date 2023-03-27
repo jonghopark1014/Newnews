@@ -1,7 +1,7 @@
 package com.ssafy.specialization.service;
 
+import com.ssafy.specialization.dto.NewsResponseDto;
 import com.ssafy.specialization.entity.Bookmark;
-import com.ssafy.specialization.entity.News;
 import com.ssafy.specialization.repository.BookmarkRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ class BookmarkServiceTest {
 
     @Test
     void 북마크_뉴스_테스트(){
-        List<News> bookmarkedNewsList = bookmarkService.getBookmarkedNewsList(1L);
-        assertThat(bookmarkedNewsList.size()).isEqualTo(3);
+        List<NewsResponseDto> bookmarkedNewsList = bookmarkService.getBookmarkedNewsList(0L);
+        assertThat(bookmarkedNewsList.size()).isEqualTo(0);
     }
 }

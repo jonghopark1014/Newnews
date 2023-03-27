@@ -2,7 +2,6 @@ package com.ssafy.specialization.controller;
 
 import com.ssafy.specialization.dto.NewsResponseDto;
 import com.ssafy.specialization.dto.UserHistoryRequestDto;
-import com.ssafy.specialization.entity.News;
 import com.ssafy.specialization.response.Response;
 import com.ssafy.specialization.service.BookmarkService;
 import com.ssafy.specialization.service.NewsService;
@@ -11,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -34,9 +34,9 @@ public class NewsController {
     }
 
     @PostMapping("/bookmark/list")
-    public ResponseEntity getBookmarkedNewsList(@RequestBody Long userId) {
-        List<News> bookmarkedNewsList = bookmarkService.getBookmarkedNewsList(userId);
-        return Response.success(HttpStatus.OK,bookmarkedNewsList);
+    public ResponseEntity getBookmarkedNewsList(@RequestBody HashMap<String, Long> map) {
+        List<NewsResponseDto> bookmarkedNewsList = bookmarkService.getBookmarkedNewsList(map.get("userId"));
+        return Response.success(HttpStatus.OK, bookmarkedNewsList);
     }
 
     @GetMapping("/{newsId}")
