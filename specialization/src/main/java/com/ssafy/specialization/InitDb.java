@@ -34,9 +34,13 @@ public class InitDb {
 
     void insertNewsDummy(){
         for (int i = 0; i < 10; i++) {
-            NewsImage newsImage = NewsImage.createNewsImage("https://image.ytn.co.kr/general/jpg/2017/1018/201710181100063682_d.jpg");
+            NewsImage newsImage = NewsImage.createNewsImage(
+                    "https://image.ytn.co.kr/general/jpg/2017/1018/201710181100063682_d.jpg",
+                    "이미지에 해당하는 설명입니다."
+            );
+
             News news = News.createNews(Category.TEST, String.valueOf(i), String.valueOf(i),
-                    LocalDateTime.now(), String.valueOf(i), Press.TEST, newsImage);
+                    LocalDateTime.now().toString(), String.valueOf(i), Press.TEST, newsImage);
             newsRepository.save(news);
         }
     }
