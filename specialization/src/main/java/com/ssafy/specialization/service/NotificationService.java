@@ -9,8 +9,10 @@ import com.ssafy.specialization.repository.NotificationRepository;
 import com.ssafy.specialization.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class NotificationService {
 
@@ -19,6 +21,7 @@ public class NotificationService {
     private final NewsRepository newsRepository;
 
     //알림 추가
+    @Transactional
     public Long addNotification(Long userId, Long newsId){
         checkDuplicatedNotification(userId, newsId);
 
@@ -46,6 +49,7 @@ public class NotificationService {
     }
 
     //모든 알림 삭제
+    @Transactional
     public int deleteAll(Long userId){
         int deletedCount = notificationRepository.deleteAllByUserId(userId);
         if(deletedCount>0){
@@ -56,6 +60,7 @@ public class NotificationService {
     }
 
     //알림 단건 삭제
+    @Transactional
     public int delete(Long userId, Long newsId){
         int deletedCount = notificationRepository.deleteByUserIdAndNewsId(userId, newsId);
         if(deletedCount==1){
@@ -66,6 +71,7 @@ public class NotificationService {
     }
 
     //해당 유저의 알림 모두 읽음 처리
+    @Transactional
     public int readAll(Long userId){
         int readCount = notificationRepository.bulkReadByUserId(userId);
         if(readCount>=1){

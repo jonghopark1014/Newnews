@@ -30,7 +30,7 @@ public class News {
     @Enumerated(EnumType.STRING)
     private Press press;
 
-    @OneToMany(mappedBy = "news")
+    @OneToMany(mappedBy = "news", cascade = CascadeType.ALL)
     private List<NewsImage> newsImageList = new ArrayList<>();
 
     @Builder
@@ -68,7 +68,7 @@ public class News {
         this.press = press;
     }
     private void addNewsImage(NewsImage newsImage) {
-        newsImageList.add(newsImage);
+        this.newsImageList.add(newsImage);
         newsImage.setNews(this);
     }
 

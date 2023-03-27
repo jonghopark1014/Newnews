@@ -20,7 +20,6 @@ public class NewsImage {
     //연관관계 메소드
     public void setNews(News news) {
         this.news = news;
-        news.getNewsImageList().add(this);
     }
 
     //생성 메소드
