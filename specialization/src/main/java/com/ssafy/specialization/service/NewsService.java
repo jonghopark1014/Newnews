@@ -2,9 +2,12 @@ package com.ssafy.specialization.service;
 
 import com.ssafy.specialization.dto.NewsImageResponseDto;
 import com.ssafy.specialization.dto.NewsResponseDto;
+import com.ssafy.specialization.dto.RelatedNewsResponseDto;
 import com.ssafy.specialization.entity.News;
 import com.ssafy.specialization.entity.NewsImage;
+import com.ssafy.specialization.entity.Notification;
 import com.ssafy.specialization.repository.NewsRepository;
+import com.ssafy.specialization.repository.NotificationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +19,7 @@ import java.util.stream.Collectors;
 public class NewsService {
 
     private final NewsRepository newsRepository;
+    private final NotificationRepository notificationRepository;
 
     public NewsResponseDto getNews(Long newsId) {
         News news = newsRepository.findById(newsId).orElseThrow(
@@ -42,6 +46,24 @@ public class NewsService {
                         .url(newsImage.getUrl())
                         .description(newsImage.getDescription())
                         .build()
+        ).collect(Collectors.toList());
+    }
+
+    public List<RelatedNewsResponseDto> getRelatedNews(Long userId) {
+        List<Notification> notificationList = notificationRepository.findAllWithNewsByUserId(userId);
+        return notificationList.stream().map(
+                (notification) -> {
+                    News news = notification.getNews();
+                    return RelatedNewsResponseDto.builder()
+                            .title(news.getTitle())
+                            .content(news.getContent())
+                            .newsDate(news.getNewsDate())
+                            .reporter(news.getReporter())
+                            .press(news.getPress().toString())
+                            .newsImageList(
+                                    getNewsImageResponseDto(news.getNewsImageList())
+                            ).build();
+                }
         ).collect(Collectors.toList());
     }
 }

@@ -1,6 +1,7 @@
 package com.ssafy.specialization.controller;
 
 import com.ssafy.specialization.dto.NewsResponseDto;
+import com.ssafy.specialization.dto.RelatedNewsResponseDto;
 import com.ssafy.specialization.dto.UserHistoryRequestDto;
 import com.ssafy.specialization.repository.NewsRepository;
 import com.ssafy.specialization.response.Response;
@@ -11,9 +12,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/news")
+@RequestMapping("/api/news")
 public class NewsController {
 
     private final BookmarkService bookmarkService;
@@ -35,6 +39,12 @@ public class NewsController {
     public ResponseEntity showNews(@PathVariable Long newsId) {
         NewsResponseDto news = newsService.getNews(newsId);
         return Response.success(HttpStatus.OK, news);
+    }
+
+    @PostMapping("after")
+    public ResponseEntity getRelatedNews(@RequestBody HashMap<String, Long> req) {
+        List<RelatedNewsResponseDto> relatedNewsList = newsService.getRelatedNews(req.get("userId"));
+        return Response.success(HttpStatus.OK, relatedNewsList);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
