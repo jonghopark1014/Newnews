@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -38,6 +40,14 @@ public class BookmarkService {
 
         Bookmark savedBookmark = bookmarkRepository.save(bookmark);
         return savedBookmark.getId();
+    }
+
+    public List<News> getBookmarkedNewsList(Long userId){
+        List<News> bookmarkedNewsByUserId = newsRepository.findBookmarkedNewsByUserId(userId);
+        if (bookmarkedNewsByUserId.isEmpty()) {
+            throw new IllegalArgumentException("해당 유저의 북마크가 존재하지 않습니다.");
+        }
+        return bookmarkedNewsByUserId;
     }
 
 //    북마크 중복 체크

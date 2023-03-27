@@ -39,8 +39,8 @@ public class InitDb {
                     "이미지에 해당하는 설명입니다."
             );
 
-            News news = News.createNews(Category.TEST, String.valueOf(i), String.valueOf(i),
-                    LocalDateTime.now().toString(), String.valueOf(i), Press.TEST, newsImage);
+            News news = News.createNews(Category.IT, String.valueOf(i), String.valueOf(i),
+                    LocalDateTime.now().toString(), String.valueOf(i), Press.JUNGANGSUNDAY, newsImage);
             newsRepository.save(news);
         }
     }
