@@ -11,7 +11,8 @@ interface Card {
     title?: string,
     width?: number,
     height?: number,
-};
+    onClick?:  void,
+}
 
 interface Props {
     data: Array<Card>;
