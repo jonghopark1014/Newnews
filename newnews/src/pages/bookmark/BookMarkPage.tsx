@@ -11,7 +11,7 @@ interface Iporps{
  * 데이터를 불러와 map함수로 하나하나씩 나열해준다
  * @returns 북마크 페이지 
  */
-export function BookMarkPage(props: Iporps){
+export function BookMarkPage(){
     
     const [NewsData, setData] = useState([])
 
