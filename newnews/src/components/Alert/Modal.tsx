@@ -4,8 +4,8 @@ import styles from "../../styles/Modal.module.scss"
 
 
 interface ModalDefaultType {
-    onClickToggleModal: () => void;
-    childern? : React.ReactNode
+    onClickToggleModal: () => void,
+    children? : React.ReactNode[],
 }
 
 
@@ -24,9 +24,9 @@ function Modal({ onClickToggleModal, children,}: PropsWithChildren<ModalDefaultT
         }}>
             <div className={styles.container}>
                 <div className={styles.buttonGrid}>
-                    <Button onClick={() =>{}}>{children[0]}</Button>
-                    <Button onClick={() =>{}}>{children[2]}</Button>
-                    <Button onClick={() =>{}}>{children[4]}</Button>
+                    <Button onClick={() =>{}}>{children && children[0]}</Button>
+                    <Button onClick={() =>{}}>{children && children[2]}</Button>
+                    <Button onClick={() =>{}}>{children && children[4]}</Button>
                 <div
                 onClick={(e: React.MouseEvent) => {
                     e.preventDefault();
