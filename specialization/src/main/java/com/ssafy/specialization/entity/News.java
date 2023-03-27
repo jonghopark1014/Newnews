@@ -30,7 +30,7 @@ public class News {
     @Enumerated(EnumType.STRING)
     private Press press;
 
-    @OneToMany(mappedBy = "news")
+    @OneToMany(mappedBy = "news", cascade = CascadeType.ALL)
     private List<NewsImage> newsImageList = new ArrayList<>();
 
     @Builder
@@ -43,6 +43,49 @@ public class News {
         this.press = press;
         this.newsImageList = newsImageList;
     }
-    //    @OneToOne(fetch = FetchType.LAZY)
-//    private Topic topic;
+
+    private void setCategory(Category category) {
+        this.category = category;
+    }
+
+    private void setTitle(String title) {
+        this.title = title;
+    }
+
+    private void setContent(String content) {
+        this.content = content;
+    }
+
+    private void setNewsDate(LocalDateTime newsDate) {
+        this.newsDate = newsDate;
+    }
+
+    private void setReporter(String reporter) {
+        this.reporter = reporter;
+    }
+
+    private void setPress(Press press) {
+        this.press = press;
+    }
+    private void addNewsImage(NewsImage newsImage) {
+        this.newsImageList.add(newsImage);
+        newsImage.setNews(this);
+    }
+
+    //생성 메소드
+    public static News createNews(Category category, String title, String content, LocalDateTime newsDate,
+                                  String reporter, Press press, NewsImage... newsImages) {
+        News news = new News();
+        news.setCategory(category);
+        news.setNewsDate(newsDate);
+        news.setTitle(title);
+        news.setContent(content);
+        news.setReporter(reporter);
+        news.setPress(press);
+        for (NewsImage newsImage : newsImages) {
+            news.addNewsImage(newsImage);
+        }
+
+        return news;
+    }
 }
