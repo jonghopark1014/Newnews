@@ -1,5 +1,5 @@
-import { Button } from "../../components/Button"
-import { BellHeader } from "../../components/alert/BellHeader";
+import { Button } from "@components/Button"
+import { BellHeader } from "@components/Alert/BellHeader";
 
 
 /**
