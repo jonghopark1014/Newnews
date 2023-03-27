@@ -104,16 +104,13 @@
 
 // settopic header ===================================================
 .set-topic-header {
-    position: relative;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 6fr 1fr;
     justify-content: center;
     height: 3rem;
 
     svg {
-        position: absolute;
-        left: 0;
-        top: 50%;
-        transform: translate(0, -50%);
+        place-self: center center;
         width: 2rem;
         height: 2rem;
     }

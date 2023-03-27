@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styles from "../styles/ArticleCard.module.scss"
 import bondee from "../assets/bondee.jpg"
-import { BsBookmarkPlus, BsBookmarkDashFill } from "react-icons/bs";
+import { BsBookmarkPlus, BsBookmarkCheckFill } from "react-icons/bs";
 
 
 const { useEffect } = React;
@@ -49,7 +49,7 @@ export const ArticleCard = ({width, height} : Card ) => {
                 <div className={styles.gradation}>
                     <h3>본디 신상정보 사실이 아니다본디 신상정보 사실이 아니다본디 신상정보 사실이 아니다 </h3>
                     <BsBookmarkPlus className={styles.icons}/>
-                    {/* <BsBookmarkDashFill className={styles.icons}/> */}
+                    {/* <BsBookmarkCheckFill className={styles.icons}/> */}
                     {/* <div className={styles.icons}> </div> */}
                 </div>
             </div>
