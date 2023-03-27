@@ -1,7 +1,9 @@
+
+
 export function MyPage(){
     return (
-        <div>
+        <section >
             mypage
-        </div>
+        </section>
     )
 }
