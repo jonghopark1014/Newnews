@@ -1,10 +1,12 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: ssafy
-    password: 1234
-    url: jdbc:mysql://localhost:3306/newnews?
+    url: jdbc:mysql://${DB_DOMAIN}:${DB_PORT}/newnews?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
   jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: create
     properties:
