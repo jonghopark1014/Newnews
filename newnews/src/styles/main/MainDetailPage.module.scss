@@ -1,0 +1,77 @@
+.detailpage {
+    margin-top: 51px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    .header {
+        display: grid;
+        grid-template-columns: 1fr 6fr 1fr;
+        justify-content: center;
+        height: 3rem;
+    
+        svg{
+            place-self: center center;
+            width: 2rem;
+            height: 2rem;
+        }
+    
+        .afterMarked {
+            color: #FFD342;
+            place-self: center center;
+            background: radial-gradient(circle at 50%,#000, #fff 50%);
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+        .beforeMarked {
+            color: #0096ED;
+            place-self: center center;
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+        div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            h4 {
+                font-weight: bold;
+            }
+        }
+    }
+    
+    .content {
+        flex: 1;
+        display: block;
+        flex-grow: 1;
+        place-content: start center;
+        height: inherit;
+        padding: 10%;
+        overflow: hidden;
+        h3 {
+            color: #1A8917;
+            font-weight: bold;
+        }
+        span {
+            // overflow: scroll;
+        }
+    }   
+
+    > svg {
+        position: fixed;
+        right: 5%;
+        bottom: 6%;
+        place-content: center center;
+        width: 15%;
+        max-width: 70px;
+        height: 15%;
+        max-height: 70px;
+    }
+
+    .modalWindow {
+        position: fixed;
+        right: 5%;
+        bottom: 5%;
+        background-color: #fff;
+    }
+}
+
+

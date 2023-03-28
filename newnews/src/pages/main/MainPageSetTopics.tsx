@@ -2,7 +2,7 @@ import { useRecoilState } from "recoil"
 import { useEffect, useState } from "react"
 import { topicAtom } from "@/stores/NewsTopics"
 import { IoIosArrowBack } from "react-icons/io"
-import "@styles/MainPageStyles.scss"
+import "@styles/main/MainPageStyles.scss"
 import { SetTopicButton } from "@components/mainpage/SetTopicButton";
 import { useNavigate } from "react-router-dom"
 

@@ -54,11 +54,11 @@ h4{
 	#root {
 		display: flex;
 		flex-direction: column;
-		#blank {
+		> #blank {
 			width: 100%;
 			height: 51px;
 		}
-		#blank+div {
+		> #blank+div {
 			display: flex;
 			flex-direction: column;
 			flex: 1;
@@ -69,6 +69,8 @@ h4{
 				flex: 1;
 			}
 			> footer {
+				position: fixed;
+				bottom: 0;
 				height: 3rem;
 			}
 		}

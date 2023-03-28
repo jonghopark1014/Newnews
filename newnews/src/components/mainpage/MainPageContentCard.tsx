@@ -1,4 +1,4 @@
-import "@styles/MainPageStyles.scss";
+import "@styles/main/MainPageStyles.scss";
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom";
 
