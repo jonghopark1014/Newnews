@@ -1,14 +1,14 @@
 .container{
-    position: relative;
-    top: 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .idInput{
     display: flex;
     height: 48px;
     width: 55%;
     border-radius: 4px;
-    margin : auto;
-    margin-top: 5%;
     max-width: 500px;
     border: 0.5px;
     border-color: #363636;
@@ -46,10 +46,9 @@
 .pwInput{
     display: flex;
     height: 48px;
+    margin-top: 5%;
     width: 55%;
     border-radius: 4px;
-    margin : auto;
-    margin-top: 5%;
     max-width: 500px;
     border: 0.5px;
     border-color: #363636;
@@ -86,13 +85,12 @@
 .checkBox{
     height: 5%;
     display: flex;
-    margin: auto;
+    width: 100%;
     justify-content: center;
     align-items: center;
     margin-top: 5%;
     input{
         content:"";
-        margin: 0;
         height: 50%;
         width: 10%;
     }
@@ -102,9 +100,6 @@
 }
 .buttonGrid{
     display: flex;
-    margin: auto;
-    justify-content: center;
-    align-items: center;
     margin-top: 5%;
 }
 .hrStyles{
@@ -113,25 +108,16 @@
     border-style: dashed;
     width: 80%;
     max-width: 500px;
-    margin: auto;
     margin-top: 5%;
-    justify-self: center;
-    align-items: center;
 }
 .snsGrid{
     display: flex;
     flex-direction: column;
-    margin: auto;
     margin-top: 5%;
-    justify-self: center;
-    align-items: center;
 }
 .modifyGrid{
     display: flex;
-    margin: auto;
     margin-top: 5%;
-    justify-content: center;
-    align-items: center;
 }
 @media (min-width: 1024px) {
     .block{

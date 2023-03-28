@@ -5,7 +5,7 @@ import { SearchPages } from './pages/search/SearchPages'
 import { SearchResultPage } from './pages/search/SearchResultPage'
 import { SearchResultErrorPage } from './pages/search/SearchResultErrorPage'
 import { LoginPage } from '@/pages/Login/LoginPage'
-import { MembershipPage } from '@/pages/membership/MembershipPage'
+import { MemberShipPage } from '@/pages/membership/MembershipPage'
 import { BookMarkNonePage } from "@/pages/bookmark/BookMarkNonePage";
 
 import { KakaoRedirect } from '@/components/login/KakaoRedirect'
@@ -127,7 +127,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: 'membership',
-        element: <MembershipPage />,
+        element: <MemberShipPage />,
       },
     ]
   },

@@ -13,6 +13,7 @@
     border-radius: 6px;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
 }
-.buttonStyle:hover {
+.buttonStyle:hover,
+.buttonStyle:focus-within {
     color: #0096ED;
 }
