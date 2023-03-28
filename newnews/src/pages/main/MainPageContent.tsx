@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import '@styles/MainPageStyles.scss';
+import '@styles/main/MainPageStyles.scss';
 import { MainPageContentCard } from "@components/mainpage/MainPageContentCard";
 
 interface newsMain {
