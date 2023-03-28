@@ -1,0 +1,172 @@
+.sectionStyles{
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 80vh;
+    justify-content: center;
+    align-items: center;
+    gap: min(2rem, 5vw);
+    form{
+        height: 60%;
+        width: 80%;
+    }
+    p{
+        font-size: 1.25rem;
+        margin: 0;
+        font-weight: 400;
+        
+    }
+    input{
+        border: #ffffff;
+        border-bottom: 2px solid #0096ED;
+        width: 100%;
+        outline: none;
+    }
+    
+    input[type='checkbox'] {
+        display: flex;
+        flex-direction: row;
+        width: 10%;
+        
+    }
+    span{
+        color: #F67442;
+    }
+    .email{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-top: 5%;
+            
+    }
+    .password{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-top: 5%;
+    }
+    .passwordConfirm{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-top: 5%;
+    }
+    .sex{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-top: 5%;
+        div{
+            display: flex;
+            width: 40%;
+        }
+        label{
+            font-size: 1.125rem;
+            width: 200%;
+        }
+        input{
+            width: 200%;
+        }
+    }
+    .date{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-top: 5%;
+        
+    }
+    .buttonGrid{
+        display: flex;
+        margin-left: auto;
+        margin-right: 10%;
+    }
+}
+.formbox {
+position: relative;
+margin-bottom: 20px;
+.message {
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 24px;
+    letter-spacing: -1px;
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    &.success {
+    color: #8f8c8b;
+    }
+    &.error {
+    color: #ff2727;
+    }
+}
+}
+// @media all and (min-width: 1024px) {
+// .input-forms {
+//     padding: 70px;
+//     input{
+//     width: 400px;
+//     }
+// }
+
+// }
+// @media (max-width: 1024px) {
+// .sectionStyles {
+//     .email{
+//         margin-top: 0;
+//     }
+//     .password{
+//         margin-top: 0;
+//     }
+//     .passwordConfirm{
+//         margin-top: 0;
+//     }
+//     .sex{
+//         margin-top: 0;
+//     }
+//     .date{
+//         margin-top: 0;
+
+//     }
+//     input{
+//     width: 330px;
+//     }
+
+// }
+// }
+
+// @media all and (max-width: 768px) {
+// .input-forms {
+//     padding: 50px;
+//     input{
+//     width: 300px;
+//     }
+// }
+// }
+
+// .signup-wrapper {
+// display: flex;
+// flex-direction: column;
+// align-items: center;
+
+// .input-forms {
+//     background-color: #ffffff;
+//     border-radius: 10px;
+//     display: flex;
+//     flex-direction: column;
+
+//     .input-label {
+//     font-size: 1.2rem;
+//     font-weight: bold;
+//     color: #363636;
+//     }
+
+//     .input-forms-item {
+//     padding: 7px 0;
+//     .error-message {
+//         font-size: 1rem;
+//         color: 0096ED;
+//         font-weight: bold;
+//     }
+//     }
+// }
+// }

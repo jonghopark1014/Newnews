@@ -2,9 +2,9 @@ import React, { useEffect }  from "react";
 import styles from "../styles/Button.module.scss"
 
 interface Props {
-    children?: React.ReactNode;
-    width?: number;
-    onClick: () => void;
+    children?: React.ReactNode
+    width?: number
+    onClick: () => void
 }
 
 /**
