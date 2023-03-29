@@ -12,17 +12,11 @@
     transition: 1s;
     position: relative;
     animation: fadeInRight 1s ease-in-out;
-}
-.searchSection{
     max-width: 100vw;
-    max-height: 100vh;
+    max-height: 100svh;
     width: 100vw;
-    height: 100vh;
+    height: 85vh;
     overflow: hidden;
-}
-.buttonGrid{
-    display: flex;
-    justify-content: space-around;
 }
 @media (min-width: 1024px) {
 }
