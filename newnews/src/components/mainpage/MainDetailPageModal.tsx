@@ -1,5 +1,5 @@
 
-import styles from "@styles/main/MainDetailPage.module.scss";
+import styles from "@/styles/main/MainDetailPage.module.scss";
 import { useState } from "react";
 import { BsFillArrowRightCircleFill, BsFillArrowLeftCircleFill } from "react-icons/bs";
 

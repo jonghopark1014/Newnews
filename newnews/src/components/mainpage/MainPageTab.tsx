@@ -1,7 +1,7 @@
 import { MainPageTabTopic } from "./MainPageTabTopic";
-import "@styles/main/MainPageStyles.scss"
+import "@/styles/main/MainPageStyles.scss"
 import { useRecoilState } from "recoil"
-import { topicAtom, topicStateType } from "../../stores/NewsTopics"
+import { topicAtom, topicStateType } from "@/stores/NewsTopics"
 import { useEffect, useState } from "react";
 import { BsPlus } from "react-icons/bs";
 import { Link } from "react-router-dom";

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
-import { Button } from "../../components/Button";
-import styles from "@styles/bookmark/BookMark.module.scss"
+import { Button } from "@/components/Button";
+import styles from "@/styles/bookmark/BookMark.module.scss"
 
 interface Iporps{
     onClick(): React.MouseEvent<HTMLDivElement>,

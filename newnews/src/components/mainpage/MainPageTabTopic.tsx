@@ -1,5 +1,5 @@
-import { topicStateType } from "../../stores/NewsTopics"
-import "@styles/main/MainPageStyles.scss"
+import { topicStateType } from "@/stores/NewsTopics"
+import "@/styles/main/MainPageStyles.scss"
 
 interface Iprops {
     topic: string,

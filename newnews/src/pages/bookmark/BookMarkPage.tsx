@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ArticleCard } from "@components/ArticleCard";
+import { ArticleCard } from "@/components/ArticleCard";
 import axios from "axios";
 
 interface Iporps{
