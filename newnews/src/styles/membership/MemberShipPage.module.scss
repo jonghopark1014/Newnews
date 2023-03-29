@@ -19,6 +19,7 @@
     input{
         border: #ffffff;
         border-bottom: 2px solid #0096ED;
+        height: auto;
         width: 100%;
         outline: none;
     }
@@ -34,21 +35,26 @@
     }
     .email{
         display: flex;
+        height: 15%;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: flex-start;
         margin-top: 5%;
-            
+        input{
+            position: relative;
+        }
     }
     .password{
         display: flex;
+        height: 15%;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: flex-start;
         margin-top: 5%;
     }
     .passwordConfirm{
         display: flex;
+        height: 15%;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: flex-start;
         margin-top: 5%;
     }
     .sex{
@@ -78,6 +84,7 @@
     .buttonGrid{
         display: flex;
         margin-left: auto;
+        margin-top: 5%;
         margin-right: 10%;
     }
 }
@@ -92,7 +99,7 @@ margin-bottom: 20px;
     position: absolute;
     bottom: -10px;
     left: 0;
-    &.success {
+    &.true {
     color: #8f8c8b;
     }
     &.error {
