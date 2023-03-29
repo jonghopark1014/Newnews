@@ -3,32 +3,29 @@ package com.ssafy.specialization.dto;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.util.List;
 
 @Getter
 public class RelatedNewsResponseDto {
 
+    private Long newsId;
     private String title;
-    private String content;
-    private String newsDate;
-    private String reporter;
     private String press;
-    private List<NewsImageResponseDto> newsImageList;
+    private String newsImage;
+    private String newsImageDesc;
 
     @Builder
+
     public RelatedNewsResponseDto(
+            Long newsId,
             String title,
-            String content,
-            String newsDate,
-            String reporter,
             String press,
-            List<NewsImageResponseDto> newsImageList
+            String newsImage,
+            String newsImageDesc
     ) {
+        this.newsId = newsId;
         this.title = title;
-        this.content = content;
-        this.newsDate = newsDate;
-        this.reporter = reporter;
         this.press = press;
-        this.newsImageList = newsImageList;
+        this.newsImage = newsImage;
+        this.newsImageDesc = newsImageDesc;
     }
 }

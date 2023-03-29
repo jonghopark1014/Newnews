@@ -54,15 +54,22 @@ public class NewsService {
         return notificationList.stream().map(
                 (notification) -> {
                     News news = notification.getNews();
+                    List<NewsImage> newsImageList = news.getNewsImageList();
+                    String imageUrl = "";
+                    String imageDesc = "";
+                    if (!(newsImageList.size() == 0)) {
+                        NewsImage newsImage = newsImageList.get(0);
+                        imageUrl = newsImage.getUrl();
+                        imageDesc = newsImage.getDescription();
+                    }
+
                     return RelatedNewsResponseDto.builder()
+                            .newsId(news.getId())
                             .title(news.getTitle())
-                            .content(news.getContent())
-                            .newsDate(news.getNewsDate())
-                            .reporter(news.getReporter())
-                            .press(news.getPress().toString())
-                            .newsImageList(
-                                    getNewsImageResponseDto(news.getNewsImageList())
-                            ).build();
+                            .press(news.getPress().getKrName())
+                            .newsImage(imageUrl)
+                            .newsImageDesc(imageDesc)
+                            .build();
                 }
         ).collect(Collectors.toList());
     }
