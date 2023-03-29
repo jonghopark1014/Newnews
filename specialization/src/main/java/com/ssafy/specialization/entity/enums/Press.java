@@ -1,5 +1,8 @@
 package com.ssafy.specialization.entity.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum Press {
     //TODO
     //추후 추가 예정
@@ -88,5 +91,9 @@ public enum Press {
     BUSAN("부산일보"),
     JEONJUMBC("전주MBC");
 
-    Press(String krName) {}
+    private String krName;
+
+    Press(String krName) {
+        this.krName=krName;
+    }
 }
