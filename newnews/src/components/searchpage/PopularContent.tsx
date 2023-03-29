@@ -18,9 +18,9 @@ export function PopularContent() {
         /**
          * 특정 div만 새로고침 
          */
-        window.setInterval(function divLoad(){  
-            $('#popularContentGrid').load(window.location.href + "popularContentGrid");
-        }, 1000);
+        // window.setInterval(function divLoad(){  
+        //     $('#popularContentGrid').load(window.location.href + "popularContentGrid");
+        // }, 1000);
     
         }, []);
 

@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import { ArticleCard } from "@/components/ArticleCard";
 import axios from "axios";
+import { useRecoilState } from 'recoil';
+import { LoginState } from '@/states/LoginState';
+
 
 interface Iporps{
     onClick: void
@@ -14,6 +17,7 @@ interface Iporps{
 export function BookMarkPage(){
     
     const [NewsData, setData] = useState([])
+    const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState);
 
     // useEffect(()=> {
     //     axios.get(``, {})
