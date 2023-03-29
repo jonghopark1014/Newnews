@@ -1,37 +1,85 @@
 import { useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@components/Button"
 import styles from "@styles/membership/MemberShipPage.module.scss";
-import { useEffect } from "react";
+import axios from "axios";
+
+interface Ipros{
+	username : string
+    password : string
+	passwordChk : string
+	sex : string
+	yearOfBirth : React.ReactNode
+}
 
 export function MemberShipPage() {
-    //email, password, passwordConfirm 확인
-    const [email, setEmail] = useState<string>('')
+    const navigate = useNavigate()
+    //email, password, passwordChk 확인
+    const [username, setusername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
-    const [passwordConfirm, setPasswordConfirm] = useState<string>('')
+    const [passwordChk, setPasswordChk] = useState<string>('')
     const [sex, setSex] = useState<string>('')
-    const [date, setDate] = useState<number>()
+    const [yearOfBirth, setyearOfBirth] = useState<number>()
+    
     //message상태 저장
-    const [emailMessage, setEmailMessage] = useState<string>('')
+    const [usernameMessage, setusernameMessage] = useState<string>('')
     const [passwordMessage, setPasswordMessage] = useState<string>('')
-    const [passwordConfirmMessage, setPasswordConfirmMessage] = useState<string>('')
+    const [passwordChkMessage, setPasswordChkMessage] = useState<string>('')
+    
     // 유효성 검사
-    const [isEmail, setIsEmail] = useState<boolean>(false)
+    const [isusername, setIsusername] = useState<boolean>(false)
     const [isPassword, setIsPassword] = useState<boolean>(false)
-    const [isPasswordConfirm, setIsPasswordConfirm] = useState<boolean>(false)
+    const [isPasswordChk, setIspasswordChk] = useState<boolean>(false)
+
+    const API = "https://j8b309.p.ssafy.io/api/regist"
+
+    async function onSubmitMemberShip({username, password, passwordChk, sex, yearOfBirth}: Ipros) {
+        console.log(username, password, passwordChk, sex, yearOfBirth)
+        console.log(API)
+        try {
+        await axios
+            .post(API, {
+            username: username,
+            password: password,
+            passwordChk: passwordChk,
+            sex : sex,
+            yearOfBirth : yearOfBirth,
+            },
+            {
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+                },
+            withCredentials: true,
+            })
+            .then((res) => {
+            console.log('response:', res)
+            setTimeout(()=> {
+                navigate("/login");
+            }, 2000);
+            })
+            } catch (err) {
+            console.error(err)
+            } [username, password, passwordChk, sex, yearOfBirth ] 
+        } 
+    
+    
+
     //email 
-    const onChangeEmail = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const onChangeusername = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
         const emailCurrent = e.target.value
-        setEmail(emailCurrent)
+        setusername(emailCurrent)
 
         if (!emailRegex.test(emailCurrent)) {
-        setEmailMessage('이메일 형식이 틀렸어요')
-        setIsEmail(false)
+        setusernameMessage('이메일 형식이 틀렸어요')
+        setIsusername(false)
         } else {
-        setEmailMessage('올바른 이메일 형식입니다')
-        setIsEmail(true)
+        setusernameMessage('올바른 이메일 형식입니다')
+        setIsusername(true)
         }
     }, [])
+
     //비밀번호
     const onChangePassword = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/
@@ -48,58 +96,57 @@ export function MemberShipPage() {
     }, [])
 
     // 비밀번호 확인
-    const onChangePasswordConfirm = useCallback(
+    const onChangePasswordChk = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
-        const passwordConfirmCurrent = e.target.value
-        setPasswordConfirm(passwordConfirmCurrent)
+        const passwordChkfirmCurrent = e.target.value
+        setPasswordChk(passwordChkfirmCurrent)
 
-        if (password === passwordConfirmCurrent) {
-            setPasswordConfirmMessage('비밀번호를 똑같이 입력했어요')
-            setIsPasswordConfirm(true)
+        if (password === passwordChkfirmCurrent) {
+            setPasswordChkMessage('비밀번호를 똑같이 입력했어요')
+            setIspasswordChk(true)
         } else {
-            setPasswordConfirmMessage('비밀번호가 틀렸습니다')
-            setIsPasswordConfirm(false)
+            setPasswordChkMessage('비밀번호가 틀렸습니다')
+            setIspasswordChk(false)
         }
         },
         [password]
     )
+
     /**
      * 날짜 6자리만 받아옴
      */
-    const onChangedate = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        let dateCurrentString = e.target.value
+    const onChangeyearOfBirth = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        let yearOfBirthCurrentString = e.target.value
         
-        if(dateCurrentString.length > e.target.maxLength){
-            dateCurrentString = dateCurrentString.slice(0, e.target.maxLength);
+        if(yearOfBirthCurrentString.length > e.target.maxLength){
+            yearOfBirthCurrentString = yearOfBirthCurrentString.slice(0, e.target.maxLength);
         }
-        const dateCurrent = parseInt(dateCurrentString)
-        setDate(dateCurrent)
+        const yearOfBirthCurrent = parseInt(yearOfBirthCurrentString)
+        setyearOfBirth(yearOfBirthCurrent)
     },[])
 
     // 성별 체크박스 
     const isCheckBox = useCallback((e: React.MouseEvent<HTMLInputElement>) => {
-
+        
         let checkPick = document.getElementsByName('sexCheckBox');
         Array.prototype.forEach.call(checkPick, function (el) {
-            console.log('el', el);
-            console.log('el', el.checked);
+            
             el.checked = false;
         });
         (e.target as HTMLInputElement).checked = true;
-
         setSex((e.target as HTMLInputElement).value)
-        console.log(setSex((e.target as HTMLInputElement).defaultValue))
-        console.log(sex)
 
     },[])
+
+    
 
     return(
         <section className={styles.sectionStyles}>
             <form >
             <div className={styles.email}>
                 <p>이메일</p>
-                    <input type="email" onChange={onChangeEmail} />
-                    {email.length > 0 && <span className={`message ${isEmail ? 'success' : 'error'}`}>{emailMessage}</span>}
+                    <input type="email" onChange={onChangeusername} />
+                    {username.length > 0 && <span className={`message ${isusername ? 'success' : 'error'}`}>{usernameMessage}</span>}
             </div>
             <div className={styles.password}>
                 <p>비밀번호</p>
@@ -110,9 +157,9 @@ export function MemberShipPage() {
             </div>
             <div className={styles.passwordConfirm}>
                 <p>비밀번호 확인</p>
-                    <input type="password" onChange={onChangePasswordConfirm} />
-                    {passwordConfirm.length > 0 && (
-                    <span className={`message ${isPasswordConfirm ? 'success' : 'error'}`}>{passwordConfirmMessage}</span>
+                    <input type="password" onChange={onChangePasswordChk} />
+                    {passwordChk.length > 0 && (
+                    <span className={`message ${isPasswordChk ? 'success' : 'error'}`}>{passwordChkMessage}</span>
                     )}
             </div>
             <div className={styles.sex}>
@@ -129,11 +176,11 @@ export function MemberShipPage() {
             </div>
             <div className={styles.date}>
                 <p>생년월일</p>
-                <input type="number" placeholder="ex) 900101" required aria-required="true" maxLength={6} onChange={onChangedate}/>
+                <input type="number" placeholder="ex) 900101" required aria-required="true" maxLength={6} onChange={onChangeyearOfBirth}/>
             </div>
             </form>
             <div className={styles.buttonGrid}>
-                <Button onClick={() => {}} children={"가입하기"}></Button>
+                <Button children={"가입하기"} onClick={()=>{onSubmitMemberShip({username, password, passwordChk, sex, yearOfBirth})}}></Button>
             </div>
         </section>
     )
