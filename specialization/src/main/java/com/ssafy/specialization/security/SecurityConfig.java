@@ -90,7 +90,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfiguration() {
         CorsConfiguration cors = new CorsConfiguration();
 
-        cors.setAllowedOrigins(Arrays.asList("https://localhost:5173", "https://j8b309.p.ssafy.io"));
+        cors.setAllowedOrigins(Arrays.asList("https://localhost:5173", "http://localhost:5173", "https://j8b309.p.ssafy.io"));
         cors.addAllowedHeader("*");
         cors.addAllowedMethod("*");
         cors.setAllowCredentials(true);
