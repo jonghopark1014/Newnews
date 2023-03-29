@@ -17,5 +17,6 @@ public class CustomLogFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         log.info("REQUEST URI = {}, REQUEST METHOD = {}", request.getRequestURI(), request.getMethod());
         filterChain.doFilter(request, response);
+        log.info("RESPONSE STATUS = {}", response.getStatus());
     }
 }
