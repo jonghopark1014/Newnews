@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
-import { Button } from "@components/Button"
-import styles from "@styles/membership/MemberShipPage.module.scss";
+import { Button } from "@/components/Button"
+import styles from "@/styles/membership/MemberShipPage.module.scss";
 import { useEffect } from "react";
 
 export function MemberShipPage() {

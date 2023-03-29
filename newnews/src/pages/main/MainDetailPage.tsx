@@ -1,7 +1,7 @@
 import { IoIosArrowBack } from "react-icons/io";
 import { useState } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
-import styles from "@styles/main/MainDetailPage.module.scss";
+import styles from "@/styles/main/MainDetailPage.module.scss";
 import { BsBookmarkPlus, BsBookmarkCheckFill, BsFillArrowRightCircleFill } from "react-icons/bs";
 
 interface Iprops {

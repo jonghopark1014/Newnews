@@ -1,8 +1,8 @@
-import { SERVER_URL } from "@utils/urls";
+import { SERVER_URL } from "@/utils/urls";
 import axios from "axios";
 import { useQuery } from "react-query";
 
-export const MAIN_NEWS = '/main';
+export const MAIN_NEWS_DETAIL = '/main/detail';
 
 const API_URL = '/news/after';
 
@@ -16,7 +16,7 @@ const fetcher = (userId: number) => axios.get(SERVER_URL + API_URL, { params: { 
  */
 const useMainNewsAfter = (userId: number) => {
     // useQuery의 첫 번째 파라미터는 query key, query는 쿼리문마다 달라야함(주의!!), 쿼리를 보내는 트리거라고 생각하면 됨
-    return useQuery([MAIN_NEWS], () => fetcher(userId), {
+    return useQuery([MAIN_NEWS_DETAIL], () => fetcher(userId), {
         // staleTime: 데이터 요청을 보내는 시간 간격(ms)
         // cacheTime: 데이터를 캐시에 저장할 시간(ms), 데이터 요청을 보내오는 동안 캐시에 저장된 데이터를 보여줌
         // 다른 옵션은 그대로 써도 될 것 같아유.

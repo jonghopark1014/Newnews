@@ -1,4 +1,4 @@
-import { Button } from "@components/Button";
+import { Button } from "@/components/Button";
 import styles from "@/styles/login/Login.module.scss"
 import { useState } from "react";
 // import { KakaoLogin } from "@/components/login/Kakao";

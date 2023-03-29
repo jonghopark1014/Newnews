@@ -1,4 +1,4 @@
-import "@styles/main/MainPageStyles.scss";
+import "@/styles/main/MainPageStyles.scss";
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom";
 
@@ -22,11 +22,13 @@ export function MainPageContentCard(props: Iprops){
         const newsCardUpper = document.querySelector<HTMLElement>(`div.main-page-content-card:nth-child(${newsIndex})>.upper-half`);
         const newsCardLower = document.querySelector<HTMLElement>(`div.main-page-content-card:nth-child(${newsIndex})>.lower-half`);
         if (newsCardUpper && newsCardLower) {
+            newsCardUpper.style.backgroundImage = '';
+            newsCardLower.style.backgroundImage = '';
             newsCardUpper.style.backgroundImage = `linear-gradient(#00000000 70%, #000000c0 85%, #000000c0 100%), url("${newsImage}")`;
             newsCardLower.style.backgroundImage = `linear-gradient(#00000000 70%, #000000c0 85%, #000000c0 100%), url("${newsImage}")`;
         }
 
-    }, [])
+    }, [newsImage])
 
     return (
         <div className="main-page-content-card" onClick={()=>navigate("/detail", { state: { newsId: props.newsId } })}>
