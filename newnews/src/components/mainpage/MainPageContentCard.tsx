@@ -1,5 +1,5 @@
 import "@/styles/main/MainPageStyles.scss";
-import { useEffect } from "react"
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 
@@ -8,7 +8,7 @@ interface Iprops {
     title: string,
     press: string,
     newsImage: string,
-    newsIndex: number
+    newsIndex: number,
 }
 
 export function MainPageContentCard(props: Iprops){

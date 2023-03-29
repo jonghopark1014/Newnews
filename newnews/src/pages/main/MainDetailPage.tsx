@@ -3,6 +3,9 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "@/styles/main/MainDetailPage.module.scss";
 import { BsBookmarkPlus, BsBookmarkCheckFill, BsFillArrowRightCircleFill } from "react-icons/bs";
+import useMainNewsDetail from "@/hooks/main/useMainNewsDetail";
+import useAddBookmark from "@/hooks/bookmark/useAddBookmark";
+import useRemoveBookmark from "@/hooks/bookmark/useRemoveBookmark";
 
 interface Iprops {
     newsId: number,
@@ -24,7 +27,11 @@ interface newsDetail {
 export function MainDetailPage() {
     const location = useLocation();
     const newsId = location.state.newsId;
-    console.log(newsId);
+    // console.log('?', newsId);
+    const useMainDetail = useMainNewsDetail(newsId);
+    const addBookmark = useAddBookmark();
+    const removeBookmark = useRemoveBookmark();
+    
     const newsDetail: newsDetail = {
         id : 1,
         category : "category",
@@ -42,11 +49,11 @@ export function MainDetailPage() {
     const bookMark = (state: boolean)=>{
         if (state) {
             return (
-                <BsBookmarkPlus className={styles.beforeMarked} onClick={()=>setMarked(!marked)}/>
+                <BsBookmarkPlus className={styles.beforeMarked} onClick={()=>{ setMarked(!marked); addBookmark.mutate({ userId: 1, newsId: newsId }); }}/>
             )
         } else {
             return (
-                <BsBookmarkCheckFill className={styles.afterMarked} onClick={()=>setMarked(!marked)}/>
+                <BsBookmarkCheckFill className={styles.afterMarked} onClick={()=>{ setMarked(!marked); removeBookmark.mutate({ userId: 1, newsId: newsId }); }}/>
             )
         }
     }
