@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@components/Button"
 import styles from "@styles/membership/MemberShipPage.module.scss";
 import axios from "axios";
+import { SERVER_URL } from "@/utils/urls"
 
-interface Ipros{
+interface Iprops{
 	username : string
     password : string
 	passwordChk : string
@@ -15,27 +16,25 @@ interface Ipros{
 export function MemberShipPage() {
     const navigate = useNavigate()
     //email, password, passwordChk 확인
-    const [username, setusername] = useState<string>('')
+    const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [passwordChk, setPasswordChk] = useState<string>('')
     const [sex, setSex] = useState<string>('')
     const [yearOfBirth, setyearOfBirth] = useState<number>()
     
     //message상태 저장
-    const [usernameMessage, setusernameMessage] = useState<string>('')
+    const [usernameMessage, setUsernameMessage] = useState<string>('')
     const [passwordMessage, setPasswordMessage] = useState<string>('')
     const [passwordChkMessage, setPasswordChkMessage] = useState<string>('')
     
     // 유효성 검사
-    const [isusername, setIsusername] = useState<boolean>(false)
+    const [isusername, setIsUsername] = useState<boolean>(false)
     const [isPassword, setIsPassword] = useState<boolean>(false)
     const [isPasswordChk, setIspasswordChk] = useState<boolean>(false)
 
-    const API = "https://j8b309.p.ssafy.io/api/regist"
+    const API = `${SERVER_URL}/api/regist`
 
-    async function onSubmitMemberShip({username, password, passwordChk, sex, yearOfBirth}: Ipros) {
-        console.log(username, password, passwordChk, sex, yearOfBirth)
-        console.log(API)
+    async function onSubmitMemberShip({username, password, passwordChk, sex, yearOfBirth}: Iprops) {
         try {
         await axios
             .post(API, {
@@ -46,11 +45,7 @@ export function MemberShipPage() {
             yearOfBirth : yearOfBirth,
             },
             {
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Content-Type': 'application/json',
-                },
-            withCredentials: true,
+                withCredentials: true,
             })
             .then((res) => {
             console.log('response:', res)
@@ -60,23 +55,23 @@ export function MemberShipPage() {
             })
             } catch (err) {
             console.error(err)
-            } [username, password, passwordChk, sex, yearOfBirth ] 
+            }
         } 
     
     
 
     //email 
-    const onChangeusername = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
-        const emailCurrent = e.target.value
-        setusername(emailCurrent)
+    const onChangeUsername = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        const usernameRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
+        const usernameCurrent = e.target.value
+        setUsername(usernameCurrent)
 
-        if (!emailRegex.test(emailCurrent)) {
-        setusernameMessage('이메일 형식이 틀렸어요')
-        setIsusername(false)
+        if (!usernameRegex.test(usernameCurrent)) {
+        setUsernameMessage('이메일 형식이 틀렸어요')
+        setIsUsername(false)
         } else {
-        setusernameMessage('올바른 이메일 형식입니다')
-        setIsusername(true)
+        setUsernameMessage('올바른 이메일 형식입니다')
+        setIsUsername(true)
         }
     }, [])
 
@@ -145,7 +140,7 @@ export function MemberShipPage() {
             <form >
             <div className={styles.email}>
                 <p>이메일</p>
-                    <input type="email" onChange={onChangeusername} />
+                    <input type="email" onChange={onChangeUsername} />
                     {username.length > 0 && <span className={`message ${isusername ? 'success' : 'error'}`}>{usernameMessage}</span>}
             </div>
             <div className={styles.password}>
