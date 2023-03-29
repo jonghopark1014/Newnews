@@ -22,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -79,6 +80,8 @@ public class SecurityConfig {
 
             http.addFilterAfter(customUsernamePasswordAuthenticationFilter, LogoutFilter.class);
             http.addFilterBefore(new CustomExceptionHandlingFilter(), CustomUsernamePasswordAuthenticationFilter.class);
+            http.addFilterBefore(new CustomLogFilter(), SecurityContextPersistenceFilter.class);
+
             http.authenticationProvider(new CustomAuthenticationProvider(principalDetailsService, passwordEncoder()));
         }
     }
