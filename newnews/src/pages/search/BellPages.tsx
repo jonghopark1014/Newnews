@@ -1,6 +1,6 @@
-import { Button } from "@components/Button"
-import { BellHeader } from "@components/Alert/BellHeader";
-import styles from "@styles/Bellpages.module.scss"
+import { Button } from "@/components/Button"
+import { BellHeader } from "@/components/Alert/BellHeader";
+import styles from "@/styles/Bellpages.module.scss"
 
 
 /**

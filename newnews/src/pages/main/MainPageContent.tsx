@@ -1,34 +1,33 @@
 import { useEffect, useState } from 'react';
-import '@styles/main/MainPageStyles.scss';
-import { MainPageContentCard } from "@components/mainpage/MainPageContentCard";
+import '@/styles/main/MainPageStyles.scss';
+import { MainPageContentCard } from "@/components/mainpage/MainPageContentCard";
+import useMainNewsRelated from '@/hooks/main/useMainNewsRelated';
+import { useRecoilState } from 'recoil';
+import { topicAtom, topicStateType } from '@/stores/NewsTopics';
 
 interface newsMain {
     newsId : number,
     title : string,
     press : string,
-    newsImage : string,
+    newsImageList : {
+        url:string,
+    }[],
 };
 
-const dummy: newsMain[] = [{
-    newsId : 1,
-    title : "1번",
-    press : "일번일보",
-    newsImage : "https://w7.pngwing.com/pngs/218/24/png-transparent-white-and-green-number-1-number-number-1-blue-image-file-formats-text-thumbnail.png",
-},{
-    newsId : 2,
-    title : "2번",
-    press : "2번일보",
-    newsImage : "https://w7.pngwing.com/pngs/33/502/png-transparent-number-2-image-file-formats-text-logo-thumbnail.png",
-},{
-    newsId : 3,
-    title : "3번",
-    press : "3번일보",
-    newsImage : "https://w7.pngwing.com/pngs/35/303/png-transparent-number-3-text-trademark-logo-thumbnail.png",
-}];
+const defaultNews: newsMain[] = [
+    {
+        newsId : 0,
+        title : 'title',
+        press : 'press',
+        newsImageList : [{url: 'url'}],
+    },
+]
 
 export function MainPageContent(){
-    const [news, setNews] = useState(dummy);
-    // const [news, setNews] = useState(dummy);
+    const [news, setNews] = useState<newsMain[]>(defaultNews);
+    const [topicState, setTopicState] = useRecoilState<topicStateType>(topicAtom);
+    const useNewsAfter = useMainNewsRelated();
+
     const options = {
         root: document.querySelector('.main-page-content'),
         rootMargin: '0px',
@@ -62,6 +61,18 @@ export function MainPageContent(){
     }, options);
 
     useEffect(()=>{
+        
+        if (topicState.focused == "연관뉴스") {
+            useNewsAfter;
+            useNewsAfter.mutate({ userId: 1 }, {
+                onSuccess: (data) => {
+                    console.log(data.data);
+                    setNews(data.data);
+                }
+            });
+        } else {
+            
+        }
         const newsElems = document.querySelectorAll<HTMLElement>('.main-page-content-card');
         const mainpage = document.querySelector('.main-page-content');
         
@@ -72,6 +83,7 @@ export function MainPageContent(){
 
         if (mainpage) {
             mainpage.addEventListener('scroll', (e)=>{
+                console.log(news[0].newsImageList[0].url);
                 console.log(ioIndex);
             })
         }
@@ -79,7 +91,7 @@ export function MainPageContent(){
 
     return (
         <div className="main-page-content">
-            {news.map((news, index)=>{return <MainPageContentCard newsId={news.newsId} title={news.title} press={news.press} newsImage={news.newsImage} newsIndex={index} key={index}/>})}
+            {news.map((news, index)=>{return <MainPageContentCard newsId={news.newsId} title={news.title} press={news.press} newsImage={news.newsImageList[0].url} newsIndex={index} key={index}/>})}
         </div>
     )
 }
