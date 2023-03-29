@@ -44,7 +44,7 @@ export function MainPageContent(){
             // 화면에 노출 상태에 따라 해당 엘리먼트의 class를 컨트롤
             if (entry.isIntersecting) {
                 ioIndex = Number($target.id);
-                console.log(ioIndex);
+                // console.log(ioIndex);
                 if (newsElems[ioIndex - 1]) {
                     // newsElems[ioIndex - 1].classList.add();
                 }
@@ -59,14 +59,11 @@ export function MainPageContent(){
             }
         });
     }, options);
-
     useEffect(()=>{
-        
         if (topicState.focused == "연관뉴스") {
-            useNewsAfter;
             useNewsAfter.mutate({ userId: 1 }, {
                 onSuccess: (data) => {
-                    console.log(data.data);
+                    // console.log(data.data);
                     setNews(data.data);
                 }
             });
@@ -75,20 +72,16 @@ export function MainPageContent(){
         }
         const newsElems = document.querySelectorAll<HTMLElement>('.main-page-content-card');
         const mainpage = document.querySelector('.main-page-content');
-        
         for (let i = 0; i < newsElems.length; i++) {
             newsElems[i].id = String(i);
             io.observe(newsElems[i]);
         }
-
         if (mainpage) {
             mainpage.addEventListener('scroll', (e)=>{
-                console.log(news[0].newsImageList[0].url);
-                console.log(ioIndex);
+                // console.log(ioIndex);
             })
         }
     }, [])
-
     return (
         <div className="main-page-content">
             {news.map((news, index)=>{return <MainPageContentCard newsId={news.newsId} title={news.title} press={news.press} newsImage={news.newsImageList[0].url} newsIndex={index} key={index}/>})}
