@@ -65,6 +65,7 @@ public class NewsService {
 
                     return RelatedNewsResponseDto.builder()
                             .newsId(news.getId())
+                            .preNewsId(notification.getWatched().getId())
                             .title(news.getTitle())
                             .press(news.getPress().getKrName())
                             .newsImage(imageUrl)
