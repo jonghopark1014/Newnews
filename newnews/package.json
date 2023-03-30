@@ -14,6 +14,7 @@
     "format:fix": "prettier src --write"
   },
   "dependencies": {
+    "@react-corekit/sleep": "^1.1.0",
     "@react-oauth/google": "^0.9.0",
     "@tanstack/react-query": "^4.27.0",
     "animate.css": "^4.1.1",
