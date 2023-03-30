@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("Economy")
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Economy extends News {
 
     public static Economy createEconomy(String title, String content, String newsDate, String reporter, Press press, NewsImage... newsImages) {
