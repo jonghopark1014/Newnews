@@ -84,10 +84,11 @@ public class NotificationService {
 //    }
 
     public List<NotificationListResponseDto> getNotificationList(Long userId) {
-        List<Notification> notificationList = notificationRepository.findAllWithPreNewsByUserId(userId);
+        List<Notification> notificationList = notificationRepository.findAllByUserId(userId);
 
         return notificationList.stream().map(
                 (notification -> new NotificationListResponseDto(
+                        notification.getNews().getId(),
                         notification.getWatched().getNews().getId(),
                         notification.getWatched().getNews().getTitle()
                 ))
