@@ -27,8 +27,8 @@ public class InitDb {
     public void init(){
         insertNewsDummy();
         insertUserDummy();
-        insertNotification();
         insertWatched();
+        insertNotification();
         insertBookmark();
     }
 
@@ -65,10 +65,11 @@ public class InitDb {
     void insertNotification(){
         Optional<User> optionalUser = userRepository.findById(1L);
         List<News> newsList = newsRepository.findAll();
+        Watched watched = watchedRepository.findById(1L).get();
 
         for (int i = 0; i < newsList.size(); i++) {
             Notification notification = Notification.
-                    createNotification(optionalUser.get(), newsList.get(i));
+                    createNotification(optionalUser.get(), newsList.get(i), watched);
             notificationRepository.save(notification);
         }
     }

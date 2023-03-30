@@ -14,7 +14,6 @@ public class RelatedNewsResponseDto {
     private String newsImageDesc;
 
     @Builder
-
     public RelatedNewsResponseDto(
             Long newsId,
             String title,
