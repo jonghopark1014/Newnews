@@ -19,8 +19,11 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
 //    @Query("update Notification n set n.status = 'READ' where n.user.id = :userId")
 //    int bulkReadByUserId(@Param("userId") Long userId);
 
-    @Query("select n from Notification n join fetch n.watched nw join fetch nw.news where n.user.id = :userId")
-    List<Notification> findAllWithPreNewsByUserId(@Param("userId") Long userId);
+    @Query("select n from Notification n " +
+            "join fetch n.news " +
+            "join fetch n.watched nw join fetch nw.news " +
+            "where n.user.id = :userId")
+    List<Notification> findAllByUserId(@Param("userId") Long userId);
 
     @Query("select n from Notification n join fetch n.news nn join fetch nn.newsImageList where n.user.id = :userId")
     List<Notification> findAllWithNewsByUserId(@Param("userId") Long userId);

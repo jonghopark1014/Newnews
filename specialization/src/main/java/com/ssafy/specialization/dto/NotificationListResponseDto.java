@@ -5,11 +5,13 @@ import lombok.Getter;
 @Getter
 public class NotificationListResponseDto {
 
-    private Long id;
-    private String title;
+    private Long newsId;
+    private Long preNewsId;
+    private String preNewsTitle;
 
-    public NotificationListResponseDto(Long id, String title) {
-        this.id = id;
-        this.title = title;
+    public NotificationListResponseDto(Long newsId, Long preNewsId, String preNewsTitle) {
+        this.newsId = newsId;
+        this.preNewsId = preNewsId;
+        this.preNewsTitle = preNewsTitle;
     }
 }
