@@ -56,11 +56,9 @@ public class NewsService {
                     News news = notification.getNews();
                     List<NewsImage> newsImageList = news.getNewsImageList();
                     String imageUrl = "";
-                    String imageDesc = "";
                     if (!(newsImageList.size() == 0)) {
                         NewsImage newsImage = newsImageList.get(0);
                         imageUrl = newsImage.getUrl();
-                        imageDesc = newsImage.getDescription();
                     }
 
                     return RelatedNewsResponseDto.builder()
@@ -69,7 +67,6 @@ public class NewsService {
                             .title(news.getTitle())
                             .press(news.getPress().getKrName())
                             .newsImage(imageUrl)
-                            .newsImageDesc(imageDesc)
                             .build();
                 }
         ).collect(Collectors.toList());
