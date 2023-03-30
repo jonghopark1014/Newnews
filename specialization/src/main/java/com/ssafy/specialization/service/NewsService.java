@@ -9,6 +9,8 @@ import com.ssafy.specialization.entity.Notification;
 import com.ssafy.specialization.repository.NewsRepository;
 import com.ssafy.specialization.repository.NotificationRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,9 +50,9 @@ public class NewsService {
         ).collect(Collectors.toList());
     }
 
-    public List<RelatedNewsResponseDto> getRelatedNews(Long userId) {
-        List<Notification> notificationList = notificationRepository.findAllWithNewsByUserId(userId);
-        return notificationList.stream().map(
+    public Page<RelatedNewsResponseDto> getRelatedNews(Long userId, Pageable pageable) {
+        Page<Notification> notificationList = notificationRepository.findAllWithRelativeNewsByUserId(userId, pageable);
+        return notificationList.map(
                 (notification) -> {
                     News news = notification.getNews();
                     List<NewsImage> newsImageList = news.getNewsImageList();
@@ -68,6 +70,6 @@ public class NewsService {
                             .newsImage(imageUrl)
                             .build();
                 }
-        ).collect(Collectors.toList());
+        );
     }
 }

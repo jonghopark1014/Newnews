@@ -7,6 +7,8 @@ import com.ssafy.specialization.response.Response;
 import com.ssafy.specialization.service.BookmarkService;
 import com.ssafy.specialization.service.NewsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,9 +48,9 @@ public class NewsController {
         return Response.success(HttpStatus.OK, news);
     }
 
-    @PostMapping("after")
-    public ResponseEntity getRelatedNews(@RequestBody HashMap<String, Long> req) {
-        List<RelatedNewsResponseDto> relatedNewsList = newsService.getRelatedNews(req.get("userId"));
+    @PostMapping("/after")
+    public ResponseEntity getRelatedNews(@RequestBody HashMap<String, Long> req, Pageable pageable) {
+        Page<RelatedNewsResponseDto> relatedNewsList = newsService.getRelatedNews(req.get("userId"), pageable);
         return Response.success(HttpStatus.OK, relatedNewsList);
     }
 

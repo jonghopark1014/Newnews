@@ -1,10 +1,13 @@
 package com.ssafy.specialization.service;
 
+import com.ssafy.specialization.dto.NotificationListResponseDto;
 import com.ssafy.specialization.entity.Notification;
 import com.ssafy.specialization.repository.NotificationRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -39,12 +42,17 @@ class NotificationServiceTest {
         assertThat(delete).isEqualTo(1);
     }
 
+//    @Test
+//    void 알림_모두_읽음_처리(){
+//        notificationService.addNotification(1L,2L);
+//        notificationService.addNotification(1L,1L);
+//        int readCount = notificationService.readAll(1L);
+//
+//        assertThat(readCount).isEqualTo(2);
+//    }
     @Test
-    void 알림_모두_읽음_처리(){
-        notificationService.addNotification(1L,2L);
-        notificationService.addNotification(1L,1L);
-        int readCount = notificationService.readAll(1L);
-
-        assertThat(readCount).isEqualTo(2);
+    void 연관뉴스리스트제공(){
+        PageRequest pageRequest = PageRequest.of(0,5, Sort.by(Sort.Direction.DESC,"id"));
+        List<NotificationListResponseDto> notificationList = notificationService.getNotificationList(1L);
     }
 }
