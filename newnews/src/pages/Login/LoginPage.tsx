@@ -4,7 +4,7 @@ import { HiOutlineUsers, HiOutlineLockClosed } from "react-icons/hi"
 import axios from "axios";
 
 import { SERVER_URL } from "@/utils/urls"
-import { Button } from "@components/Button";
+import { Button } from "@/components/Button";
 import { KakaoLogin } from "@/components/login/Kakao";
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import { GoogleLogin } from '@react-oauth/google'

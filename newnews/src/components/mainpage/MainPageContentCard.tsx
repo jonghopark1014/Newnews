@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 interface Iprops {
     newsId: number,
+    preNewsId : number,
     title: string,
     press: string,
     newsImage: string,
@@ -28,7 +29,7 @@ export function MainPageContentCard(props: Iprops){
             newsCardLower.style.backgroundImage = `linear-gradient(#00000000 70%, #000000c0 85%, #000000c0 100%), url("${newsImage}")`;
         }
 
-    }, [newsImage])
+    }, [newsImage]);
 
     return (
         <div className="main-page-content-card" onClick={()=>navigate("/detail", { state: { newsId: props.newsId } })}>

@@ -4,9 +4,9 @@ import { useQuery } from "react-query";
 
 export const MAIN_NEWS_DETAIL = '/main/detail';
 
-const API_URL = '/api/news/';
+const API_URL = '/api/news';
 
-const fetcher = (newsId: number) => axios.get(SERVER_URL + API_URL, { params: { newsId: newsId } }).then(({ data }) => data)
+const fetcher = (newsId: number) => axios.get(SERVER_URL + API_URL + `/${newsId}`).then(({ data }) => data);
 
 /**
  * userId: useQuery안에 fetcher(axios요청)에 넣을 파라미터 값(들)
