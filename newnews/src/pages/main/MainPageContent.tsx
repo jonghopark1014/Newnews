@@ -7,19 +7,20 @@ import { topicAtom, topicStateType } from '@/stores/NewsTopics';
 
 interface newsMain {
     newsId : number,
+    preNewsId : number,
     title : string,
     press : string,
-    newsImageList : {
-        url:string,
-    }[],
+    newsImage : string,
+    newsImageDesc? : string
 };
 
 const defaultNews: newsMain[] = [
     {
         newsId : 0,
+        preNewsId : 0,
         title : 'title',
         press : 'press',
-        newsImageList : [{url: 'url'}],
+        newsImage: 'url',
     },
 ]
 
@@ -84,7 +85,7 @@ export function MainPageContent(){
     }, [])
     return (
         <div className="main-page-content">
-            {news.map((news, index)=>{return <MainPageContentCard newsId={news.newsId} title={news.title} press={news.press} newsImage={news.newsImageList[0].url} newsIndex={index} key={index}/>})}
+            {news.map((news, index)=>{return <MainPageContentCard newsId={news.newsId} preNewsId={news.preNewsId} title={news.title} press={news.press} newsImage={news.newsImage} newsIndex={index} key={index}/>})}
         </div>
     )
 }

@@ -29,6 +29,7 @@ export function MainDetailPage() {
     const newsId = location.state.newsId;
     // console.log('?', newsId);
     const useMainDetail = useMainNewsDetail(newsId);
+    console.log(useMainDetail);
     const addBookmark = useAddBookmark();
     const removeBookmark = useRemoveBookmark();
     
