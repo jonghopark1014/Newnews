@@ -1,8 +1,9 @@
 package com.ssafy.specialization.repository;
 
 import com.ssafy.specialization.entity.Notification;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -25,11 +26,17 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
             "where n.user.id = :userId")
     List<Notification> findAllByUserId(@Param("userId") Long userId);
 
-    @Query("select n from Notification n " +
+//    @Query("select n from Notification n " +
+//            "join fetch n.news nn join fetch nn.newsImageList " +
+//            "join fetch n.watched nw join fetch nw.news " +
+//            "where n.user.id = :userId")
+//    List<Notification> findAllWithNewsByUserId(@Param("userId") Long userId);
+
+    @Query(value = "select n from Notification n " +
             "join fetch n.news nn join fetch nn.newsImageList " +
             "join fetch n.watched nw join fetch nw.news " +
-            "where n.user.id = :userId")
-    List<Notification> findAllWithNewsByUserId(@Param("userId") Long userId);
+            "where n.user.id = :userId",countQuery ="select count(n) from Notification n where n.user.id = :userId")
+    Page<Notification> findAllWithRelativeNewsByUserId(@Param("userId") Long userId, Pageable pageable);
 
     Optional<Notification> findByUserIdAndNewsId(Long userId, Long newsId);
 }

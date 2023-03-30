@@ -38,9 +38,25 @@ public class InitDb {
                     "이미지에 해당하는 설명입니다."
             );
             Economy economy = Economy.createEconomy("1", "1", "1", "1", Press.CHOSUN, newsImage);
+            newsImage = NewsImage.createNewsImage(
+                    "https://image.ytn.co.kr/general/jpg/2017/1018/201710181100063682_d.jpg",
+                    "이미지에 해당하는 설명입니다."
+            );
             ItAndScience itAndScience = ItAndScience.createItAndScience("1", "1", "1", "1", Press.CHOSUN, newsImage);
+            newsImage = NewsImage.createNewsImage(
+                    "https://image.ytn.co.kr/general/jpg/2017/1018/201710181100063682_d.jpg",
+                    "이미지에 해당하는 설명입니다."
+            );
             LifeAndCulture lifeAndCulture = LifeAndCulture.createLifeAndCulture("1", "1", "1", "1", Press.CHOSUN, newsImage);
+            newsImage = NewsImage.createNewsImage(
+                    "https://image.ytn.co.kr/general/jpg/2017/1018/201710181100063682_d.jpg",
+                    "이미지에 해당하는 설명입니다."
+            );
             Politics politics = Politics.createPolitics("1", "1", "1", "1", Press.CHOSUN, newsImage);
+            newsImage = NewsImage.createNewsImage(
+                    "https://image.ytn.co.kr/general/jpg/2017/1018/201710181100063682_d.jpg",
+                    "이미지에 해당하는 설명입니다."
+            );
             Society society = Society.createSociety("1", "1", "1", "1", Press.CHOSUN, newsImage);
             newsRepository.save(economy);
             newsRepository.save(itAndScience);
