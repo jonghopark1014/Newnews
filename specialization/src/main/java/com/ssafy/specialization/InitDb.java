@@ -1,6 +1,8 @@
 package com.ssafy.specialization;
 
 import com.ssafy.specialization.entity.*;
+import com.ssafy.specialization.entity.dtype.*;
+import com.ssafy.specialization.entity.enums.Press;
 import com.ssafy.specialization.entity.enums.Sex;
 import com.ssafy.specialization.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -30,12 +32,21 @@ public class InitDb {
     }
 
     void insertNewsDummy(){
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 2; i++) {
             NewsImage newsImage = NewsImage.createNewsImage(
                     "https://image.ytn.co.kr/general/jpg/2017/1018/201710181100063682_d.jpg",
                     "이미지에 해당하는 설명입니다."
             );
-
+            Economy economy = Economy.createEconomy("1", "1", "1", "1", Press.CHOSUN, newsImage);
+            ItAndScience itAndScience = ItAndScience.createItAndScience("1", "1", "1", "1", Press.CHOSUN, newsImage);
+            LifeAndCulture lifeAndCulture = LifeAndCulture.createLifeAndCulture("1", "1", "1", "1", Press.CHOSUN, newsImage);
+            Politics politics = Politics.createPolitics("1", "1", "1", "1", Press.CHOSUN, newsImage);
+            Society society = Society.createSociety("1", "1", "1", "1", Press.CHOSUN, newsImage);
+            newsRepository.save(economy);
+            newsRepository.save(itAndScience);
+            newsRepository.save(lifeAndCulture);
+            newsRepository.save(politics);
+            newsRepository.save(society);
         }
     }
 
@@ -52,14 +63,17 @@ public class InitDb {
                 .username("ssafy2")
                 .yearOfBirth(2023)
                 .build();
-        userRepository.save(user1);
-        userRepository.save(user2);
+        User save = userRepository.save(user1);
+        User save1 = userRepository.save(user2);
+        System.out.println(save);
     }
 
     void insertNotification(){
         Optional<User> optionalUser = userRepository.findById(1L);
         List<News> newsList = newsRepository.findAll();
+        System.out.println("ABC");
         Watched watched = watchedRepository.findById(1L).get();
+        System.out.println("ABC");
 
         for (int i = 0; i < newsList.size(); i++) {
             Notification notification = Notification.
@@ -70,6 +84,7 @@ public class InitDb {
 
     void insertWatched(){
         Optional<User> optionalUser = userRepository.findById(1L);
+        System.out.println(optionalUser.get());
         List<News> newsList = newsRepository.findAll();
 
         for (int i = 0; i < newsList.size()/2; i++) {
