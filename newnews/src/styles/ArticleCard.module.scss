@@ -3,6 +3,7 @@
     width: 80%;
     margin: 8px auto;
     flex-direction: row-reverse;
+    max-width: 400px;
 }
 .articleImg{
     border-color: #ffffff;
@@ -46,6 +47,23 @@
                 height: 100%;
             }
         }
+        .arterIcons{
+            position: absolute;
+            right: -3%;
+            top: 5vh;
+            width: 20%;
+            height: 30%;
+            color: #FFD342;
+            svg{
+                width: 100%;
+                height: 100%;
+            }
+        }
     }
 }
-
+@media (min-width: 1024px) {
+    .articleCard{
+        display: grid;
+        margin: auto;
+    }
+}

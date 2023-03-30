@@ -8,7 +8,7 @@ import { Button } from "@/components/Button";
 import { KakaoLogin } from "@/components/login/Kakao";
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import { GoogleLogin } from '@react-oauth/google'
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { LoginState } from '@/states/LoginState';
 // import {  } from 'react-kakao-login'
 
@@ -22,8 +22,10 @@ interface Iprops{
 const REST_API_KEY = '758949398062-ossaflmuh3pmgl7igje8cvqmgf9cpoi1.apps.googleusercontent.com'
 
 export function LoginPage() {
+    const isLogin = useRecoilValue(LoginState);
     const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState);
     
+
     const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const navigate = useNavigate()
@@ -31,6 +33,8 @@ export function LoginPage() {
     const API = `${SERVER_URL}/api/login`;
     
     async function onSubmitLogin({username, password}: Iprops) {
+        setIsLoggedIn(isLoggedIn)
+        console.log(isLoggedIn)
         try {
         await axios
             .post(API, {
@@ -41,14 +45,14 @@ export function LoginPage() {
                 withCredentials: true,
             })
             .then((res) => {
-            console.log('response:', res)
-            console.log(isLoggedIn)
-            setTimeout(()=> {
-                navigate("/");
-            }, 2000);
+                console.log('response', res.data)
+
+                setTimeout(()=> {
+                    navigate("/");
+                }, 2000);
             })
             } catch (err) {
-            console.error(err)
+                console.error(err)
             }
         }
     
@@ -96,7 +100,7 @@ export function LoginPage() {
             <hr className={styles.hrStyles}/>
             {/* 소셜로그인 */}
             <div className={styles.snsGrid}>
-                <KakaoLogin />
+            <KakaoLogin />
                 <GoogleOAuthProvider clientId={`${REST_API_KEY}`}>
                     <GoogleLogin onSuccess={(credentialRespose) =>{
                         console.log(credentialRespose)
