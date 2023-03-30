@@ -1,15 +1,12 @@
 package com.ssafy.specialization;
 
 import com.ssafy.specialization.entity.*;
-import com.ssafy.specialization.entity.enums.Category;
-import com.ssafy.specialization.entity.enums.Press;
 import com.ssafy.specialization.entity.enums.Sex;
 import com.ssafy.specialization.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,9 +36,6 @@ public class InitDb {
                     "이미지에 해당하는 설명입니다."
             );
 
-            News news = News.createNews(Category.IT, String.valueOf(i), String.valueOf(i),
-                    LocalDateTime.now().toString(), String.valueOf(i), Press.JUNGANGSUNDAY, newsImage);
-            newsRepository.save(news);
         }
     }
 

@@ -32,7 +32,6 @@ public class NewsService {
                 .content(news.getContent())
                 .press(news.getPress().toString())
                 .reporter(news.getReporter())
-                .category(news.getCategory().toString())
                 .newsDate(news.getNewsDate())
                 .newsImageList(
                         getNewsImageResponseDto(news.getNewsImageList())
