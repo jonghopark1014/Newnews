@@ -12,7 +12,6 @@ public class RelatedNewsResponseDto {
     private String title;
     private String press;
     private String newsImage;
-    private String newsImageDesc;
 
     @Builder
     public RelatedNewsResponseDto(
@@ -20,14 +19,12 @@ public class RelatedNewsResponseDto {
             Long preNewsId,
             String title,
             String press,
-            String newsImage,
-            String newsImageDesc
+            String newsImage
     ) {
         this.newsId = newsId;
         this.preNewsId = preNewsId;
         this.title = title;
         this.press = press;
         this.newsImage = newsImage;
-        this.newsImageDesc = newsImageDesc;
     }
 }
