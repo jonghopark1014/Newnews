@@ -6,7 +6,7 @@
     justify-content: center;
     align-items: center;
     gap: min(2rem, 5vw);
-    form{
+    .formStyle{
         height: 60%;
         width: 80%;
     }
@@ -35,12 +35,16 @@
     }
     .email{
         display: flex;
-        height: 15%;
+        height: 18%;
         flex-direction: column;
         justify-content: flex-start;
         margin-top: 5%;
         input{
-            position: relative;
+            place-self: center center;
+        }
+        .emailGrid{
+            display: flex;
+            justify-content: space-between;
         }
     }
     .password{
@@ -88,25 +92,7 @@
         margin-right: 10%;
     }
 }
-.formbox {
-position: relative;
-margin-bottom: 20px;
-.message {
-    font-weight: 500;
-    font-size: 1.6rem;
-    line-height: 24px;
-    letter-spacing: -1px;
-    position: absolute;
-    bottom: -10px;
-    left: 0;
-    &.true {
-    color: #8f8c8b;
-    }
-    &.error {
-    color: #ff2727;
-    }
-}
-}
+
 // @media all and (min-width: 1024px) {
 // .input-forms {
 //     padding: 70px;

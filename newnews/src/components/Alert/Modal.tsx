@@ -26,7 +26,6 @@ function Modal({ onClickToggleModal, children,}: PropsWithChildren<ModalDefaultT
                 <div className={styles.buttonGrid}>
                     <Button onClick={() =>{}}>{children && children[0]}</Button>
                     <Button onClick={() =>{}}>{children && children[2]}</Button>
-                    <Button onClick={() =>{}}>{children && children[4]}</Button>
                 <div
                 onClick={(e: React.MouseEvent) => {
                     e.preventDefault();

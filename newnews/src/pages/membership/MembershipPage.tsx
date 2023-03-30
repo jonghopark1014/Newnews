@@ -1,9 +1,10 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, Children, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/Button"
 import styles from "@/styles/membership/MemberShipPage.module.scss";
 import axios from "axios";
 import { SERVER_URL } from "@/utils/urls"
+import MemberShipModal from "@/components/membership/MemberShipModal";
 
 interface Iprops{
 	username : string
@@ -11,10 +12,65 @@ interface Iprops{
 	passwordChk : string
 	sex : string
 	yearOfBirth : React.ReactNode
+    children?: string
 }
 
 export function MemberShipPage() {
     const navigate = useNavigate()
+
+    
+
+
+    // 모달창
+    const [isUsernameModal, setUsernameModal] = useState<boolean>(false);
+    const [isUsernameErrorModal, setUsernameErrorModal] = useState<boolean>(false);
+    const [isDuplicationModal, setDuplicationModal] = useState<boolean>(false);
+    const [isPasswordModal, setPasswordModal] = useState<boolean>(false);
+    const [isSexModal, setSexModal] = useState<boolean>(false);
+    const [isEmailModal, setEmailModal ] = useState<boolean>(false);
+    
+    // 중복검사 통과했는지 안했는지 확인
+    const [isMember, setMember] = useState<boolean>(false);
+
+    /**
+     * 중복검사 통과했을때 모달창
+     */
+    const onClickToggleModal = useCallback(() => {
+        setUsernameModal(!isUsernameModal);
+    }, [isUsernameModal]);
+    
+    /**
+     * 중복검사 통과하지 못했을 때 모달창
+     */
+    const onClickToggleErrorModal = useCallback(() => {
+    setUsernameErrorModal(!isUsernameErrorModal);
+    }, [isUsernameErrorModal]);
+    /**
+     * 중복확인을 누르지 않았을떄 모달창 
+     */
+    const onClickToggleDuplicationModal = useCallback(() => {
+        setDuplicationModal(!isDuplicationModal);
+    }, [isDuplicationModal]);
+    /**
+     * 비밀번호가 같지 않았을때 모달창 
+     */
+    const onClickTogglePasswordModal = useCallback(() => {
+        setPasswordModal(!isPasswordModal);
+    }, [isPasswordModal]);
+    /**
+     * 성별을 체크하지 않고 회원가입을 눌렀을때 모달창 
+     */
+    const onClickToggleSexModal = useCallback(() => {
+        setSexModal(!isSexModal);
+    }, [isSexModal]);
+    /**
+     * 올바르지 이메일을 입력했을때 모달창
+     */
+    const onClickToggleEmailModal = useCallback(() => {
+        setEmailModal(!isEmailModal);
+    }, [isEmailModal]);
+
+
     //email, password, passwordChk 확인
     const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
@@ -34,7 +90,13 @@ export function MemberShipPage() {
 
     const API = `${SERVER_URL}/api/regist`
 
+    /**
+     * 회원가입 API 요청
+     * @param param0 유저이름, 비밀번호, 비밀번호확인, 성별, 생년원일
+     */
     async function onSubmitMemberShip({username, password, passwordChk, sex, yearOfBirth}: Iprops) {
+        const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/
+        
         try {
         await axios
             .post(API, {
@@ -49,16 +111,54 @@ export function MemberShipPage() {
             })
             .then((res) => {
             console.log('response:', res)
-            setTimeout(()=> {
-                navigate("/login");
-            }, 2000);
+            if (!isMember) {
+                onClickToggleDuplicationModal()
+            }
+            else if (!passwordRegex.test(password)) {
+                onClickTogglePasswordModal()
+            }
+            else if (sex !== 'male' && sex !== 'female') {
+                onClickToggleSexModal()
+            }
+            else{
+                setTimeout(()=> {
+                    navigate("/login");
+                }, 2000);
+            }
             })
             } catch (err) {
             console.error(err)
             }
         } 
     
-    
+        const USER_NAME_API =`${SERVER_URL}/api/user/exist/`
+        /**
+         * 중복확인을 하는 요청 axios
+         * @param username 유저 이메일
+         */
+        async function checkUsername(username: string) {
+            const usernameRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
+
+            try {
+                await axios
+                .get(`${USER_NAME_API}${username}`)
+                .then((res) => {
+                    if (!usernameRegex.test(username)){
+                        setIsUsername(false)
+                        onClickToggleEmailModal()
+                    } else {
+                        console.log(res.data.status)
+                        setMember(true)
+                        onClickToggleModal()
+                    }
+                })
+            } catch (err) {
+                console.log(err)
+                setUsername('')
+                onClickToggleErrorModal()
+                
+            }
+        }
 
     //email 
     const onChangeUsername = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,7 +167,7 @@ export function MemberShipPage() {
         setUsername(usernameCurrent)
 
         if (!usernameRegex.test(usernameCurrent)) {
-        setUsernameMessage('이메일 형식이 틀렸어요')
+        setUsernameMessage('이메일 형식이 틀렸습니다')
         setIsUsername(false)
         } else {
         setUsernameMessage('올바른 이메일 형식입니다')
@@ -97,7 +197,7 @@ export function MemberShipPage() {
         setPasswordChk(passwordChkfirmCurrent)
 
         if (password === passwordChkfirmCurrent) {
-            setPasswordChkMessage('비밀번호를 똑같이 입력했어요')
+            setPasswordChkMessage('비밀번호를 똑같습니다')
             setIspasswordChk(true)
         } else {
             setPasswordChkMessage('비밀번호가 틀렸습니다')
@@ -133,26 +233,28 @@ export function MemberShipPage() {
 
     },[])
 
-    
-
     return(
         <section className={styles.sectionStyles}>
-            <form >
+            <div className={styles.formStyle} >
             <div className={styles.email}>
-                <p>이메일</p>
-                    <input type="email" onChange={onChangeUsername} />
+                <div className={styles.emailGrid}>
+                    <p>이메일</p>
+                    <Button onClick={() => {checkUsername(username)}} children={"중복확인"}/>
+                </div>
+                    <input type="email" onChange={onChangeUsername} value={username} placeholder="이메일을 입력해주세요"/>
                     {username.length > 0 && <span className={`message ${isusername ? 'success' : 'error'}`}>{usernameMessage}</span>}
+
             </div>
             <div className={styles.password}>
                 <p>비밀번호</p>
-                    <input type="password" onChange={onChangePassword} placeholder="특수문자와 숫자를 포함한 8자리이상 입력해주세요."/>
+                    <input type="password" onChange={onChangePassword} value={password}  placeholder="특수문자와 숫자를 포함한 8자리이상 입력해주세요."/>
                     {password.length > 0 && (
                     <span className={`message ${isPassword ? 'success' : 'error'}`}>{passwordMessage}</span>
                     )}
             </div>
             <div className={styles.passwordConfirm}>
                 <p>비밀번호 확인</p>
-                    <input type="password" onChange={onChangePasswordChk} />
+                    <input type="password" onChange={onChangePasswordChk} value={passwordChk} />
                     {passwordChk.length > 0 && (
                     <span className={`message ${isPasswordChk ? 'success' : 'error'}`}>{passwordChkMessage}</span>
                     )}
@@ -173,7 +275,13 @@ export function MemberShipPage() {
                 <p>생년월일</p>
                 <input type="number" placeholder="ex) 900101" required aria-required="true" maxLength={6} onChange={onChangeyearOfBirth}/>
             </div>
-            </form>
+            </div>
+            { isUsernameModal && <MemberShipModal onClickToggleModal={ onClickToggleModal } children="사용 가능한 아이디입니다"/>}
+            { isUsernameErrorModal && <MemberShipModal onClickToggleModal={ onClickToggleErrorModal } children="이미 사용중인 아이디입니다"/>}
+            { isDuplicationModal && <MemberShipModal onClickToggleModal={ onClickToggleDuplicationModal } children="중복확인 눌러주세요"/>}
+            { isPasswordModal && <MemberShipModal onClickToggleModal={ onClickTogglePasswordModal } children="비밀번호를 확인해주세요"/>}
+            { isSexModal && <MemberShipModal onClickToggleModal={ onClickToggleSexModal } children="성별을 선택해주세요"/>}
+            { isEmailModal && <MemberShipModal onClickToggleModal={ onClickToggleEmailModal } children="이메일 형식을 확인해주세요"/>}
             <div className={styles.buttonGrid}>
                 <Button children={"가입하기"} onClick={()=>{onSubmitMemberShip({username, password, passwordChk, sex, yearOfBirth})}}></Button>
             </div>

@@ -1,10 +1,9 @@
-import * as React from 'react'
+import { useEffect, useState } from 'react'
 import styles from "../styles/ArticleCard.module.scss"
 import bondee from "../assets/bondee.jpg"
 import { BsBookmarkPlus, BsBookmarkCheckFill } from "react-icons/bs";
 
 
-const { useEffect } = React;
 interface Card {
     id?: number,
     url?: string,
@@ -20,7 +19,7 @@ interface Props {
 
 // export const ArticleCard = ({data}: Props) => {
 export const ArticleCard = ({width, height} : Card ) => {
-    const [activeId, setActiveId] = React.useState<number>()
+    const [activeId, setActiveId] = useState<number>()
 
     const onClick = (id: number) => setActiveId(id);
     
@@ -32,7 +31,19 @@ export const ArticleCard = ({width, height} : Card ) => {
             articleCard.style.height =`${height}px`
         }        
     }, [])
-
+    
+        const [marked, setMarked] = useState(true);
+        const bookMark = (state: boolean)=>{
+            if (state) {
+                return (
+                    <BsBookmarkPlus className={styles.icons} onClick={()=>setMarked(!marked)}/>
+                )
+            } else {
+                return (
+                    <BsBookmarkCheckFill className={styles.arterIcons} onClick={()=>setMarked(!marked)}/>
+                )
+            }
+        }
     return(
 
         <div  className={styles.articleCard}>
@@ -49,9 +60,7 @@ export const ArticleCard = ({width, height} : Card ) => {
                 {/* <img src={`${url}`} alt="" /> */}
                 <div className={styles.gradation}>
                     <h3>본디 신상정보 사실이 아니다본디 신상정보 사실이 아니다본디 신상정보 사실이 아니다 </h3>
-                    <BsBookmarkPlus className={styles.icons}/>
-                    {/* <BsBookmarkCheckFill className={styles.icons}/> */}
-                    {/* <div className={styles.icons}> </div> */}
+                    {bookMark(marked)}
                 </div>
             </div>
         </div>

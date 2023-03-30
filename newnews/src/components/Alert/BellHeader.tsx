@@ -32,8 +32,6 @@ export function BellHeader(){
                 전체 알림 삭제
                 <br />
                 읽은 알림 삭제
-                <br />
-                전체 알림 읽음
             </Modal>
             )}
             <RiDeleteBin6Line className={styles.deleteAlret} onClick={ onClickToggleModal }/>
