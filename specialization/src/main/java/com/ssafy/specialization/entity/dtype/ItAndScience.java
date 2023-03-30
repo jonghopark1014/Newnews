@@ -15,11 +15,12 @@ import javax.persistence.Entity;
 public class ItAndScience extends News {
 
 
-    public ItAndScience createItAndScience(String title, String content, String newsDate, String reporter, Press press, NewsImage... newsImages) {
+    public static ItAndScience createItAndScience(String title, String content, String newsDate, String reporter, Press press, NewsImage... newsImages) {
         ItAndScience itAndScience = new ItAndScience();
         itAndScience.setTitle(title);
         itAndScience.setContent(content);
         itAndScience.setPress(press);
+        itAndScience.setReporter(reporter);
         itAndScience.setNewsDate(newsDate);
         for (NewsImage newsImage : newsImages) {
             itAndScience.addNewsImage(newsImage);
