@@ -1,10 +1,18 @@
-import { useEffect, useState } from 'react';
-import '@/styles/main/MainPageStyles.scss';
+import { useEffect, useState, useRef } from 'react';
+import { useRecoilState } from 'recoil';
+
 import { MainPageContentCard } from "@/components/mainpage/MainPageContentCard";
 import useMainNewsRelated from '@/hooks/main/useMainNewsRelated';
-import { useRecoilState } from 'recoil';
-import { topicAtom, topicStateType } from '@/stores/NewsTopics';
 import useMainNewsAll from '@/hooks/main/useMainNewsAll';
+import { topicAtom, topicStateType } from '@/stores/NewsTopics';
+
+import '@/styles/main/MainPageStyles.scss';
+
+const BLUR_STATUS = {
+    LEFT_BLUR: 1,
+    RIGHT_BLUR: -1,
+    BOTH_BLUR: 0,
+}; 
 
 interface newsMain {
     newsId : number,
@@ -12,7 +20,6 @@ interface newsMain {
     title : string,
     press : string,
     newsImage : string,
-    newsImageDesc? : string
 };
 
 const defaultNews: newsMain[] = [
@@ -26,62 +33,79 @@ const defaultNews: newsMain[] = [
 ]
 
 export function MainPageContent(){
+    // 메인 뉴스 정보
     const [news, setNews] = useState<newsMain[]>(defaultNews);
+    // topicState : {토픽설정에서 고른 토픽들, 지금 클릭한 토픽}
     const [topicState, setTopicState] = useRecoilState<topicStateType>(topicAtom);
+    // 후속기사들
     const useNewsAfter = useMainNewsRelated();
+    // 그외 토픽에 따른 기사들
     const useNewsAll = useMainNewsAll();
-
-    const options = {
-        root: document.querySelector('.main-page-content'),
-        rootMargin: '0px',
-        threshold: 0.9
-    }
+    // 현재 보고있는 뉴스의 index
     let ioIndex: any;
-    const io = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            // entry의 target으로 DOM에 접근
-            const $target = entry.target;
-            const newsElems = document.querySelectorAll<HTMLElement>('.main-page-content-card');
-            let news;
 
-            // 화면에 노출 상태에 따라 해당 엘리먼트의 class를 컨트롤
-            if (entry.isIntersecting) {
-                ioIndex = Number($target.id);
-                // console.log(ioIndex);
-                if (newsElems[ioIndex - 1]) {
-                    // newsElems[ioIndex - 1].classList.add();
-                }
-                if (newsElems[ioIndex]) {
-                    // newsElems[ioIndex].classList.add();
-                }
-                if (newsElems[ioIndex + 1]) {
-                    // newsElems[ioIndex + 1].classList.add();
-                }
-            } else {
-                // $target.classList.remove("screening");
-            }
-        });
-    }, options);
+    
     useEffect(()=>{
+        
+        // intersectionObserver 옵션
+        // root : viewport로 판단할 타겟
+        // threshold: 관찰할 타겟이 얼마나 보일때 callback 할 지, 0~1
+        const options = {
+            root: document.querySelector('.main-page-content'),
+            rootMargin: '0px',
+            threshold: 1
+        }
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                // entry의 target으로 DOM에 접근
+                const $target = entry.target;
+                const newsElems = document.querySelectorAll<HTMLElement>('.main-page-content-card');
+                let news;
+                // 화면에 노출 상태에 따라 해당 엘리먼트의 class를 컨트롤
+                if (entry.isIntersecting) {
+                    ioIndex = Number($target.id);
+                    console.log(ioIndex);
+                    if (newsElems[ioIndex - 1]) {
+                        // newsElems[ioIndex - 1].classList.add();
+                    }
+                    if (newsElems[ioIndex]) {
+                        // newsElems[ioIndex].classList.add();
+                    }
+                    if (newsElems[ioIndex + 1]) {
+                        // newsElems[ioIndex + 1].classList.add();
+                    }
+                } else {
+                    // $target.classList.remove("screening");
+                }
+            });
+        }, options);
         if (topicState.focused == "연관뉴스") {
             useNewsAfter.mutate({ userId: 1 }, {
                 onSuccess: (data) => {
-                    // console.log(data.data);
-                    setNews(data.data);
+                    setNews(data.data.content);
                 }
             });
         } else {
             useNewsAll.mutate({ category: topicState.focused }, {
                 onSuccess: (data) => {
-                    console.log(data);
-                    setNews(data.data);
+                    setNews(data.data.content);
                 }
             });
         }
         const newsElems = document.querySelectorAll<HTMLElement>('.main-page-content-card');
         const mainpage = document.querySelector('.main-page-content');
         for (let i = 0; i < newsElems.length; i++) {
-            newsElems[i].id = String(i);
+            newsElems[i].id = `page-${i}`;
+            const upper = document.querySelector(`.main-page-content#page-${i} > .upper-half`);
+            const lower = document.querySelector(`.main-page-content#page-${i} > .lower-half`);
+            if (upper) {
+                upper.id = `p${i}`;
+            }
+            upper?.classList.add('side-2')
+            if (lower) {
+                lower.id = `p${i}`;
+            }
+            lower?.classList.add('side-1')
             io.observe(newsElems[i]);
         }
         if (mainpage) {
@@ -89,6 +113,26 @@ export function MainPageContent(){
                 // console.log(ioIndex);
             })
         }
+        // $('.page').click(function() {
+        //     $(this).removeClass('no-anim').toggleClass('flipped');
+        //     $('.page > div').click(function(e) {
+        //         e.stopPropagation();
+        //     });
+        //     reorder()   
+        // });
+        // function reorder(){
+        //     $(".book").each(function(){
+        //     var pages=$(this).find(".page")
+        //     var pages_flipped=$(this).find(".flipped")
+        //     pages.each(function(i){
+        //         $(this).css("z-index",pages.length-i)
+        //     })
+        //     pages_flipped.each(function(i){
+        //         $(this).css("z-index",i+1)
+        //     })
+        //     });    
+        // }
+        // reorder()
     }, [topicState.focused])
     return (
         <div className="main-page-content">
