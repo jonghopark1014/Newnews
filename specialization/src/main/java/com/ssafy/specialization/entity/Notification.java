@@ -1,7 +1,9 @@
 package com.ssafy.specialization.entity;
 
-import com.ssafy.specialization.entity.enums.Status;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -14,9 +16,6 @@ public class Notification {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Enumerated(EnumType.STRING)
-    private Status status;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -25,11 +24,15 @@ public class Notification {
     @JoinColumn(name = "news_id")
     private News news;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "watched_id")
+    private Watched watched;
+
     @Builder
-    public Notification(Status status, User user, News news) {
-        this.status = status;
+    public Notification(User user, News news, Watched watched) {
         this.user = user;
         this.news = news;
+        this.watched = watched;
     }
 
     //연관관계 메소드
@@ -42,16 +45,16 @@ public class Notification {
         this.news = news;
     }
 
-    private void setStatus(Status status) {
-        this.status = status;
+    private void setWatched(Watched watched) {
+        this.watched = watched;
     }
 
     //생성 메소드
-    public static Notification createNotification(User user, News news) {
+    public static Notification createNotification(User user, News news, Watched watched) {
         Notification notification = new Notification();
         notification.setUser(user);
         notification.setNews(news);
-        notification.setStatus(Status.NOTREAD);
+        notification.setWatched(watched);
 
         return notification;
     }
