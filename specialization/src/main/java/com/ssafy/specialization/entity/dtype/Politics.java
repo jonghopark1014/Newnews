@@ -2,7 +2,6 @@ package com.ssafy.specialization.entity.dtype;
 
 import com.ssafy.specialization.entity.News;
 import com.ssafy.specialization.entity.NewsImage;
-import com.ssafy.specialization.entity.enums.Press;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +15,7 @@ import java.time.LocalDateTime;
 public class Politics extends News {
 
 
-    public static Politics createPolitics(String title, String content, LocalDateTime newsDate, String reporter, Press press, NewsImage... newsImages) {
+    public static Politics createPolitics(String title, String content, LocalDateTime newsDate, String reporter, String press, NewsImage... newsImages) {
         Politics politics = new Politics();
         politics.setTitle(title);
         politics.setContent(content);

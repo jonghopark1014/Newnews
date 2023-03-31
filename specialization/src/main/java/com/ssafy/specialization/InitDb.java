@@ -2,7 +2,6 @@ package com.ssafy.specialization;
 
 import com.ssafy.specialization.entity.*;
 import com.ssafy.specialization.entity.dtype.*;
-import com.ssafy.specialization.entity.enums.Press;
 import com.ssafy.specialization.entity.enums.Sex;
 import com.ssafy.specialization.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -38,27 +37,27 @@ public class InitDb {
                     "https://image.ytn.co.kr/general/jpg/2017/1018/201710181100063682_d.jpg",
                     "이미지에 해당하는 설명입니다."
             );
-            Economy economy = Economy.createEconomy("1", "1", LocalDateTime.now(), "1", Press.CHOSUN, newsImage);
+            Economy economy = Economy.createEconomy("1", "1", LocalDateTime.now(), "1", "조선일보", newsImage);
             newsImage = NewsImage.createNewsImage(
                     "https://image.ytn.co.kr/general/jpg/2017/1018/201710181100063682_d.jpg",
                     "이미지에 해당하는 설명입니다."
             );
-            ItAndScience itAndScience = ItAndScience.createItAndScience("1", "1", LocalDateTime.now(), "1", Press.CHOSUN, newsImage);
+            ItAndScience itAndScience = ItAndScience.createItAndScience("1", "1", LocalDateTime.now(), "1", "국민일보", newsImage);
             newsImage = NewsImage.createNewsImage(
                     "https://image.ytn.co.kr/general/jpg/2017/1018/201710181100063682_d.jpg",
                     "이미지에 해당하는 설명입니다."
             );
-            LifeAndCulture lifeAndCulture = LifeAndCulture.createLifeAndCulture("1", "1", LocalDateTime.now(), "1", Press.CHOSUN, newsImage);
+            LifeAndCulture lifeAndCulture = LifeAndCulture.createLifeAndCulture("1", "1", LocalDateTime.now(), "1", "응애일보", newsImage);
             newsImage = NewsImage.createNewsImage(
                     "https://image.ytn.co.kr/general/jpg/2017/1018/201710181100063682_d.jpg",
                     "이미지에 해당하는 설명입니다."
             );
-            Politics politics = Politics.createPolitics("1", "1", LocalDateTime.now(), "1", Press.CHOSUN, newsImage);
+            Politics politics = Politics.createPolitics("1", "1", LocalDateTime.now(), "1", "승엽일보", newsImage);
             newsImage = NewsImage.createNewsImage(
                     "https://image.ytn.co.kr/general/jpg/2017/1018/201710181100063682_d.jpg",
                     "이미지에 해당하는 설명입니다."
             );
-            Society society = Society.createSociety("1", "1", LocalDateTime.now(), "1", Press.CHOSUN, newsImage);
+            Society society = Society.createSociety("1", "1", LocalDateTime.now(), "1", "승엽아카프카필요없어졌어", newsImage);
             newsRepository.save(economy);
             newsRepository.save(itAndScience);
             newsRepository.save(lifeAndCulture);

@@ -3,7 +3,6 @@ package com.ssafy.specialization.service;
 import com.ssafy.specialization.entity.News;
 import com.ssafy.specialization.entity.NewsImage;
 import com.ssafy.specialization.entity.dtype.Economy;
-import com.ssafy.specialization.entity.enums.Press;
 import com.ssafy.specialization.repository.EconomyRepository;
 import com.ssafy.specialization.repository.NewsRepository;
 import org.assertj.core.api.Assertions;
@@ -34,7 +33,7 @@ class NewsServiceTest {
                 "https://image.ytn.co.kr/general/jpg/2017/1018/201710181100063682_d.jpg",
                 "이미지에 해당하는 설명입니다."
         );
-        Economy news = Economy.createEconomy("1", "1", LocalDateTime.now(),"1", Press.CHOSUN, newsImage);
+        Economy news = Economy.createEconomy("1", "1", LocalDateTime.now(),"1", "승엽아카프카필요없어", newsImage);
 
         newsRepository.save(news);
     }

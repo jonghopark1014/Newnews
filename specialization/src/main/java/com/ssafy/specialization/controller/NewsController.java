@@ -42,7 +42,7 @@ public class NewsController {
         return Response.success(HttpStatus.OK, bookmarkedNewsList);
     }
 
-    @GetMapping("/{category}")
+    @GetMapping("/category/{category}")
     public ResponseEntity getCategoryNews(@PathVariable("category") int category, Pageable pageable){
         Page<NewsResponseDto> categoryNews = newsService.getCategoryNews(category, pageable);
         return Response.success(HttpStatus.OK, categoryNews);

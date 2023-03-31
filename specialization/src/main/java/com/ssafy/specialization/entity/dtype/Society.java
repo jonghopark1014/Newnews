@@ -2,7 +2,6 @@ package com.ssafy.specialization.entity.dtype;
 
 import com.ssafy.specialization.entity.News;
 import com.ssafy.specialization.entity.NewsImage;
-import com.ssafy.specialization.entity.enums.Press;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -15,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Society extends News {
 
-    public static Society createSociety(String title, String content, LocalDateTime newsDate, String reporter, Press press, NewsImage... newsImages) {
+    public static Society createSociety(String title, String content, LocalDateTime newsDate, String reporter, String press, NewsImage... newsImages) {
         Society society = new Society();
         society.setTitle(title);
         society.setContent(content);
