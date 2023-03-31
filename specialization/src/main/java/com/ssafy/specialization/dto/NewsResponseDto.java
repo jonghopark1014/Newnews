@@ -1,6 +1,6 @@
 package com.ssafy.specialization.dto;
 
-import com.ssafy.specialization.entity.NewsImage;
+import com.ssafy.specialization.entity.enums.Press;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -10,27 +10,24 @@ import java.util.List;
 public class NewsResponseDto {
 
     private Long id;
-    private String category;
     private String title;
     private String content;
     private String newsDate;
     private String reporter;
-    private String press;
+    private Press press;
     private List<NewsImageResponseDto> newsImageList;
 
     @Builder
     public NewsResponseDto(
             Long id,
-            String category,
             String title,
             String content,
             String newsDate,
             String reporter,
-            String press,
+            Press press,
             List<NewsImageResponseDto> newsImageList
     ) {
         this.id = id;
-        this.category = category;
         this.title = title;
         this.content = content;
         this.newsDate = newsDate;
