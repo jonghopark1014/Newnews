@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public abstract class News {
 //    private Category category;
     private String title;
     private String content;
-    private String newsDate;
+    private LocalDateTime newsDate;
     private String reporter;
     @Enumerated(EnumType.STRING)
     private Press press;
@@ -44,7 +45,7 @@ public abstract class News {
         this.content = content;
     }
 
-    protected void setNewsDate(String newsDate) {
+    protected void setNewsDate(LocalDateTime newsDate) {
         this.newsDate = newsDate;
     }
 

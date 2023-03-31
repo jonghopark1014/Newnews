@@ -79,7 +79,7 @@ public class NewsService {
 
     public Page<NewsResponseDto> getCategoryNews(int category, Pageable pageable) {
         if(category==1){
-            return economyRepository.findAll(pageable).map((news) ->
+            return economyRepository.findAllWithCategory(pageable).map((news) ->
                     NewsResponseDto.builder()
                             .id(news.getId())
                             .title(news.getTitle())
@@ -92,7 +92,7 @@ public class NewsService {
                             )
                             .build());
         }else if(category==2){
-            return politicsRepository.findAll(pageable).map((news) ->
+            return politicsRepository.findAllWithCategory(pageable).map((news) ->
                     NewsResponseDto.builder()
                             .id(news.getId())
                             .title(news.getTitle())
@@ -105,7 +105,7 @@ public class NewsService {
                             )
                             .build());
         }else if(category==3){
-            return societyRepository.findAll(pageable).map((news) ->
+            return societyRepository.findAllWithCategory(pageable).map((news) ->
                     NewsResponseDto.builder()
                             .id(news.getId())
                             .title(news.getTitle())
@@ -118,7 +118,7 @@ public class NewsService {
                             )
                             .build());
         }else if(category==4){
-            return lifeAndCultureRepository.findAll(pageable).map((news) ->
+            return lifeAndCultureRepository.findAllWithCategory(pageable).map((news) ->
                     NewsResponseDto.builder()
                             .id(news.getId())
                             .title(news.getTitle())
@@ -131,7 +131,7 @@ public class NewsService {
                             )
                             .build());
         }else if(category==5){
-            return itAndScienceRepository.findAll(pageable).map((news) ->
+            return itAndScienceRepository.findAllWithCategory(pageable).map((news) ->
                     NewsResponseDto.builder()
                             .id(news.getId())
                             .title(news.getTitle())

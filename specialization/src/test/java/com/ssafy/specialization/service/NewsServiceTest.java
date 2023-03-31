@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @SpringBootTest
@@ -33,7 +34,7 @@ class NewsServiceTest {
                 "https://image.ytn.co.kr/general/jpg/2017/1018/201710181100063682_d.jpg",
                 "이미지에 해당하는 설명입니다."
         );
-        Economy news = Economy.createEconomy("1", "1", "1", "1", Press.CHOSUN, newsImage);
+        Economy news = Economy.createEconomy("1", "1", LocalDateTime.now(),"1", Press.CHOSUN, newsImage);
 
         newsRepository.save(news);
     }

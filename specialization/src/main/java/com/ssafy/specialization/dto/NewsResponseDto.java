@@ -4,6 +4,7 @@ import com.ssafy.specialization.entity.enums.Press;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -12,7 +13,7 @@ public class NewsResponseDto {
     private Long id;
     private String title;
     private String content;
-    private String newsDate;
+    private LocalDateTime newsDate;
     private String reporter;
     private Press press;
     private List<NewsImageResponseDto> newsImageList;
@@ -22,7 +23,7 @@ public class NewsResponseDto {
             Long id,
             String title,
             String content,
-            String newsDate,
+            LocalDateTime newsDate,
             String reporter,
             Press press,
             List<NewsImageResponseDto> newsImageList
