@@ -1,25 +1,26 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
+import { RecoilRoot } from 'recoil'
+import { createBrowserRouter, Route, RouterProvider } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
 import { DefaultPage, SearchDefaultPage, BookMarkDefaultPage, MyDefaultPage, BellDefalutPage, LoginDefalutPage, MembershipDefalutPage } from './pages/DefaultPages'
-import { SearchPages } from './pages/search/SearchPages'
-import { SearchResultPage } from './pages/search/SearchResultPage'
-import { SearchResultErrorPage } from './pages/search/SearchResultErrorPage'
+import { SearchPages } from '@/pages/search/SearchPages'
+import { SearchResultPage } from '@/pages/search/SearchResultPage'
+import { SearchResultErrorPage } from '@/pages/search/SearchResultErrorPage'
 import { LoginPage } from '@/pages/Login/LoginPage'
 import { MemberShipPage } from '@/pages/membership/MembershipPage'
 import { BookMarkNonePage } from "@/pages/bookmark/BookMarkNonePage";
 
 import { KakaoRedirect } from '@/components/login/KakaoRedirect'
 import { GoogleRedirect } from '@/components/login/GoogleRedirect'
-import { createBrowserRouter, Route, RouterProvider } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import './index.scss'
-import { MainPage } from './pages/main/MainPage';
-import { BookMarkPage } from './pages/bookmark/BookMarkPage';
-import { MyPage } from './pages/mypage/MyPage';
-import { RecoilRoot } from 'recoil'
-import { BellPages } from './pages/search/BellPages';
-import { MainPageSetTopics } from './pages/main/MainPageSetTopics';
+import { MainPage } from '@/pages/main/MainPage';
+import { BookMarkPage } from '@/pages/bookmark/BookMarkPage';
+import { MyPage } from '@/pages/mypage/MyPage';
+import { BellPages } from '@/pages/alert/BellPages';
+import { MainPageSetTopics } from '@/pages/main/MainPageSetTopics';
 import { MainDetailPage } from '@/pages/main/MainDetailPage'
+import './index.scss'
 
 const container = document.getElementById('root') as HTMLElement;
 const queryClient = new QueryClient();

@@ -6,6 +6,12 @@ interface Iprops {
     onClickToggleModal: () => void,
 }
 
+/**
+ * 
+ * @param children 들어갈 내용
+ * @onClickToggleModal 모달 닫기
+ * @returns 모달창 
+ */
 export default function MemberShipModal( {children, onClickToggleModal} : Iprops) {
     
     return (

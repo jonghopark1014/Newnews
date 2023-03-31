@@ -1,11 +1,14 @@
-import { Link } from "react-router-dom";
-import { useRecoilState } from 'recoil';
+import { Link, useNavigate } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { LoginState } from '@/states/LoginState';
 import styles from '@/styles/mypage/MyPage.module.scss';
 import { useEffect } from "react";
 
 
 export function MyPage(){
+    const navigate = useNavigate()
+
+    const isLogin = useRecoilValue(LoginState)
     const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState);
     const defaultTopics = ["정치", "경제", "사회", "생활/문화", "IT/과학", "세계", "국내축구", "해외축구", "연예"];
     

@@ -3,10 +3,11 @@ import { Button }  from "../Button";
 import styles from "../../styles/Modal.module.scss"
 
 
-interface ModalDefaultType {
+interface Iprops {
+    children : string
     onClickToggleModal: () => void,
-    children? : React.ReactNode[],
 }
+
 
 
 /**
@@ -14,30 +15,19 @@ interface ModalDefaultType {
  * @param param0 모달안에 들어갈 이름
  * @returns 모달창을 보여준다
  */
-function Modal({ onClickToggleModal, children,}: PropsWithChildren<ModalDefaultType>) {
+
+export default function Modal({ onClickToggleModal, children}: Iprops) {
     return (
-        <section className={styles.Modalsection} onClick={(e: React.MouseEvent) => {
-            e.preventDefault();
-            if (onClickToggleModal) {
-                onClickToggleModal();
-            }
-        }}>
+        <section className={styles.Modalsection} >
             <div className={styles.container}>
-                <div className={styles.buttonGrid}>
-                    <Button onClick={() =>{}}>{children && children[0]}</Button>
-                    <Button onClick={() =>{}}>{children && children[2]}</Button>
-                <div
-                onClick={(e: React.MouseEvent) => {
-                    e.preventDefault();
-                    if (onClickToggleModal) {
-                        onClickToggleModal();
-                    }
-                }}
-                />
+                <div className={styles.divGrid}>
+                    <p>{ children }</p>
+                    <div className={styles.buttonGrid}> 
+                        <Button onClick={() =>{}} children={'예'} width={60}/>
+                        <Button onClick={() =>{ onClickToggleModal() }} children={"아니요"} width={60}/>
+                    </div>
                 </div>
             </div>
         </section>
 );
 }
-
-export default Modal;

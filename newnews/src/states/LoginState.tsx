@@ -2,8 +2,10 @@ import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
 export interface loginStateType {
-    usrename: string,
-    password: string,
+    isLogin: boolean,
+    username: string | null,
+    password: string | null,
+    id : number | null,
 }
 
 const { persistAtom } = recoilPersist({
@@ -11,8 +13,8 @@ const { persistAtom } = recoilPersist({
     storage: localStorage,
 });
 
-export const LoginState = atom<boolean>({
+export const LoginState = atom<loginStateType[]>({
     key: 'LoginState',
-    default: false,
+    default: [],
     effects_UNSTABLE: [persistAtom],
 });
