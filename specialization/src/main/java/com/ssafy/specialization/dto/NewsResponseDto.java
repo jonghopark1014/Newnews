@@ -1,6 +1,5 @@
 package com.ssafy.specialization.dto;
 
-import com.ssafy.specialization.entity.enums.Press;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -15,7 +14,7 @@ public class NewsResponseDto {
     private String content;
     private LocalDateTime newsDate;
     private String reporter;
-    private Press press;
+    private String press;
     private List<NewsImageResponseDto> newsImageList;
 
     @Builder
@@ -25,7 +24,7 @@ public class NewsResponseDto {
             String content,
             LocalDateTime newsDate,
             String reporter,
-            Press press,
+            String press,
             List<NewsImageResponseDto> newsImageList
     ) {
         this.id = id;

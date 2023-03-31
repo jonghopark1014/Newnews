@@ -70,7 +70,7 @@ public class NewsService {
                             .newsId(news.getId())
                             .preNewsId(notification.getWatched().getId())
                             .title(news.getTitle())
-                            .press(news.getPress().getKrName())
+                            .press(news.getPress())
                             .newsImage(imageUrl)
                             .build();
                 }

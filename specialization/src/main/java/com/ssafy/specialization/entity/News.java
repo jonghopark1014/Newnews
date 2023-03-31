@@ -27,8 +27,7 @@ public abstract class News {
     private String content;
     private LocalDateTime newsDate;
     private String reporter;
-    @Enumerated(EnumType.STRING)
-    private Press press;
+    private String press;
 
     @OneToMany(mappedBy = "news", cascade = CascadeType.ALL)
     private List<NewsImage> newsImageList = new ArrayList<>();
@@ -53,7 +52,7 @@ public abstract class News {
         this.reporter = reporter;
     }
 
-    protected void setPress(Press press) {
+    protected void setPress(String press) {
         this.press = press;
     }
     protected void addNewsImage(NewsImage newsImage) {
