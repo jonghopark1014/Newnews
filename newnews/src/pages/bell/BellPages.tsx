@@ -2,10 +2,11 @@ import { useState, useEffect } from "react";
 import { useRecoilValue } from "recoil";
 
 import { LoginState } from "@/states/LoginState";
-import { BellHeader } from "@/components/Alert/BellHeader";
-import useAlertList from "@/hooks/alert/useAlertList";
+import { BellHeader } from "@/components/bell/BellHeader";
+import { BellComponents } from "@/components/bell/BellComponents";
+import useAlertList from "@/hooks/bell/useBellList";
 
-import styles from "@/styles/Bellpages.module.scss"
+import styles from "@/styles/bell/Bellpages.module.scss"
 
 
 interface Iprops{
@@ -43,8 +44,7 @@ export function BellPages(){
             <BellHeader />
             <div>
                 {data.map((item, index) =>{
-                    return (<div key={ index } >
-                        {item.preNewsTitle}</div>)}) }
+                    return (<BellComponents key={ index } children={item.preNewsTitle} preNewsId={item.preNewsId} newsId={item.newsId}/> )}) }
             </div>
             
         </section>

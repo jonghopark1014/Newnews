@@ -26,10 +26,10 @@
     .iconsAfter{
         width: 10%;
         height: 100%;
-        // color: #F67442;
-        svg.path{
+        svg > path:nth-child(0){
             stroke: #F67442;
             fill: #F67442;
+            color: #F67442;
         }
     }
 }
