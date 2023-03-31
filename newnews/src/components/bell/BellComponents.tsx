@@ -23,14 +23,16 @@ export const BellComponents = ({ children, preNewsId, newsId } : Iprops) =>{
     console.log('isLog', isLog)
     console.log('pre', preNews)
 
-    const onClcikDeleteBell = () =>{
+    const onClickDeleteBell = () => {
         console.log(BellDelete.mutate({ userId: isLog, newsId : preNews}))
     }
 
-
+    const onClickRead = () => {
+        navigate('/detail', { state: { newsId: newsId, preNewsId: preNewsId }})
+    }
 
     return (
-        <div className={styles.bellGrid} onClick={() =>{ navigate('/detail', { state: { newsId: newsId, preNewsId: preNewsId }}) }}>
+        <div className={styles.bellGrid} onClick={() =>{ onClickRead() }}>
             <IoEarth className={styles.icons}/>
             <h4> 지난번에 보신 <span>{children}</span> 에 대한 연관된 뉴스가 있습니다</h4>
         </div>

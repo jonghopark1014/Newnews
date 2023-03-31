@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { BsBookmarkPlus, BsBookmarkCheckFill } from "react-icons/bs";
 import styles from "../styles/ArticleCard.module.scss"
-import bondee from "../assets/bondee.jpg"
 
+interface DropImgProps{
+    url : string
+    description : string | undefined | [],
+}
 
 interface Card {
     id?: number,
@@ -17,12 +21,16 @@ interface Props {
     data: Array<Card>;
 };
 
-// export const ArticleCard = ({data}: Props) => {
-export const ArticleCard = ({width, height} : Card ) => {
+export const ArticleCard = ( {id, title, url, width, height  } : Card ) => {
     const [activeId, setActiveId] = useState<number>()
+    const navigate = useNavigate()
 
     const onClick = (id: number) => setActiveId(id);
     
+    const onClickRead = () => {
+        navigate('/detail', { state: { newsId: id, preNewsId: id }})
+    }
+
     useEffect(() =>{
         const articleCard = document.querySelector<HTMLElement>('#articleCard')
 
@@ -30,8 +38,8 @@ export const ArticleCard = ({width, height} : Card ) => {
             articleCard.style.width =`${width}%`
             articleCard.style.height =`${height}px`
         }        
-    }, [])
-    
+    }, [ width, height ])
+
         const [marked, setMarked] = useState(true);
         const bookMark = (state: boolean)=>{
             if (state) {
@@ -44,26 +52,16 @@ export const ArticleCard = ({width, height} : Card ) => {
                 )
             }
         }
-    return(
 
-        <div  className={styles.articleCard}>
-            {/* {data.map(card => (
-            <div
-            key={card.id}
-            className={`${styles.articleImg} ${activeId === card.id ? 'active' : ''}`}
-            onClick={() => onClick(card.id)}
-            style={{ backgroundImage: `url(${card.url})` }}>
-            <h3>{card.title}</h3>
-            </div>))} */}
+    return(
+        <div className={styles.articleCard} onClick={() => { onClickRead() }}>
             <div id='articleCard' className={styles.articleImg}>
-                <img src={bondee} />
-                {/* <img src={`${url}`} alt="" /> */}
+                <img src={`${url}`} alt="" />
                 <div className={styles.gradation}>
-                    <h3>본디 신상정보 사실이 아니다본디 신상정보 사실이 아니다본디 신상정보 사실이 아니다 </h3>
+                    <h3>{title}</h3>
                     {bookMark(marked)}
                 </div>
             </div>
         </div>
-        
     )
 }
