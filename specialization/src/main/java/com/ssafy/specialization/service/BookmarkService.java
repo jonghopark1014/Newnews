@@ -58,7 +58,7 @@ public class BookmarkService {
                     .id(news.getId())
                     .title(news.getTitle())
                     .content(news.getContent())
-                    .press(news.getPress().toString())
+                    .press(news.getPress())
                     .reporter(news.getReporter())
                     .newsDate(news.getNewsDate())
                     .newsImageList(
