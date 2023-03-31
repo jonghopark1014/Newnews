@@ -1,14 +1,34 @@
+@keyframes modalappear {
+    from {
+        width: 0;
+    }
+    to {
+        width: min(60%, 600px);
+    }
+}
+@keyframes modaldisappear {
+    from {
+        width: min(60%, 600px);
+    }
+    to {
+        width: 0;
+    }
+}
+
+
 .detailpage {
-    margin-top: 51px;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 80vh;
+    overflow: scroll;
     .header {
+        position: fixed;
+        width: 100%;
         display: grid;
         grid-template-columns: 1fr 6fr 1fr;
         justify-content: center;
         height: 3rem;
-    
+        background-color: #fff;
         svg{
             place-self: center center;
             width: 2rem;
@@ -45,32 +65,53 @@
         place-content: start center;
         height: inherit;
         padding: 10%;
-        overflow: hidden;
+        overflow: scroll;
         h3 {
             color: #1A8917;
             font-weight: bold;
         }
-        span {
-            // overflow: scroll;
+        img {
+            width: 100%;
         }
     }   
 
     > svg {
         position: fixed;
-        right: 5%;
-        bottom: 6%;
+        display: flex;
+        right: 6%;
+        bottom: 10%;
         place-content: center center;
         width: 15%;
         max-width: 70px;
-        height: 15%;
+        height: 15vw;
         max-height: 70px;
+        filter: drop-shadow(0px 4px 4px #36363640);
+        clip-path: circle();
+        background-color: #fff;
+    }
+    .direction {
+        transform: rotate(0deg);
+        transition: transform 0.5s;
     }
 
-    .modalWindow {
+    .modalwindow {
         position: fixed;
-        right: 5%;
-        bottom: 5%;
+        right: min(6% + 35px);
+        bottom: 10%;
+        width: 0;
+        height: 15vw;
+        max-height: 70px;
         background-color: #fff;
+        border-radius: 4px;
+        box-shadow: 0px 4px 4px #36363640;
+        overflow: hidden;
+        transition: all 500ms cubic-bezier(0.770, 0.085, 0.240, 0.945);
+        p {
+            margin: 10px 2% 5px 2%;
+        }
+        h5 {
+            margin: 0 2% 10px 2%;
+        }
     }
 }
 

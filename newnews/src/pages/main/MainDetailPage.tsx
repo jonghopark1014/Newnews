@@ -1,5 +1,5 @@
 import { IoIosArrowBack } from "react-icons/io";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "@/styles/main/MainDetailPage.module.scss";
 import { BsBookmarkPlus, BsBookmarkCheckFill, BsFillArrowRightCircleFill } from "react-icons/bs";
@@ -7,45 +7,54 @@ import useMainNewsDetail from "@/hooks/main/useMainNewsDetail";
 import useAddBookmark from "@/hooks/bookmark/useAddBookmark";
 import useRemoveBookmark from "@/hooks/bookmark/useRemoveBookmark";
 
-interface Iprops {
-    newsId: number,
-};
-
 interface newsDetail {
     id : number,
-	category : string,
+	category : string | null,
 	title : string,
 	content : string,
 	newsDate : string,
-	reporter : string,
+	reporter : string | null,
 	press : string,
-	newsImages : {
+	newsImageList : [{
         url: string
-    }[]
+    }]
 };
 
 export function MainDetailPage() {
     const location = useLocation();
     const newsId = location.state.newsId;
-    // console.log('?', newsId);
+    const preNewsId = location.state.preNewsId;
     const useMainDetail = useMainNewsDetail(newsId);
+    const usePreNews = useMainNewsDetail(preNewsId);
     const addBookmark = useAddBookmark();
     const removeBookmark = useRemoveBookmark();
-    
-    const newsDetail: newsDetail = {
-        id : 1,
-        category : "category",
-        title : "title",
-        content : "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta doloremque, fugiat iusto repellat ut natus quaerat exercitationem praesentium quidem nemo voluptatum dolorem non! Vero, tempore amet id quibusdam accusantium obcaecati.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta doloremque, fugiat iusto repellat ut natus quaerat exercitationem praesentium quidem nemo voluptatum dolorem non! Vero, tempore amet id quibusdam accusantium obcaecati.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta doloremque, fugiat iusto repellat ut natus quaerat exercitationem praesentium quidem nemo voluptatum dolorem non! Vero, tempore amet id quibusdam accusantium obcaecati.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta doloremque, fugiat iusto repellat ut natus quaerat exercitationem praesentium quidem nemo voluptatum dolorem non! Vero, tempore amet id quibusdam accusantium obcaecati.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta doloremque, fugiat iusto repellat ut natus quaerat exercitationem praesentium quidem nemo voluptatum dolorem non! Vero, tempore amet id quibusdam accusantium obcaecati.",
-        newsDate : "newsDate",
-        reporter : "sreportertring",
-        press : "press",
-        newsImages : [{
+    const [marked, setMarked] = useState(true);
+    const [newsDetail, setNewsDetail] = useState<newsDetail>({
+        id : 0,
+        category : "로딩중",
+        title : "로딩중",
+        content : "로딩중",
+        newsDate : "로딩중",
+        reporter : "로딩중",
+        press : "로딩중",
+        newsImageList : [{
             url: "string"
         }]
-    };
+    });
+    const [preNews, setPreNews] = useState<newsDetail>({
+        id : 0,
+        category : "로딩중",
+        title : "로딩중",
+        content : "로딩중",
+        newsDate : "로딩중",
+        reporter : "로딩중",
+        press : "로딩중",
+        newsImageList : [{
+            url: "string"
+        }]
+    })
+
     const navigate = useNavigate();
-    const [marked, setMarked] = useState(true);
     const bookMark = (state: boolean)=>{
         if (state) {
             return (
@@ -57,26 +66,45 @@ export function MainDetailPage() {
             )
         }
     }
-    const newsTile = "메타버스 소셜 앱 '본디(bondee)' 인기... 뜨는 이유는??";
-    const userName = "박진성";
     const [modal, setModal] = useState<boolean>(true);
     const modalWindow = ()=>{
-        if (modal) {
-            return (
-                <div className={styles.modalWindow}>
-                    <div>
-                        <p>{newsTile}</p>
-                    </div>
-                    <div>
-                        <h5>{`${userName}님이 보신 위 뉴스에 대한 관련뉴스에요`}</h5>
-                    </div>
+        return (
+            <div className={styles.modalwindow}>
+                <div>
+                    <p>{preNews.title}</p>
                 </div>
-            )
-        } else {
-            return null
-        }
+                <div>
+                    <h5>{`님이 보신 위 뉴스에 대한 관련뉴스에요`}</h5>
+                </div>
+            </div>
+        )
+        
     }
+
+    useEffect(()=>{
+        if (useMainDetail.isSuccess) {
+            setNewsDetail(useMainDetail.data.data);
+            console.log('본문', useMainDetail.data.data);
+        }
+        if (usePreNews.isSuccess) {
+            setPreNews(usePreNews.data.data);
+            console.log('모달', usePreNews.data.data);
+        }
+    }, [useMainDetail, usePreNews]);
     
+    useEffect(()=>{
+        const arrow = document.querySelector<HTMLElement>(`.${styles.direction}`);
+        const modalStyle = document.querySelector<HTMLElement>(`.${styles.modalwindow}`);
+        if (arrow && modalStyle) {
+            if (modal) {
+                arrow.style.transform = 'rotate(0deg)';
+                modalStyle.style.width = 'min(60%, 600px)';
+            } else {
+                arrow.style.transform = 'rotate(180deg)';
+                modalStyle.style.width = '1px';
+            }
+        }
+    }, [, modal]);
     return (
         <div className={styles.detailpage}>
             <div className={styles.header}>
@@ -88,11 +116,12 @@ export function MainDetailPage() {
                 <h3>{newsDetail.category}</h3>
                 <h2>{newsDetail.title}</h2>
                 <h5>{`${newsDetail.reporter} ${newsDetail.press} 기자  |  ${newsDetail.newsDate}`}</h5>
-                <img src={newsDetail.newsImages[0].url} alt="" />
+                <img src={newsDetail.newsImageList[0].url} alt="" />
+                <p>{"이미지설명"}</p>
                 <span>{newsDetail.content}</span>
             </div>
             { modalWindow() }
-            <BsFillArrowRightCircleFill onClick={()=>setModal(!modal)}/>
+            <BsFillArrowRightCircleFill className={styles.direction} onClick={()=>setModal(!modal)}/>
         </div>
     )
 }

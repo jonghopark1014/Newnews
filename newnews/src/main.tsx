@@ -139,7 +139,7 @@ const router = createBrowserRouter([
 createRoot(container).render(
   <QueryClientProvider client={queryClient}>
     <RecoilRoot>
-      <div id="blank"></div>
+      <div id="blank"> </div>
       <RouterProvider router={router} />
     </RecoilRoot>
   </QueryClientProvider>

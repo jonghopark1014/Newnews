@@ -4,22 +4,24 @@ import { MainPageContentCard } from "@/components/mainpage/MainPageContentCard";
 import useMainNewsRelated from '@/hooks/main/useMainNewsRelated';
 import { useRecoilState } from 'recoil';
 import { topicAtom, topicStateType } from '@/stores/NewsTopics';
+import useMainNewsAll from '@/hooks/main/useMainNewsAll';
 
 interface newsMain {
     newsId : number,
+    preNewsId : number,
     title : string,
     press : string,
-    newsImageList : {
-        url:string,
-    }[],
+    newsImage : string,
+    newsImageDesc? : string
 };
 
 const defaultNews: newsMain[] = [
     {
         newsId : 0,
+        preNewsId : 0,
         title : 'title',
         press : 'press',
-        newsImageList : [{url: 'url'}],
+        newsImage: 'url',
     },
 ]
 
@@ -27,6 +29,7 @@ export function MainPageContent(){
     const [news, setNews] = useState<newsMain[]>(defaultNews);
     const [topicState, setTopicState] = useRecoilState<topicStateType>(topicAtom);
     const useNewsAfter = useMainNewsRelated();
+    const useNewsAll = useMainNewsAll();
 
     const options = {
         root: document.querySelector('.main-page-content'),
@@ -68,7 +71,12 @@ export function MainPageContent(){
                 }
             });
         } else {
-            
+            useNewsAll.mutate({ category: topicState.focused }, {
+                onSuccess: (data) => {
+                    console.log(data);
+                    setNews(data.data);
+                }
+            });
         }
         const newsElems = document.querySelectorAll<HTMLElement>('.main-page-content-card');
         const mainpage = document.querySelector('.main-page-content');
@@ -81,10 +89,10 @@ export function MainPageContent(){
                 // console.log(ioIndex);
             })
         }
-    }, [])
+    }, [topicState.focused])
     return (
         <div className="main-page-content">
-            {news.map((news, index)=>{return <MainPageContentCard newsId={news.newsId} title={news.title} press={news.press} newsImage={news.newsImageList[0].url} newsIndex={index} key={index}/>})}
+            {news.map((news, index)=>{return <MainPageContentCard newsId={news.newsId} preNewsId={news.preNewsId} title={news.title} press={news.press} newsImage={news.newsImage} newsIndex={index} key={index}/>})}
         </div>
     )
 }
