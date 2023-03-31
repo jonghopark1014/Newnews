@@ -1,0 +1,19 @@
+.bellGrid{
+    display: flex;
+    margin: auto;
+    margin-top: 2%;
+    width: 100vw;
+    .icons{
+        margin: auto;
+        width: 10%;
+        height: 80%;
+        color: #0096ED;
+    }
+    h4{
+        width: 80%;
+        margin-right: 5%;
+        span{
+            color: #0096ED;
+        }
+    }
+}

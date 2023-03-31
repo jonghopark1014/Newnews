@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
+import { BsBookmarkPlus, BsBookmarkCheckFill } from "react-icons/bs";
 import styles from "../styles/ArticleCard.module.scss"
 import bondee from "../assets/bondee.jpg"
-import { BsBookmarkPlus, BsBookmarkCheckFill } from "react-icons/bs";
 
 
 interface Card {

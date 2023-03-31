@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 import { VscBell, VscBellDot  } from "react-icons/vsc"
 
 import { LoginState } from "@/states/LoginState";
-import useAlertList from "@/hooks/alert/useAlertList";
+import useBellList from "@/hooks/bell/useBellList";
 
 import styles from "../styles/Header.module.scss"
 
@@ -24,7 +24,7 @@ export function Header({children}: Iprops) {
     
 
     const isLogin = useRecoilValue(LoginState)
-    const AlertList = useAlertList()
+    const AlertList = useBellList()
     const userId = isLogin[0].id
     const [data, setData] = useState<Iprops[]>([])
     /**

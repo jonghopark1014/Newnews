@@ -5,11 +5,12 @@ import { useRecoilValue } from "recoil";
 import { IoIosArrowBack } from "react-icons/io";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-import Modal from "@/components/Alert/Modal";
-import useAlertList from "@/hooks/alert/useAlertList";
+import Modal from "@/components/bell/Modal";
+import useAlertList from "@/hooks/bell/useBellList";
+import useBellDelete from "@/hooks/bell/useBellDelete";
 import { LoginState } from "@/states/LoginState";
 
-import styles from "@/styles/BellHeader.module.scss";
+import styles from "@/styles/bell/BellHeader.module.scss";
 
 
 
@@ -21,11 +22,29 @@ export function BellHeader(){
     const navigate = useNavigate()
     
     const [isOpenModal, setOpenModal] = useState<boolean>(false);
+    const BellDelete = useBellDelete()
+    
+    /**
+     * 알림 전체 삭제
+     */
+    const onClcikDeleteBell = () =>{
+        console.log(BellDelete.mutate({ userId: 1 },{
+            onError : (err) => {
+                console.log(err)
+            }
+        }))
+    }
 
+    /**
+     * 모달창을 열고 닫고
+     */
     const onClickToggleModal = useCallback(() => {
     setOpenModal(!isOpenModal);
     }, [isOpenModal]);
 
+    /**
+     * 페이지 뒤로가기
+     */
     function goBack() {
         navigate(-1)
     }
@@ -38,7 +57,7 @@ export function BellHeader(){
                 <h2>알림센터</h2>
             </div>
             {isOpenModal && ( 
-            <Modal onClickToggleModal={onClickToggleModal} children={"알림을 전체 삭제 하시겠습니까?"} />
+            <Modal onClickChoice={ onClcikDeleteBell } onClickToggleModal={ onClickToggleModal } children={"알림을 전체 삭제 하시겠습니까?"} />
             )}
             <RiDeleteBin6Line className={styles.deleteAlret} onClick={ onClickToggleModal }/>
         </div>

@@ -1,5 +1,5 @@
-import styles from "@/styles/membership/MemberShipModal.module.scss";
 import { Button } from "@/components/Button";
+import styles from "@/styles/membership/MemberShipModal.module.scss";
 
 interface Iprops {
     children : string
