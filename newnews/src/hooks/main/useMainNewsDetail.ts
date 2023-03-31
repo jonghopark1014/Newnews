@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 
 export const MAIN_NEWS_DETAIL = '/main/detail';
 
-const API_URL = '/api/news';
+const API_URL = '/api/news/details';
 
 const fetcher = (newsId: number) => axios.get(SERVER_URL + API_URL + `/${newsId}`).then(({ data }) => data);
 

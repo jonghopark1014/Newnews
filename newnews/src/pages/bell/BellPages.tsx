@@ -25,6 +25,7 @@ export function BellPages(){
     const AlertList = useAlertList()
     const isLogin = useRecoilValue(LoginState)
     const userId = isLogin[0].id
+    console.log(userId)
     const [data, setData] = useState<Iprops[]>([])
     /**
      * 페이지 랜더링하자마자 알람을 가져오기
