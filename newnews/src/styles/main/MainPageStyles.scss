@@ -1,10 +1,5 @@
 
-*, *:before, *:after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    position: relative;
-}
+
 // main header
 .main-page {
     display: flex;
@@ -64,11 +59,59 @@
     }
     // contents-main
     .main-page-content {
+        *:before, *:after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            position: relative;
+        }
+        ::selection {
+            background: #222;
+            color: white;
+            }
+        ::-moz-selection {
+            background: #222;
+            color: white;
+        }
         flex: 1;
         overflow: scroll;
         .main-page-content-card {
             position: relative;
             height: 100%;
+            .side-1 {
+                z-index: 2;
+                box-shadow: inset 50px 0 50px rgba(0,0,0,.5);
+                transition: .5s;
+            }
+            .side-2 {
+                transform:
+                rotateY(180deg);
+                box-shadow: inset -50px 0 50px rgba(0,0,0,.5);
+            }
+            .flipped > .side-1 {
+                box-shadow: inset 300px 0 50px rgba(0,0,0,.8);   
+                transition: .6s;
+            }
+            .flipped > [class*='side'] {
+                pointer-events: auto;
+            }
+            .page.flipped:after {
+                content: 'prev-page';
+                transform:
+                rotateY(180deg);
+                pointer-events: auto;
+            }
+            @keyframes hide {
+                0% {opacity: 0;}
+                85% {opacity: 0;}
+                100% {opacity: 1;}
+            }
+            .flipped {
+                transform:
+                rotateY(-180deg);
+                pointer-events: none;
+            }
+
             > .upper-half {
                 position: relative;
                 height: 50%;
@@ -103,6 +146,7 @@
                     color: #fff;
                 }
             }
+
         }
     }
 }
@@ -154,6 +198,26 @@
     }
     .chosen {
         color: #0096ED;
+    }
+
+    .no-anim, .no-anim:after {
+            animation: none;/* disable animation when page loads */
+    }
+    @keyframes flip {
+        to {
+            transform:
+            rotateX(-180deg);    
+        }
+    }
+    @keyframes unflip {
+        from {
+            transform:
+            rotateX(-180deg);    
+        }
+        to {
+            transform:
+            rotateX(0deg);    
+        }
     }
 }
 

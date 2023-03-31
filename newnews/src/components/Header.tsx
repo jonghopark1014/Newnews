@@ -10,8 +10,8 @@ import styles from "../styles/Header.module.scss"
 
 interface Iprops {
     children?: React.ReactNode,
-    data? : string[] | number[]
-    userId? : number | null
+    data? : string[] | number[],
+    userId? : number | null,
 }
 
 /**
@@ -24,8 +24,8 @@ export function Header({children}: Iprops) {
     
 
     const isLogin = useRecoilValue(LoginState)
-    const AlertList = useBellList()
-    const userId = isLogin[0].id
+    const AlertList = useAlertList()
+    const userId = isLogin[0]?.id
     const [data, setData] = useState<Iprops[]>([])
     /**
      * 페이지 랜더링하자마자 알람을 가져오기

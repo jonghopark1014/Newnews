@@ -32,6 +32,28 @@ const defaultNews: newsMain[] = [
     },
 ]
 
+// function reoder(){
+//     $(".book").each(function(){
+//     var pages=$(this).find(".page")
+//     var pages_flipped=$(this).find(".flipped")
+//     pages.each(function(i){
+//         $(this).css("z-index",pages.length-i)
+//     })
+//     pages_flipped.each(function(i){
+//         $(this).css("z-index",i+1)
+//     })
+//     });    
+// }
+function reorder() {
+    const books = document.querySelectorAll<HTMLElement>('.book');
+    books.forEach((book, index)=>{
+        // const pages = books.children.
+    })
+    for (let i = 0; i < books.length; i++) {
+        
+    }
+}
+
 export function MainPageContent(){
     // 메인 뉴스 정보
     const [news, setNews] = useState<newsMain[]>(defaultNews);
@@ -98,6 +120,16 @@ export function MainPageContent(){
             newsElems[i].id = `page-${i}`;
             const upper = document.querySelector(`.main-page-content#page-${i} > .upper-half`);
             const lower = document.querySelector(`.main-page-content#page-${i} > .lower-half`);
+            newsElems[i].addEventListener('click', ()=>{
+                newsElems[i].classList.remove('no-anim');
+                newsElems[i].classList.toggle('flipped');
+                const div = document.querySelector('.page > div');
+                div?.addEventListener('click',(e)=>{
+                    e.stopPropagation();
+                })
+                reorder();
+            });
+
             if (upper) {
                 upper.id = `p${i}`;
             }
@@ -113,6 +145,7 @@ export function MainPageContent(){
                 // console.log(ioIndex);
             })
         }
+        
         // $('.page').click(function() {
         //     $(this).removeClass('no-anim').toggleClass('flipped');
         //     $('.page > div').click(function(e) {
@@ -120,19 +153,8 @@ export function MainPageContent(){
         //     });
         //     reorder()   
         // });
-        // function reorder(){
-        //     $(".book").each(function(){
-        //     var pages=$(this).find(".page")
-        //     var pages_flipped=$(this).find(".flipped")
-        //     pages.each(function(i){
-        //         $(this).css("z-index",pages.length-i)
-        //     })
-        //     pages_flipped.each(function(i){
-        //         $(this).css("z-index",i+1)
-        //     })
-        //     });    
-        // }
-        // reorder()
+        
+        reorder()
     }, [topicState.focused])
     return (
         <div className="main-page-content">
