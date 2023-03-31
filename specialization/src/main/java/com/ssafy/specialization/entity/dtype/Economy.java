@@ -8,13 +8,14 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import java.time.LocalDateTime;
 
 @Entity
 @DiscriminatorValue("Economy")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Economy extends News {
 
-    public static Economy createEconomy(String title, String content, String newsDate, String reporter, Press press, NewsImage... newsImages) {
+    public static Economy createEconomy(String title, String content, LocalDateTime newsDate, String reporter, Press press, NewsImage... newsImages) {
         Economy economy = new Economy();
         economy.setTitle(title);
         economy.setContent(content);

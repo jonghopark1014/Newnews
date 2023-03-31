@@ -8,13 +8,14 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import java.time.LocalDateTime;
 
 @Entity
 @DiscriminatorValue("Society")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Society extends News {
 
-    public static Society createSociety(String title, String content, String newsDate, String reporter, Press press, NewsImage... newsImages) {
+    public static Society createSociety(String title, String content, LocalDateTime newsDate, String reporter, Press press, NewsImage... newsImages) {
         Society society = new Society();
         society.setTitle(title);
         society.setContent(content);

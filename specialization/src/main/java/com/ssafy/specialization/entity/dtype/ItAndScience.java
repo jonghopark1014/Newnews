@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import java.time.LocalDateTime;
 
 @Entity
 @DiscriminatorValue("ItAndScience")
@@ -15,7 +16,7 @@ import javax.persistence.Entity;
 public class ItAndScience extends News {
 
 
-    public static ItAndScience createItAndScience(String title, String content, String newsDate, String reporter, Press press, NewsImage... newsImages) {
+    public static ItAndScience createItAndScience(String title, String content, LocalDateTime newsDate, String reporter, Press press, NewsImage... newsImages) {
         ItAndScience itAndScience = new ItAndScience();
         itAndScience.setTitle(title);
         itAndScience.setContent(content);
