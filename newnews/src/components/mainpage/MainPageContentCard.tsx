@@ -32,7 +32,7 @@ export function MainPageContentCard(props: Iprops){
     }, [newsImage]);
 
     return (
-        <div className="main-page-content-card" onClick={()=>navigate("/detail", { state: { newsId: props.newsId, preNewsId: props.preNewsId } })}>
+        <div className="main-page-content-card page no-anim" onClick={()=>navigate("/detail", { state: { newsId: props.newsId, preNewsId: props.preNewsId } })}>
             <div className="upper-half">
 
             </div>
