@@ -45,8 +45,8 @@ export function BookMarkPage(){
 
     return (
         <div>
-            {NewsData && NewsData.map(item =>
-                <ArticleCard title={item.title} id={item.id} url={item.newsImageList[0].url} width={100} height={200} />
+            {NewsData && NewsData.map((item, index) =>
+                <ArticleCard key={index} title={item.title} id={item.id} url={item.newsImageList[0].url} width={100} height={200} />
                 )}
         </div>
     )

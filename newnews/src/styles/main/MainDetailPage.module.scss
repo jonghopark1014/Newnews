@@ -66,6 +66,8 @@
         height: inherit;
         padding: 10%;
         overflow: scroll;
+        // 개행문자 
+        white-space: pre-line;
         h3 {
             color: #1A8917;
             font-weight: bold;

@@ -20,9 +20,6 @@ export const BellComponents = ({ children, preNewsId, newsId } : Iprops) =>{
     const isLog = isLogin[0].id
     const preNews = preNewsId
 
-    console.log('isLog', isLog)
-    console.log('pre', preNews)
-
     const onClickDeleteBell = () => {
         console.log(BellDelete.mutate({ userId: isLog, newsId : preNews}))
     }
