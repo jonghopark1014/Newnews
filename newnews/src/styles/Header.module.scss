@@ -1,3 +1,11 @@
+@keyframes alertAnmation{
+    to{
+
+    }
+    from{
+
+    }
+}
 .headerStyle{
     display: flex;
     align-items: center;
@@ -8,20 +16,24 @@
     margin: auto;
     margin-left: 7%;
     margin-right: 5%;
-}
-.h1Style{
-    position: relative;
-}
-.icons{
-    color: #363636;
-    width: 10%;
-    height: 100%;
-
-    svg{
-        width: 100%;
+    .h1Style{
+        position: relative;
+    }
+    .icons{
+        width: 10%;
         height: 100%;
     }
+    .iconsAfter{
+        width: 10%;
+        height: 100%;
+        // color: #F67442;
+        svg.path{
+            stroke: #F67442;
+            fill: #F67442;
+        }
+    }
 }
+
 @media (min-width: 1024px) {
     .headerStyle{
         margin: auto;

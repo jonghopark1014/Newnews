@@ -1,15 +1,17 @@
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { HiOutlineUsers, HiOutlineLockClosed } from "react-icons/hi"
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { LoginState } from '@/states/LoginState';
+import { HiOutlineUsers, HiOutlineLockClosed } from "react-icons/hi";
 import axios from "axios";
 
 import { SERVER_URL } from "@/utils/urls"
 import { Button } from "@/components/Button";
+import MemberShipModal from "@/components/membership/MemberShipModal";
 import { KakaoLogin } from "@/components/login/Kakao";
-import { GoogleOAuthProvider } from '@react-oauth/google'
-import { GoogleLogin } from '@react-oauth/google'
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { LoginState } from '@/states/LoginState';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
+
 // import {  } from 'react-kakao-login'
 
 import styles from "@/styles/login/Login.module.scss"
@@ -22,19 +24,33 @@ interface Iprops{
 const REST_API_KEY = '758949398062-ossaflmuh3pmgl7igje8cvqmgf9cpoi1.apps.googleusercontent.com'
 
 export function LoginPage() {
-    const isLogin = useRecoilValue(LoginState);
-    const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState);
-    
-
-    const [username, setUsername] = useState<string>('')
-    const [password, setPassword] = useState<string>('')
     const navigate = useNavigate()
-
     const API = `${SERVER_URL}/api/login`;
     
+    //
+    const isLogin = useRecoilValue(LoginState);
+    const isLog = isLogin[0].isLogin
+    const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState);
+
+    // 로그인
+    const [username, setUsername] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
+
+    const [isModal, setModal ] = useState<boolean>(false);
+
+    const onClickToggleModal = useCallback(() => {
+        setModal(!isModal);
+    }, [isModal]);
+
+    useEffect(() => {
+        if (isLog) {
+            alert('로그인이 되어있습니다')
+            navigate('/');
+        }
+    }, [isLogin, navigate])
+
     async function onSubmitLogin({username, password}: Iprops) {
-        setIsLoggedIn(isLoggedIn)
-        console.log(isLoggedIn)
+
         try {
         await axios
             .post(API, {
@@ -46,7 +62,7 @@ export function LoginPage() {
             })
             .then((res) => {
                 console.log('response', res.data)
-
+                setIsLoggedIn([{isLogin: true, username: username, password:password, id: res.data.id}])
                 setTimeout(()=> {
                     navigate("/");
                 }, 2000);
@@ -116,6 +132,7 @@ export function LoginPage() {
                 <p>아이디 찾기 |</p>
                 <p>비밀번호 찾기</p>
             </div>
+            {isLog && <MemberShipModal onClickToggleModal={onClickToggleModal} children="로그인 되어있습니다"/>}
         </div>
     )
 }

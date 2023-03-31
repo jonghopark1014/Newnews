@@ -1,10 +1,13 @@
-import { useState, useCallback, Children, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/Button"
-import styles from "@/styles/membership/MemberShipPage.module.scss";
+import { useRecoilValue } from "recoil";
 import axios from "axios";
-import { SERVER_URL } from "@/utils/urls"
+
+import { LoginState } from "@/states/LoginState";
+import { Button } from "@/components/Button"
 import MemberShipModal from "@/components/membership/MemberShipModal";
+import { SERVER_URL } from "@/utils/urls"
+import styles from "@/styles/membership/MemberShipPage.module.scss";
 
 interface Iprops{
 	username : string
@@ -17,12 +20,19 @@ interface Iprops{
 
 export function MemberShipPage() {
     const navigate = useNavigate()
-
-    
+    const isLogin = useRecoilValue(LoginState);
+    const isLog = isLogin[0].isLogin
+    useEffect(() => {
+        if (isLog) {
+            alert('로그인이 되어있습니다')
+            navigate('/');
+        }
+    }, [isLogin, navigate])
 
 
     // 모달창
     const [isUsernameModal, setUsernameModal] = useState<boolean>(false);
+    console.log('1')
     const [isUsernameErrorModal, setUsernameErrorModal] = useState<boolean>(false);
     const [isDuplicationModal, setDuplicationModal] = useState<boolean>(false);
     const [isPasswordModal, setPasswordModal] = useState<boolean>(false);
@@ -236,45 +246,44 @@ export function MemberShipPage() {
     return(
         <section className={styles.sectionStyles}>
             <div className={styles.formStyle} >
-            <div className={styles.email}>
-                <div className={styles.emailGrid}>
-                    <p>이메일</p>
-                    <Button onClick={() => {checkUsername(username)}} children={"중복확인"}/>
-                </div>
-                    <input type="email" onChange={onChangeUsername} value={username} placeholder="이메일을 입력해주세요"/>
-                    {username.length > 0 && <span className={`message ${isusername ? 'success' : 'error'}`}>{usernameMessage}</span>}
-
-            </div>
-            <div className={styles.password}>
-                <p>비밀번호</p>
-                    <input type="password" onChange={onChangePassword} value={password}  placeholder="특수문자와 숫자를 포함한 8자리이상 입력해주세요."/>
-                    {password.length > 0 && (
-                    <span className={`message ${isPassword ? 'success' : 'error'}`}>{passwordMessage}</span>
-                    )}
-            </div>
-            <div className={styles.passwordConfirm}>
-                <p>비밀번호 확인</p>
-                    <input type="password" onChange={onChangePasswordChk} value={passwordChk} />
-                    {passwordChk.length > 0 && (
-                    <span className={`message ${isPasswordChk ? 'success' : 'error'}`}>{passwordChkMessage}</span>
-                    )}
-            </div>
-            <div className={styles.sex}>
-                <p>성별</p>
-                <div>
-                    <div>
-                        <label>남</label> <input type="checkbox" name='sexCheckBox' onClick={isCheckBox} value={'male'} />
+                <div className={styles.email}>
+                    <div className={styles.emailGrid}>
+                        <p>이메일</p>
+                        <Button onClick={() => {checkUsername(username)}} children={"중복확인"}/>
                     </div>
-                    <div>
-                        <label>여</label> <input type="checkbox" name='sexCheckBox' onClick={isCheckBox} value={'female'} />
-                    </div>
+                        <input type="email" onChange={onChangeUsername} value={username} placeholder="이메일을 입력해주세요"/>
+                        {username.length > 0 && <span className={`message ${isusername ? 'success' : 'error'}`}>{usernameMessage}</span>}
                 </div>
-                
-            </div>
-            <div className={styles.date}>
-                <p>생년월일</p>
-                <input type="number" placeholder="ex) 900101" required aria-required="true" maxLength={6} onChange={onChangeyearOfBirth}/>
-            </div>
+                <div className={styles.password}>
+                    <p>비밀번호</p>
+                        <input type="password" onChange={onChangePassword} value={password}  placeholder="특수문자와 숫자를 포함한 8자리이상 입력해주세요."/>
+                        {password.length > 0 && (
+                        <span className={`message ${isPassword ? 'success' : 'error'}`}>{passwordMessage}</span>
+                        )}
+                </div>
+                <div className={styles.passwordConfirm}>
+                    <p>비밀번호 확인</p>
+                        <input type="password" onChange={onChangePasswordChk} value={passwordChk} />
+                        {passwordChk.length > 0 && (
+                        <span className={`message ${isPasswordChk ? 'success' : 'error'}`}>{passwordChkMessage}</span>
+                        )}
+                </div>
+                <div className={styles.sex}>
+                    <p>성별</p>
+                    <div>
+                        <div>
+                            <label>남</label> <input type="checkbox" name='sexCheckBox' onClick={isCheckBox} value={'male'} />
+                        </div>
+                        <div>
+                            <label>여</label> <input type="checkbox" name='sexCheckBox' onClick={isCheckBox} value={'female'} />
+                        </div>
+                    </div>
+                    
+                </div>
+                <div className={styles.date}>
+                    <p>생년월일</p>
+                    <input type="number" placeholder="ex) 900101" required aria-required="true" maxLength={6} onChange={onChangeyearOfBirth}/>
+                </div>
             </div>
             { isUsernameModal && <MemberShipModal onClickToggleModal={ onClickToggleModal } children="사용 가능한 아이디입니다"/>}
             { isUsernameErrorModal && <MemberShipModal onClickToggleModal={ onClickToggleErrorModal } children="이미 사용중인 아이디입니다"/>}
