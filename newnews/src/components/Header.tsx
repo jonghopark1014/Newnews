@@ -11,7 +11,7 @@ import styles from "../styles/Header.module.scss"
 interface Iprops {
     children?: React.ReactNode,
     data? : string[] | number[],
-    userId? : number | null,
+    userId? : number | null | undefined,
 }
 
 /**
@@ -22,35 +22,46 @@ interface Iprops {
 export function Header({children}: Iprops) {
     const navigate = useNavigate()
     
-
     const isLogin = useRecoilValue(LoginState)
-    const AlertList = useAlertList()
+    const BellList = useBellList()
+    
     const userId = isLogin[0]?.id
+    const loginBoolean = isLogin[0].isLogin
     const [data, setData] = useState<Iprops[]>([])
+    
     /**
      * 페이지 랜더링하자마자 알람을 가져오기
     */
-    useState(() => {
-        AlertList.mutate({userId: 1}, {
-            onSuccess: (data) => {
-                setData(data.data)
-            }
-        })
-    })
+    if (loginBoolean) {
+        useState(() => {
+            BellList.mutate({ userId: userId }, {
+                onSuccess: (data) => {
+                    setData(data.data)
+                }
+            })
+        })    
+    }
+    
+    console.log('data', data)
 
-    const alertIcon = (state : boolean) =>{
-        if (data.length === 0) {
-            return (<VscBell className={styles.icons} onClick={() => {navigate('/bell')}}/>)
+    const BellIcon = (state : boolean) =>{
+        if (loginBoolean) {
+            if (data.length === 0) {
+                return (<VscBell className={styles.icons} onClick={() => {navigate('/bell')}}/>)
+            } else {
+                return (<VscBellDot className={styles.iconsAfter} onClick={() => {navigate('/bell')}}/>)
+            }
         } else {
-            return (<VscBellDot className={styles.iconsAfter} onClick={() => {navigate('/bell')}}/>)
+            return (<div className={styles.none}> </div>)
         }
+        
     }
 
     return (
         <header>
             <div className={styles.headerStyle}>
                 <h2 className={styles.h1Style}>{children}</h2>
-                {alertIcon(true)}
+                {BellIcon(true)}
             </div>
         </header>
     )
