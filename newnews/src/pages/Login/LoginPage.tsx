@@ -29,7 +29,7 @@ export function LoginPage() {
     
     //
     const isLogin = useRecoilValue(LoginState);
-    const isLog = isLogin[0].isLogin
+    const isLog = isLogin[0]?.isLogin
     const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState);
 
     // 로그인

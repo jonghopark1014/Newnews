@@ -3,7 +3,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { LoginState } from '@/states/LoginState';
 import styles from '@/styles/mypage/MyPage.module.scss';
 import { useEffect } from "react";
-
+import { BiLogOut } from "react-icons/bi";
 
 export function MyPage(){
     const navigate = useNavigate()
@@ -11,6 +11,17 @@ export function MyPage(){
     const isLogin = useRecoilValue(LoginState)
     const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState);
     const defaultTopics = ["정치", "경제", "사회", "생활/문화", "IT/과학", "세계", "국내축구", "해외축구", "연예"];
+
+    useEffect(() => {
+        if (!isLogin[0]?.isLogin) {
+            alert("로그인이 필요한 페이지 입니다. 로그인 페이지로 이동합니다.")
+            navigate('/login');
+        }
+    }, [isLogin, navigate])
+
+    const onClickLogout = () =>{
+        setIsLoggedIn([{isLogin: false, username: null, password: null, id: null}])
+    }
     
     useEffect(()=>{
         const len = defaultTopics.length;
@@ -29,6 +40,7 @@ export function MyPage(){
     return (
         <section className={styles.mypage}>
             <Link to="/login">mypage</Link>
+            <BiLogOut onClick={() => {onClickLogout()}} />
             <div className={styles.content}>
                 <p>성향</p>
                 {defaultTopics.map((topic, index)=>{ return <div key={index} className={styles.line}><p>{topic}</p></div>})}
