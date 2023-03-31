@@ -1,0 +1,16 @@
+.searchSection{
+    max-width: 100vw;
+    max-height: 100vh;
+    height: 85vh;
+    width: 100vw;
+    overflow: scroll;
+}
+.center{
+    display: flex;
+    position: relative;
+    top: 40%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+}

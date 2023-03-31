@@ -1,50 +1,138 @@
-import { Button } from "@components/Button";
-import styles from "@/styles/login/Login.module.scss"
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { LoginState } from '@/states/LoginState';
+import { HiOutlineUsers, HiOutlineLockClosed } from "react-icons/hi";
+import axios from "axios";
+
+import { SERVER_URL } from "@/utils/urls"
+import { Button } from "@/components/Button";
+import MemberShipModal from "@/components/membership/MemberShipModal";
 import { KakaoLogin } from "@/components/login/Kakao";
-import { GoogleLogin } from "@components/login/google";
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
+
+// import {  } from 'react-kakao-login'
+
+import styles from "@/styles/login/Login.module.scss"
+
+
+interface Iprops{
+    username : string
+    password : string
+}
+const REST_API_KEY = '758949398062-ossaflmuh3pmgl7igje8cvqmgf9cpoi1.apps.googleusercontent.com'
 
 export function LoginPage() {
-    const [inputs, setInputs] = useState('');
+    const navigate = useNavigate()
+    const API = `${SERVER_URL}/api/login`;
+    
+    //
+    const isLogin = useRecoilValue(LoginState);
+    const isLog = isLogin[0]?.isLogin
+    const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState);
+
+    // 로그인
+    const [username, setUsername] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
+
+    const [isModal, setModal ] = useState<boolean>(false);
+
+    const onClickToggleModal = useCallback(() => {
+        setModal(!isModal);
+    }, [isModal]);
+
+    useEffect(() => {
+        if (isLog) {
+            alert('로그인이 되어있습니다')
+            navigate('/');
+        }
+    }, [isLogin, navigate])
+
+    async function onSubmitLogin({username, password}: Iprops) {
+
+        try {
+        await axios
+            .post(API, {
+            username: username,
+            password: password,
+            },
+            {
+                withCredentials: true,
+            })
+            .then((res) => {
+                console.log('response', res.data)
+                setIsLoggedIn([{isLogin: true, username: username, password:password, id: res.data.id}])
+                setTimeout(()=> {
+                    navigate("/");
+                }, 2000);
+            })
+            } catch (err) {
+                console.error(err)
+            }
+        }
+    
+
+
     /**
      * 
      * @param e input값을 실시간으로 보여주는 값
      */
-    const onChange = (e : React.ChangeEvent<HTMLInputElement>) => {
-        setInputs(e.target.value);
-    console.log(e.target.value)
+    const onChangeUsername = (e : React.ChangeEvent<HTMLInputElement>) => {
+        setUsername(e.target.value);
     };
+    const onChangePassword = (e : React.ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value);
+    };
+    
 
     return(
-        <div>
+        <div className={styles.container}>
+            <div className={styles.block} />
             {/* 아이디 입력과 비밀번호 입력 */}
-            <div className={styles.inputSytle}>
-                <input className={styles.idInput} 
-                type="text" placeholder="아이디를 입력해주세요" onChange={onChange}/>
-                <input className={styles.pwInput} 
-                type="text" placeholder="비밀번호를 입력해주세요" onChange={onChange}/>
-            </div>
+                <div className={styles.idInput}>
+                    <HiOutlineUsers className={styles.icons}/>
+                    <hr />
+                    <input  
+                    type="email" placeholder="아이디를 입력해주세요" value={username} onChange={onChangeUsername}/> 
+                </div>
+                <form className={styles.pwInput}>
+                    <HiOutlineLockClosed className={styles.icons} />
+                    <hr />
+                    <input  
+                    type="password" placeholder="비밀번호를 입력해주세요" autoComplete="off" value={password} onChange={onChangePassword}/>
+                </form>
             {/* 아이디저장 자동로그인 체크박스 */}
             <div className={styles.checkBox}>
-                <input type="checkbox" name="" id="id" />
-                <label htmlFor="">아이디 저장</label>
+                <input type="checkbox" name="" id="idSave" />
+                <label htmlFor="">아이디 저장</label> 
                 <input type="checkbox" name="" id="" />
                 <label htmlFor="">자동 로그인</label>
             </div>
             {/* 버튼 */}
             <div className={styles.buttonGrid}>
-                <Button onClick={() => {}} children={"로그인 하기"}/>
+                <Button width={150} onClick={() => {onSubmitLogin({username, password})}} children={"로그인 하기"}/>
             </div>
             <hr className={styles.hrStyles}/>
             {/* 소셜로그인 */}
             <div className={styles.snsGrid}>
             <KakaoLogin />
-            <GoogleLogin />
+                <GoogleOAuthProvider clientId={`${REST_API_KEY}`}>
+                    <GoogleLogin onSuccess={(credentialRespose) =>{
+                        console.log(credentialRespose)
+                    }}
+                    onError={() =>{
+                        console.log('login Failed')
+                    }}/>
+                </GoogleOAuthProvider>
             </div>
             {/* 회원가입 | 아이디찾기 | 비밀번호 찾기 */}
             <div className={styles.modifyGrid}>
-                <p>회원가입 | 아이디 찾기 | 비밀번호 찾기</p>
+                <p onClick={() => (navigate('/membership'))}>회원가입 |</p>
+                <p>아이디 찾기 |</p>
+                <p>비밀번호 찾기</p>
             </div>
+            {isLog && <MemberShipModal onClickToggleModal={onClickToggleModal} children="로그인 되어있습니다"/>}
         </div>
     )
 }

@@ -2,8 +2,8 @@ import { useRecoilState } from "recoil"
 import { useEffect, useState } from "react"
 import { topicAtom } from "@/stores/NewsTopics"
 import { IoIosArrowBack } from "react-icons/io"
-import "@styles/MainPageStyle.scss"
-import { SetTopicButton } from "@components/mainpage/SetTopicButton";
+import "@/styles/main/MainPageStyles.scss"
+import { SetTopicButton } from "@/components/mainpage/SetTopicButton";
 import { useNavigate } from "react-router-dom"
 
 export function MainPageSetTopics(){
@@ -51,7 +51,7 @@ export function MainPageSetTopics(){
             <div className="set-topic-header">
                 <IoIosArrowBack onClick={()=> navigate(-1)}/>
                 <div>
-                    <h3>더 많은 토픽</h3>
+                    <h4>더 많은 토픽</h4>
                 </div>
             </div>
             <div className="set-topic-content">

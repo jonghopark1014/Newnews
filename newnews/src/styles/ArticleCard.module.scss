@@ -3,6 +3,7 @@
     width: 80%;
     margin: 8px auto;
     flex-direction: row-reverse;
+    max-width: 400px;
 }
 .articleImg{
     border-color: #ffffff;
@@ -20,13 +21,13 @@
         height: 10vh;
         top: -10vh;
         background: linear-gradient(0deg, rgba(54, 54, 54, 0.83) 61.46%, rgba(54, 54, 54, 0) 100%);
-        h2 {
+        h3 {
             position: relative;
             top: 1vh;
             margin:0 0 0 0.5rem;
-            width: 100%;
+            width: 90%;
             color: #ffffff;
-            font-weight: 400;
+            font-weight: 300;
             overflow: hidden;
             text-overflow: ellipsis;
             display: -webkit-box;
@@ -36,7 +37,7 @@
         }
         .icons{
             position: absolute;
-            left: 55vw;
+            right: -3%;
             top: 5vh;
             color: #0096ED;
             width: 20%;
@@ -46,6 +47,23 @@
                 height: 100%;
             }
         }
+        .arterIcons{
+            position: absolute;
+            right: -3%;
+            top: 5vh;
+            width: 20%;
+            height: 30%;
+            color: #FFD342;
+            svg{
+                width: 100%;
+                height: 100%;
+            }
+        }
     }
 }
-
+@media (min-width: 1024px) {
+    .articleCard{
+        display: grid;
+        margin: auto;
+    }
+}

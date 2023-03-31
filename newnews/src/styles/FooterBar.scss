@@ -1,11 +1,9 @@
 .footer {
-    position: absolute;
-    bottom: 0;
     width: 100vw;
-    height: 48px;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    background-color: #fff;
 }
 
 a.footer-navigator {

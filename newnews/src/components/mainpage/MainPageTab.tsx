@@ -1,7 +1,7 @@
 import { MainPageTabTopic } from "./MainPageTabTopic";
-import "@styles/MainPageStyle.scss"
+import "@/styles/main/MainPageStyles.scss"
 import { useRecoilState } from "recoil"
-import { topicAtom, topicStateType } from "../../stores/NewsTopics"
+import { topicAtom, topicStateType } from "@/stores/NewsTopics"
 import { useEffect, useState } from "react";
 import { BsPlus } from "react-icons/bs";
 import { Link } from "react-router-dom";
@@ -18,7 +18,7 @@ export function MainPageTab(){
     
     useEffect(()=>{
         const underline = document.getElementById("underline");
-        const elems = document.querySelectorAll<HTMLParagraphElement>('h3#MainPageTabTopic');
+        const elems = document.querySelectorAll<HTMLParagraphElement>('h4#MainPageTabTopic');
         let boundingRectX;
         let boundingRectWidth;
 

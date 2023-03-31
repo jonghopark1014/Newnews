@@ -1,0 +1,79 @@
+
+@keyframes graphspread {
+    from{
+        width: 3vw;
+        opacity: 0;
+    }
+    to{
+        width: 30vw;
+        opacity: 1;
+    }
+}
+
+.mypage {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 80vh;
+    // justify-content: center;
+    // align-items: center;
+    .content {
+        display: flex;
+        flex-direction: column;
+        height: 60%;
+        width: 80%;
+        p {
+
+        }
+        .outside {
+            align-self: center;
+            width: 100px;
+            height: 100px;
+            background-color: #0096ED;
+            clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
+            .inside {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                align-self: center;
+                width: 100px;
+                height: 100px;
+                background-color: #fff;
+                clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
+            }
+        }
+        .line {
+            top: 50%;
+            left: 50%;
+            position: absolute;
+            height: 1px;
+            width: 3vw;
+            background-color: #0096ED;
+            transform-origin: 0%;
+            transition: transform 0.5s;
+            animation: graphspread 0.5s ease 0s 1 forwards;
+            p {
+                
+            }
+        }
+    }
+    .dropout{
+        display: flex;
+        margin: 5% auto 0 10%;
+        button {
+            margin: 0;
+            font-weight: 500;
+            font-size: medium;
+            text-align: center;
+            // text: #F67442;
+            background-color: #fff;
+            color: #363636;
+            height: 40px;
+            border-color: #fff;
+            border-radius: 6px;
+            box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+        }
+    }    
+}
+

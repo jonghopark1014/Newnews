@@ -1,0 +1,1 @@
+export const SERVER_URL = "https://j8b309.p.ssafy.io";

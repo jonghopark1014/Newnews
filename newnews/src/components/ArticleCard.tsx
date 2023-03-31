@@ -1,42 +1,66 @@
-import React from "react";
+import { useEffect, useState } from 'react'
+import { BsBookmarkPlus, BsBookmarkCheckFill } from "react-icons/bs";
 import styles from "../styles/ArticleCard.module.scss"
 import bondee from "../assets/bondee.jpg"
-import { BsBookmarkPlus, BsBookmarkDashFill } from "react-icons/bs";
+
 
 interface Card {
-    id: number;
-    url: string;
-    title: string;
-};
+    id?: number,
+    url?: string,
+    title?: string,
+    width?: number,
+    height?: number,
+    onClick?:  void,
+}
 
 interface Props {
-data: Array<Card>;
+    data: Array<Card>;
 };
 
-export const ArticleCard = ({data}: Props) => {
-    const [activeId, setActiveId] = React.useState<number>(1)
+// export const ArticleCard = ({data}: Props) => {
+export const ArticleCard = ({width, height} : Card ) => {
+    const [activeId, setActiveId] = useState<number>()
 
     const onClick = (id: number) => setActiveId(id);
+    
+    useEffect(() =>{
+        const articleCard = document.querySelector<HTMLElement>('#articleCard')
 
+        if (articleCard) {
+            articleCard.style.width =`${width}%`
+            articleCard.style.height =`${height}px`
+        }        
+    }, [])
+    
+        const [marked, setMarked] = useState(true);
+        const bookMark = (state: boolean)=>{
+            if (state) {
+                return (
+                    <BsBookmarkPlus className={styles.icons} onClick={()=>setMarked(!marked)}/>
+                )
+            } else {
+                return (
+                    <BsBookmarkCheckFill className={styles.arterIcons} onClick={()=>setMarked(!marked)}/>
+                )
+            }
+        }
     return(
 
-        <div className={styles.articleCard}>
+        <div  className={styles.articleCard}>
             {/* {data.map(card => (
             <div
             key={card.id}
             className={`${styles.articleImg} ${activeId === card.id ? 'active' : ''}`}
             onClick={() => onClick(card.id)}
             style={{ backgroundImage: `url(${card.url})` }}>
-            <h2>{card.title}</h2>
+            <h3>{card.title}</h3>
             </div>))} */}
-            <div className={styles.articleImg}>
+            <div id='articleCard' className={styles.articleImg}>
                 <img src={bondee} />
                 {/* <img src={`${url}`} alt="" /> */}
                 <div className={styles.gradation}>
-                    <h2>본디 신상정보 사실이 아니다 </h2>
-                    <BsBookmarkPlus className={styles.icons}/>
-                    {/* <BsBookmarkDashFill className={styles.icons}/> */}
-                    {/* <div className={styles.icons}> </div> */}
+                    <h3>본디 신상정보 사실이 아니다본디 신상정보 사실이 아니다본디 신상정보 사실이 아니다 </h3>
+                    {bookMark(marked)}
                 </div>
             </div>
         </div>

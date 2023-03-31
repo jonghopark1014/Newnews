@@ -12,6 +12,7 @@ export function SearchResultPage(){
             <SearchBar/>
             <div>
                 {/* <ArticleCard data={}/> */}
+                <ArticleCard />
             </div>
         </section>
 

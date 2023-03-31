@@ -1,4 +1,4 @@
-import "@styles/MainPageStyle.scss"
+import "@/styles/main/MainPageStyles.scss"
 
 
 interface Iprops {

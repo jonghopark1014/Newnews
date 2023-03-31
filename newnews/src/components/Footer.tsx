@@ -21,11 +21,11 @@ export function Footer(){
     };
     
     return (
-        <div className="footer">
+        <footer className="footer">
             <Link to="/" id="home" className={"footer-navigator " + setStyle('')} ><GrHomeRounded viewBox="0 0 28 26"/></Link>
             <Link to="/search" id="search" className={"footer-navigator " + setStyle('search')} ><AiOutlineSearch /></Link>
             <Link to="/bookmark" id="bookmark" className={"footer-navigator " + setStyle('bookmark')} ><FiBookmark /></Link>
             <Link to="mypage" id="mypage" className={"footer-navigator " + setStyle('mypage')} ><HiUserCircle /></Link>
-        </div>
+        </footer>
     )
 }
