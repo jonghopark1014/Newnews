@@ -17,7 +17,7 @@ import { GoogleRedirect } from '@/components/login/GoogleRedirect'
 import { MainPage } from '@/pages/main/MainPage';
 import { BookMarkPage } from '@/pages/bookmark/BookMarkPage';
 import { MyPage } from '@/pages/mypage/MyPage';
-import { BellPages } from '@/pages/alert/BellPages';
+import { BellPages } from '@/pages/bell/BellPages';
 import { MainPageSetTopics } from '@/pages/main/MainPageSetTopics';
 import { MainDetailPage } from '@/pages/main/MainDetailPage'
 import './index.scss'

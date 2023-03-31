@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 import { VscBell, VscBellDot  } from "react-icons/vsc"
 
 import { LoginState } from "@/states/LoginState";
-import useAlertList from "@/hooks/alert/useAlertList";
+import useBellList from "@/hooks/bell/useBellList";
 
 import styles from "../styles/Header.module.scss"
 
