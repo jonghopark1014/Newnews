@@ -25,13 +25,13 @@ public class NotificationController {
 //        return Response.success(HttpStatus.OK);
 //    }
 
-    @PostMapping("/delete/all")
+    @DeleteMapping("/delete/all")
     public ResponseEntity deleteAllNotification(@RequestBody Long userId) {
             notificationService.deleteAll(userId);
             return Response.success(HttpStatus.OK);
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public ResponseEntity deleteNotification(@RequestBody UserHistoryRequestDto userHistoryRequestDto){
             notificationService.delete(userHistoryRequestDto.getUserId(), userHistoryRequestDto.getNewsId());
             return Response.success(HttpStatus.OK);
