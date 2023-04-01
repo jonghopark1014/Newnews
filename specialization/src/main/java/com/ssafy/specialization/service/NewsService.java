@@ -2,6 +2,7 @@ package com.ssafy.specialization.service;
 
 import com.ssafy.specialization.dto.NewsImageResponseDto;
 import com.ssafy.specialization.dto.NewsResponseDto;
+import com.ssafy.specialization.dto.RelatedNewsOneResponseDto;
 import com.ssafy.specialization.dto.RelatedNewsResponseDto;
 import com.ssafy.specialization.entity.News;
 import com.ssafy.specialization.entity.NewsImage;
@@ -146,5 +147,34 @@ public class NewsService {
         }else{
             throw new IllegalArgumentException("잘못된 카테고리입니다.");
         }
+    }
+
+    public RelatedNewsOneResponseDto getRelatedNewsOne(Long newsId, Long preNewsId) {
+        News preNews = newsRepository.findById(preNewsId).orElseThrow(
+                () -> new IllegalArgumentException("해당하는 뉴스가 없습니다.")
+        );
+
+        News news = newsRepository.findById(newsId).orElseThrow(
+                () -> new IllegalArgumentException("해당하는 뉴스가 없습니다.")
+        );
+
+        NewsResponseDto newsResponseDto = NewsResponseDto.builder()
+                .id(news.getId())
+                .title(news.getTitle())
+                .content(news.getContent())
+                .press(news.getPress())
+                .reporter(news.getReporter())
+                .newsDate(news.getNewsDate())
+                .newsImageList(
+                        getNewsImageResponseDto(news.getNewsImageList())
+                )
+                .build();
+
+        return RelatedNewsOneResponseDto.builder()
+                .preNewsId(preNews.getId())
+                .preNewsTitle(preNews.getTitle())
+                .news(newsResponseDto)
+                .build();
+
     }
 }
