@@ -5,6 +5,8 @@ import { LoginState } from '@/states/LoginState';
 import { ArticleCard } from "@/components/ArticleCard";
 import useBookmarkList from "@/hooks/bookmark/useBookmarkList";
 
+import styles from "@/styles/bookmark/BookMark.module.scss"
+
 interface DropImgProps{
     url : string, 
     description : string,
@@ -34,6 +36,7 @@ export function BookMarkPage(){
     // bookmark hook
     const bookmarkList = useBookmarkList()
     
+    
 
     useEffect(()=> {
         bookmarkList.mutate({ userId: isLog }, {
@@ -43,8 +46,9 @@ export function BookMarkPage(){
         })
     }, [])
 
+
     return (
-        <div>
+        <div className={styles.bookmarkGrid}>
             {NewsData && NewsData.map((item, index) =>
                 <ArticleCard key={index} title={item.title} id={item.id} url={item.newsImageList[0].url} width={100} height={200} />
                 )}

@@ -18,5 +18,14 @@
     height: 85vh;
     overflow: scroll;
 }
+.center{
+    display: flex;
+    position: relative;
+    top: 40%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+}
 @media (min-width: 1024px) {
 }

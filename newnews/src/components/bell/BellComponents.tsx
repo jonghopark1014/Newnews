@@ -9,22 +9,18 @@ import styles from "@/styles/bell/BellComponents.module.scss";
 
 interface Iprops{
     children : string,
-    preNewsId: number,
+    preNewsId: number | null | undefined,
     newsId: number | null | undefined,
 }
 
 export const BellComponents = ({ children, preNewsId, newsId } : Iprops) =>{
     const navigate = useNavigate()
-    const BellDelete = useBellDelete()
+    const bellDelete = useBellDelete()
     const isLogin = useRecoilValue(LoginState)
     const isLog = isLogin[0].id
-    const preNews = preNewsId
-
-    const onClickDeleteBell = () => {
-        console.log(BellDelete.mutate({ userId: isLog, newsId : preNews}))
-    }
 
     const onClickRead = () => {
+        bellDelete.mutate({ userId: isLog, newsId : newsId})
         navigate('/detail', { state: { newsId: newsId, preNewsId: preNewsId }})
     }
 

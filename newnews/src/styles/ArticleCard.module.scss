@@ -1,7 +1,7 @@
 .articleCard{
     display: flex;
     width: 80%;
-    margin: 8px auto;
+    margin: 8% auto;
     flex-direction: row-reverse;
     max-width: 400px;
 }
@@ -64,6 +64,6 @@
 @media (min-width: 1024px) {
     .articleCard{
         display: grid;
-        margin: auto;
+        margin: 3% auto;
     }
 }

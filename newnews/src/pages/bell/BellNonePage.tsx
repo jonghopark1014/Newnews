@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router";
 import { Button } from "@/components/Button";
-import styles from "@/styles/bookmark/BookMark.module.scss"
+import styles from "@/styles/bell/Bellpages.module.scss"
+import { BellHeader } from "@/components/bell/BellHeader";
+
 
 interface Iporps{
     onClick(): React.MouseEvent<HTMLDivElement>,
@@ -10,16 +12,15 @@ interface Iporps{
  * 
  * @returns 스크랩 결과가 없을때 페이지
  */
-export function BookMarkNonePage() {
+export function BellNonePage() {
     const navigate = useNavigate()
     
     return (
-        <section className={styles.searchSection}>
+        <section className={styles.testObj}>
+            <BellHeader />
             <div className={styles.center}>
                 <h3 >
-                    스크랩 된 기사가 없습니다.
-                    <br />
-                    스크랩하고 싶은 뉴스를 저장해주세요.
+                    알림이 없습니다.
                 </h3>
                 <br />
                 <Button width={150} onClick={()=>{navigate('/')}}>
