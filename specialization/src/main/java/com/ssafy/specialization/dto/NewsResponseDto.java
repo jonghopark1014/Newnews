@@ -17,6 +17,8 @@ public class NewsResponseDto {
     private String press;
     private List<NewsImageResponseDto> newsImageList;
 
+    private boolean isBookmark;
+
     @Builder
     public NewsResponseDto(
             Long id,
@@ -34,5 +36,16 @@ public class NewsResponseDto {
         this.reporter = reporter;
         this.press = press;
         this.newsImageList = newsImageList;
+    }
+
+    public NewsResponseDto(Long id, String title, String content, LocalDateTime newsDate, String reporter, String press, List<NewsImageResponseDto> newsImageList, boolean isBookmark) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.newsDate = newsDate;
+        this.reporter = reporter;
+        this.press = press;
+        this.newsImageList = newsImageList;
+        this.isBookmark = isBookmark;
     }
 }
