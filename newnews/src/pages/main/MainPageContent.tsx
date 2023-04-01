@@ -8,11 +8,6 @@ import { topicAtom, topicStateType } from '@/stores/NewsTopics';
 
 import '@/styles/main/MainPageStyles.scss';
 
-const BLUR_STATUS = {
-    LEFT_BLUR: 1,
-    RIGHT_BLUR: -1,
-    BOTH_BLUR: 0,
-}; 
 
 interface newsMain {
     newsId : number,
@@ -32,27 +27,23 @@ const defaultNews: newsMain[] = [
     },
 ]
 
-// function reoder(){
-//     $(".book").each(function(){
-//     var pages=$(this).find(".page")
-//     var pages_flipped=$(this).find(".flipped")
-//     pages.each(function(i){
-//         $(this).css("z-index",pages.length-i)
+// 넘기는 효과를 위한...
+// function reorder() {
+//     const books = document.querySelectorAll<HTMLElement>('.book');
+//     books.forEach((book, index)=>{
+//         const pages = book.querySelectorAll<HTMLElement>('.page');
+//         const pages_flipped = book.querySelectorAll<HTMLElement>('.flipped')
+//         pages.forEach((page, index)=>{
+//             page.style.zIndex = `${pages.length-index}`
+//         })
+//         pages_flipped.forEach((page, index)=>{
+//             page.style.zIndex = `${index + 1}`
+//         })
 //     })
-//     pages_flipped.each(function(i){
-//         $(this).css("z-index",i+1)
-//     })
-//     });    
-// }
-function reorder() {
-    const books = document.querySelectorAll<HTMLElement>('.book');
-    books.forEach((book, index)=>{
-        // const pages = books.children.
-    })
-    for (let i = 0; i < books.length; i++) {
+//     for (let i = 0; i < books.length; i++) {
         
-    }
-}
+//     }
+// }
 
 export function MainPageContent(){
     // 메인 뉴스 정보
@@ -77,6 +68,7 @@ export function MainPageContent(){
             rootMargin: '0px',
             threshold: 1
         }
+
         const io = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 // entry의 target으로 DOM에 접근
@@ -101,13 +93,15 @@ export function MainPageContent(){
                 }
             });
         }, options);
+
+        // 뉴스별 useQuery 다르게 요청
         if (topicState.focused == "연관뉴스") {
             useNewsAfter.mutate({ userId: 1 }, {
                 onSuccess: (data) => {
                     setNews(data.data.content);
                 }
             });
-        } else {
+        } else { // 정치, 경제, 사회, ...
             useNewsAll.mutate({ category: topicState.focused }, {
                 onSuccess: (data) => {
                     setNews(data.data.content);
@@ -116,28 +110,31 @@ export function MainPageContent(){
         }
         const newsElems = document.querySelectorAll<HTMLElement>('.main-page-content-card');
         const mainpage = document.querySelector('.main-page-content');
+        mainpage
         for (let i = 0; i < newsElems.length; i++) {
             newsElems[i].id = `page-${i}`;
-            const upper = document.querySelector(`.main-page-content#page-${i} > .upper-half`);
-            const lower = document.querySelector(`.main-page-content#page-${i} > .lower-half`);
-            newsElems[i].addEventListener('click', ()=>{
-                newsElems[i].classList.remove('no-anim');
-                newsElems[i].classList.toggle('flipped');
-                const div = document.querySelector('.page > div');
-                div?.addEventListener('click',(e)=>{
-                    e.stopPropagation();
-                })
-                reorder();
-            });
+            // 책 넘기는 효과 도즈언
+            // const upper = document.querySelector(`.main-page-content#page-${i} > .upper-half`);
+            // const lower = document.querySelector(`.main-page-content#page-${i} > .lower-half`);
+            // newsElems[i].addEventListener('click', ()=>{
+            //     newsElems[i].classList.remove('no-anim');
+            //     newsElems[i].classList.toggle('flipped');
+            //     const div = document.querySelector('.page > div');
+            //     div?.addEventListener('click',(e)=>{
+            //         e.stopPropagation();
+            //     })
+            //     reorder();
+            // });
+            // if (upper) {
+            //     upper.id = `p${i}`;
+            // }
+            // upper?.classList.add('side-2')
+            // if (lower) {
+            //     lower.id = `p${i}`;
+            // }
+            // lower?.classList.add('side-1')
 
-            if (upper) {
-                upper.id = `p${i}`;
-            }
-            upper?.classList.add('side-2')
-            if (lower) {
-                lower.id = `p${i}`;
-            }
-            lower?.classList.add('side-1')
+            // 카드들 observer 등록
             io.observe(newsElems[i]);
         }
         if (mainpage) {
@@ -146,15 +143,7 @@ export function MainPageContent(){
             })
         }
         
-        // $('.page').click(function() {
-        //     $(this).removeClass('no-anim').toggleClass('flipped');
-        //     $('.page > div').click(function(e) {
-        //         e.stopPropagation();
-        //     });
-        //     reorder()   
-        // });
-        
-        reorder()
+        // reorder()
     }, [topicState.focused])
     return (
         <div className="main-page-content">

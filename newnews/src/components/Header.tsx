@@ -10,7 +10,7 @@ import styles from "../styles/Header.module.scss"
 
 interface Iprops {
     children?: React.ReactNode,
-    data? : string[] | number[],
+    data? : string[] | number[] | [],
     userId? : number | null,
 }
 
@@ -24,7 +24,7 @@ export function Header({children}: Iprops) {
     
 
     const isLogin = useRecoilValue(LoginState)
-    const AlertList = useAlertList()
+    const AlertList = useBellList()
     const userId = isLogin[0]?.id
     const [data, setData] = useState<Iprops[]>([])
     /**
