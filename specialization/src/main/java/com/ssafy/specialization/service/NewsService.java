@@ -4,9 +4,7 @@ import com.ssafy.specialization.dto.NewsImageResponseDto;
 import com.ssafy.specialization.dto.NewsResponseDto;
 import com.ssafy.specialization.dto.RelatedNewsOneResponseDto;
 import com.ssafy.specialization.dto.RelatedNewsResponseDto;
-import com.ssafy.specialization.entity.News;
-import com.ssafy.specialization.entity.NewsImage;
-import com.ssafy.specialization.entity.Notification;
+import com.ssafy.specialization.entity.*;
 import com.ssafy.specialization.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -27,6 +25,8 @@ public class NewsService {
     private final LifeAndCultureRepository lifeAndCultureRepository;
     private final SocietyRepository societyRepository;
     private final ItAndScienceRepository itAndScienceRepository;
+    private final UserRepository userRepository;
+    private final BookmarkRepository bookmarkRepository;
 
     public NewsResponseDto getNews(Long newsId) {
         News news = newsRepository.findById(newsId).orElseThrow(
@@ -176,5 +176,25 @@ public class NewsService {
                 .news(newsResponseDto)
                 .build();
 
+    }
+
+    public NewsResponseDto getNewsWithIsBookmark(String username, Long newsId) {
+        News news = newsRepository.findById(newsId).orElseThrow(
+                () -> new IllegalArgumentException("해당하는 뉴스가 없습니다.")
+        );
+
+        User user = userRepository.findByUsername(username).get();
+        Long userId = user.getId();
+
+        Bookmark bookmark = bookmarkRepository.findByUserIdAndNewsId(userId, newsId).orElseGet(
+                () -> null
+        );
+
+        return bookmark == null ?
+                new NewsResponseDto(
+                        news.getId(), news.getTitle(), news.getContent(), news.getNewsDate(), news.getReporter(),
+                        news.getPress(), getNewsImageResponseDto(news.getNewsImageList()), false
+                ) : new NewsResponseDto(news.getId(), news.getTitle(), news.getContent(), news.getNewsDate(),
+                news.getReporter(), news.getPress(), getNewsImageResponseDto(news.getNewsImageList()), true);
     }
 }

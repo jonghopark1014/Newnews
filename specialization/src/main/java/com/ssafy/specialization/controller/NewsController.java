@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -48,7 +49,13 @@ public class NewsController {
 
     @GetMapping("/details/{newsId}")
     public ResponseEntity showNews(@PathVariable Long newsId) {
-        NewsResponseDto news = newsService.getNews(newsId);
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        NewsResponseDto news = null;
+        if (username.equals("anonymousUser")) {
+            news = newsService.getNews(newsId);
+        } else {
+            news = newsService.getNewsWithIsBookmark(username, newsId);
+        }
         return Response.success(HttpStatus.OK, news);
     }
 
