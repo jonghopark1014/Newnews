@@ -1,8 +1,6 @@
 package com.ssafy.specialization.controller;
 
-import com.ssafy.specialization.dto.NewsResponseDto;
-import com.ssafy.specialization.dto.RelatedNewsResponseDto;
-import com.ssafy.specialization.dto.UserHistoryRequestDto;
+import com.ssafy.specialization.dto.*;
 import com.ssafy.specialization.response.Response;
 import com.ssafy.specialization.service.BookmarkService;
 import com.ssafy.specialization.service.NewsService;
@@ -58,6 +56,12 @@ public class NewsController {
     public ResponseEntity getRelatedNews(@RequestBody HashMap<String, Long> req, Pageable pageable) {
         Page<RelatedNewsResponseDto> relatedNewsList = newsService.getRelatedNews(req.get("userId"), pageable);
         return Response.success(HttpStatus.OK, relatedNewsList);
+    }
+
+    @PostMapping("/details/relatedNews")
+    public ResponseEntity showRelatedNews(@RequestBody RelatedNewsRequestDto requestDto) {
+        RelatedNewsOneResponseDto relatedNewsOne = newsService.getRelatedNewsOne(requestDto.getNewsId(), requestDto.getPreNewsId());
+        return Response.success(HttpStatus.OK, relatedNewsOne);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
