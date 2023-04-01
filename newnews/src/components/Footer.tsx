@@ -15,23 +15,24 @@ type footerState = 'icons' | 'icons-now';
 export function Footer(){
     const pageState = location.pathname.slice(1)
     const [bookmark, setBookmark] = useState([])
-    const [bookmarkBoolean, setBookmarkBoolean] = useState<boolean>(false)
+    const [bookmarkBoolean, setBookmarkBoolean] = useState<boolean>(true)
 
     const BookmarkList = useBookmarkList()
 
-    useState(() =>{
+    useEffect(() => {
+        
         BookmarkList.mutate( {userId : 1},{
             onSuccess : (data) =>{
-                setBookmark(data.data)
-            }
+                setBookmark(data.data) }
         })
-    })
 
-    if (bookmark.length > 0) {
-        setBookmarkBoolean(true)
-    } else{
-        setBookmarkBoolean(false)
-    }
+        if (bookmark.length === 0) {
+            setBookmarkBoolean(!bookmarkBoolean)
+        }
+    }, [])
+    
+    console.log('bookmarkBoolean', bookmarkBoolean)
+    
 
     const setStyle = (state: navigation)=>{
         if (state === pageState) {
@@ -46,7 +47,7 @@ export function Footer(){
             <Link to="/" id="home" className={"footer-navigator " + setStyle('')} ><GrHomeRounded viewBox="0 0 28 26"/></Link>
             <Link to="/search" id="search" className={"footer-navigator " + setStyle('search')} ><AiOutlineSearch /></Link>
             <Link to="/bookmark" id="bookmark" className={"footer-navigator " + setStyle('bookmark')} ><FiBookmark /></Link>
-            {/* {bookmarkBoolean && (<Link to="/bookmark" id="bookmark" className={"footer-navigator " + setStyle('bookmark')} ><FiBookmark /></Link>)} */}
+            {bookmarkBoolean && (<Link to="/bookmark" id="bookmark" className={"footer-navigator " + setStyle('bookmark')} ><FiBookmark /></Link>)}
             <Link to="mypage" id="mypage" className={"footer-navigator " + setStyle('mypage')} ><HiUserCircle /></Link>
         </footer>
     )
