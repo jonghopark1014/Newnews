@@ -32,7 +32,6 @@ export function MemberShipPage() {
 
     // 모달창
     const [isUsernameModal, setUsernameModal] = useState<boolean>(false);
-    console.log('1')
     const [isUsernameErrorModal, setUsernameErrorModal] = useState<boolean>(false);
     const [isDuplicationModal, setDuplicationModal] = useState<boolean>(false);
     const [isPasswordModal, setPasswordModal] = useState<boolean>(false);

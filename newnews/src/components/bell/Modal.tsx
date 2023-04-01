@@ -24,8 +24,8 @@ export default function Modal({ onClickToggleModal, onClickChoice, children}: Ip
                 <div className={styles.divGrid}>
                     <p>{ children }</p>
                     <div className={styles.buttonGrid}> 
-                        <Button onClick={() =>{ onClickChoice() }} children={'예'} width={60}/>
-                        <Button onClick={() =>{ onClickToggleModal() }} children={"아니요"} width={60}/>
+                        <Button onClick={() =>{ onClickChoice() }} children={'예'} />
+                        <Button onClick={() =>{ onClickToggleModal() }} children={"아니요"} />
                     </div>
                 </div>
             </div>

@@ -4,7 +4,8 @@ import { useRecoilValue } from "recoil";
 import { LoginState } from "@/states/LoginState";
 import { BellHeader } from "@/components/bell/BellHeader";
 import { BellComponents } from "@/components/bell/BellComponents";
-import useAlertList from "@/hooks/bell/useBellList";
+import useBellList from "@/hooks/bell/useBellList";
+import useBellDelete from "@/hooks/bell/useBellDelete";
 
 import styles from "@/styles/bell/Bellpages.module.scss"
 
@@ -22,22 +23,23 @@ interface Iprops{
  * @returns 알림페이지
  */
 export function BellPages(){
-    const AlertList = useAlertList()
+    const bellList = useBellList()
+    const bellDelete= useBellDelete()
+    
     const isLogin = useRecoilValue(LoginState)
     const userId = isLogin[0].id
+
     const [data, setData] = useState<Iprops[]>([])
     /**
      * 페이지 랜더링하자마자 알람을 가져오기
     */
     useState(() => {
-        AlertList.mutate({userId: 1}, {
+        bellList.mutate({userId: userId}, {
             onSuccess: (data) => {
                 setData(data.data)
             }
         })
     })
-
-    console.log(data)
 
     return (
         <section className={styles.testObj}>
@@ -46,8 +48,6 @@ export function BellPages(){
                 {data.map((item, index) =>{
                     return (<BellComponents key={ index } children={item.preNewsTitle} preNewsId={item.preNewsId} newsId={item.newsId}/> )}) }
             </div>
-            
         </section>
     )
 }
-// newsId={item.newsId} preNewsId={item.preNewsId} preNewsTitle={item.preNewsTitle}
