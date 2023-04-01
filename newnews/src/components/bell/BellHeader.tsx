@@ -28,7 +28,11 @@ export function BellHeader(){
      * 알림 전체 삭제
      */
     const onClcikDeleteBellAll = () =>{
-        console.log(BellDeleteAll.mutate({ userId: 1 }))
+        BellDeleteAll.mutate({ userId: 1 }, {
+            onSuccess : (data) => {
+                console.log(data)
+            }
+        })
     }
 
     /**
