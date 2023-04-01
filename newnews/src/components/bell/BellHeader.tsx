@@ -20,15 +20,16 @@ import styles from "@/styles/bell/BellHeader.module.scss";
  */
 export function BellHeader(){
     const navigate = useNavigate()
-    
+    const isLogin = useRecoilValue(LoginState)
+    const userId = isLogin[0].id
     const [isOpenModal, setOpenModal] = useState<boolean>(false);
-    const BellDeleteAll = useBellDeleteAll()
+    const bellDeleteAll = useBellDeleteAll()
     
     /**
      * 알림 전체 삭제
      */
     const onClcikDeleteBellAll = () =>{
-        BellDeleteAll.mutate({ userId: 1 }, {
+        bellDeleteAll.mutate({ userId: userId }, {
             onSuccess : (data) => {
                 console.log(data)
             }

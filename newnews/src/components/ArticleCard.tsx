@@ -7,8 +7,7 @@ interface Card {
     id: number,
     url: string,
     title: string,
-    width?: number,
-    height?: number,
+    page : boolean,
     onClick?:  void,
 }
 
@@ -16,24 +15,16 @@ interface Props {
     data: Array<Card>;
 };
 
-export const ArticleCard = ( { id, title, url, width, height } : Card ) => {
+export const ArticleCard = ( { id, title, url, page } : Card ) => {
     const [activeId, setActiveId] = useState<number>()
     const navigate = useNavigate()
-
+    const pages = page
     const onClick = (id: number) => setActiveId(id);
     
     const onClickRead = () => {
         navigate('/detail', { state: { newsId: id, preNewsId: id }})
     }
     
-    useEffect(() =>{
-        const articleCard = document.querySelector<HTMLElement>('#articleCard')
-
-        if (articleCard) {
-            articleCard.style.width =`${width}%`
-            articleCard.style.height =`${height}px`
-        }        
-    }, [ width, height ])
 
         const [marked, setMarked] = useState(true);
         /**
@@ -52,14 +43,15 @@ export const ArticleCard = ( { id, title, url, width, height } : Card ) => {
                 )
             }
         }
-
     return(
-        <div className={styles.articleCard} >
-            <div id='articleCard' className={styles.articleImg} >
-                <img src={`${url}`} alt="" onClick={() => { onClickRead() }} />
-                <div className={styles.gradation}>
-                    <h3 onClick={() => { onClickRead() }}>{title}</h3>
-                    {bookMark(marked)}
+        <div>
+            <div className={styles.articleCard} >
+                <div className={pages ? (styles.bookmarkArticleCard) : (styles.articleImg)} >
+                    <img src={`${url}`} alt="" onClick={() => { onClickRead() }} />
+                    <div className={styles.gradation}>
+                        <h3 onClick={() => { onClickRead() }}>{title}</h3>
+                        {bookMark(marked)}
+                    </div>
                 </div>
             </div>
         </div>

@@ -50,7 +50,7 @@ export function BookMarkPage(){
     return (
         <div className={styles.bookmarkGrid}>
             {NewsData && NewsData.map((item, index) =>
-                <ArticleCard key={index} title={item.title} id={item.id} url={item.newsImageList[0].url} width={100} height={200} />
+                <ArticleCard key={index} title={item.title} id={item.id} url={item.newsImageList[0].url} page={true} />
                 )}
         </div>
     )
