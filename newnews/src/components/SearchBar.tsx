@@ -22,15 +22,17 @@ export function SearchBar(){
      * 결과 페이지로 가는 함수
      */
     function resultPage (e: string) {
+        
         navigate('/result')
+        console.log(e)
     }
+
     /**
      * 
      * @param e input값을 실시간으로 보여주는 값
      */
     const onChange = (e : React.ChangeEvent<HTMLInputElement>) => {
         setInputs(e.target.value);
-    console.log(e.target.value)
     };
 
     return (
@@ -39,7 +41,7 @@ export function SearchBar(){
             <input className={styles.searchInput} type="search" placeholder="검색어를 입력해주세요"
             onChange={onChange} value={inputs}/>
             <div onClick={()=> resultPage(inputs)}>
-            <AiOutlineSearch className={styles.searchIcon} />
+                <AiOutlineSearch className={styles.searchIcon} />
             </div>
         </div>
     </div>

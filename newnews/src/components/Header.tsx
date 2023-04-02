@@ -23,18 +23,18 @@ export function Header({children}: Iprops) {
     const navigate = useNavigate()
     
     const isLogin = useRecoilValue(LoginState)
-    const BellList = useBellList()
+    const bellList = useBellList()
     
     const userId = isLogin[0]?.id
     const loginBoolean = isLogin[0].isLogin
     const [data, setData] = useState<Iprops[]>([])
-    
+
     /**
      * 페이지 랜더링하자마자 알람을 가져오기
     */
     if (loginBoolean) {
         useState(() => {
-            BellList.mutate({ userId: userId }, {
+            bellList.mutate({ userId: userId }, {
                 onSuccess: (data) => {
                     setData(data.data)
                 }
@@ -42,14 +42,12 @@ export function Header({children}: Iprops) {
         })    
     }
     
-    console.log('data', data)
-
     const BellIcon = (state : boolean) =>{
         if (loginBoolean) {
             if (data.length === 0) {
-                return (<VscBell className={styles.icons} onClick={() => {navigate('/bell')}}/>)
+                return (<VscBell className={styles.icons} onClick={() => { navigate('/bell/none')}}/>)
             } else {
-                return (<VscBellDot className={styles.iconsAfter} onClick={() => {navigate('/bell')}}/>)
+                return (<VscBellDot className={styles.iconsAfter} onClick={() => { navigate('/bell')}}/>)
             }
         } else {
             return (<div className={styles.none}> </div>)

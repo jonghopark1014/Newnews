@@ -11,11 +11,11 @@ import styles from "@/styles/bell/Bellpages.module.scss"
 
 
 interface Iprops{
-    data : string[] | number[]
-    userId : number | null
+    data : string[] | number[],
+    userId : number | null,
     preNewsTitle : string
-    newsId : number,
-	preNewsId : number,
+    newsId : number | null | undefined,
+	preNewsId : number | null | undefined,
 }
 
 /**
@@ -40,6 +40,14 @@ export function BellPages(){
             }
         })
     })
+    // const newsId = data[0].newsId
+    // useEffect(() =>{
+    //     bellDelete.mutate({ userId: userId, newsId: newsId },{
+    //         onSuccess:(data) =>{
+                
+    //         }
+    //     })
+    // },[])
 
     return (
         <section className={styles.testObj}>

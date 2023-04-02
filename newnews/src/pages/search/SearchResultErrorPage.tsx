@@ -1,6 +1,6 @@
-import { SearchBar } from "../../components/SearchBar";
+import { SearchBar } from "@/components/SearchBar";
 import styles from "@/styles/search/SearchPages.module.scss"
-import { Button } from "../../components/Button";
+import { Button } from "@/components/Button";
 import { useNavigate } from "react-router";
 
 
@@ -24,7 +24,8 @@ export function SearchResultErrorPage() {
                     <br />
                     다시 검색어를 입력해주세요.
                 </h3>
-                <Button onClick={()=>{navigate('/')}}>
+                <br />
+                <Button width={150} onClick={()=>{navigate('/')}}>
                     추천뉴스 보러가기
                 </Button>
             </div>

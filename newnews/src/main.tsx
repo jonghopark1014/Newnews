@@ -18,6 +18,7 @@ import { MainPage } from '@/pages/main/MainPage';
 import { BookMarkPage } from '@/pages/bookmark/BookMarkPage';
 import { MyPage } from '@/pages/mypage/MyPage';
 import { BellPages } from '@/pages/bell/BellPages';
+import { BellNonePage } from './pages/bell/BellNonePage';
 import { MainPageSetTopics } from '@/pages/main/MainPageSetTopics';
 import { MainDetailPage } from '@/pages/main/MainDetailPage'
 import './index.scss'
@@ -98,6 +99,10 @@ const router = createBrowserRouter([
       {
         path: 'bell',
         element: <BellPages />,
+      },
+      {
+        path: 'bell/none',
+        element: <BellNonePage />,
       },
     ]
   },
