@@ -1,5 +1,6 @@
 package com.ssafy.specialization.service;
 
+import com.ssafy.specialization.dto.NewsResponseDto;
 import com.ssafy.specialization.entity.Bookmark;
 import com.ssafy.specialization.repository.BookmarkRepository;
 import org.junit.jupiter.api.Test;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -29,5 +31,11 @@ class BookmarkServiceTest {
         bookmarkService.addBookmark(1L,1L);
         int deleteCount = bookmarkService.deleteBookmark(1L, 1L);
         assertThat(deleteCount).isEqualTo(1);
+    }
+
+    @Test
+    void 북마크_뉴스_테스트(){
+        List<NewsResponseDto> bookmarkedNewsList = bookmarkService.getBookmarkedNewsList(0L);
+        assertThat(bookmarkedNewsList.size()).isEqualTo(0);
     }
 }

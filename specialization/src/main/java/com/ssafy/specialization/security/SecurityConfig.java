@@ -22,6 +22,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.security.web.context.SecurityContextPersistenceFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
 
 @EnableWebSecurity
 @Configuration
@@ -41,11 +47,15 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf().disable()
+                .cors().configurationSource(corsConfiguration())
+                .and()
                 .authorizeRequests()
-                .anyRequest().authenticated()
+                .antMatchers("/api/regist").permitAll()
+                .anyRequest().permitAll()
                 .and()
                 .formLogin().disable()
                 .logout()
+                .logoutUrl("/api/logout")
                 .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
                 .and()
                 .apply(new MyCustomFilter())
@@ -64,13 +74,29 @@ public class SecurityConfig {
             AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
 
             CustomUsernamePasswordAuthenticationFilter customUsernamePasswordAuthenticationFilter = new CustomUsernamePasswordAuthenticationFilter(authenticationManager, om);
-            customUsernamePasswordAuthenticationFilter.setFilterProcessesUrl("/login");
+            customUsernamePasswordAuthenticationFilter.setFilterProcessesUrl("/api/login");
             customUsernamePasswordAuthenticationFilter.setAuthenticationSuccessHandler(new CustomAuthenticationSuccessHandler(userRepository, om));
             customUsernamePasswordAuthenticationFilter.setAuthenticationFailureHandler(new CustomAuthenticationFailureHandler());
 
             http.addFilterAfter(customUsernamePasswordAuthenticationFilter, LogoutFilter.class);
             http.addFilterBefore(new CustomExceptionHandlingFilter(), CustomUsernamePasswordAuthenticationFilter.class);
+            http.addFilterBefore(new CustomLogFilter(), SecurityContextPersistenceFilter.class);
+
             http.authenticationProvider(new CustomAuthenticationProvider(principalDetailsService, passwordEncoder()));
         }
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfiguration() {
+        CorsConfiguration cors = new CorsConfiguration();
+
+        cors.setAllowedOrigins(Arrays.asList("https://localhost:5173", "http://localhost:5173", "https://j8b309.p.ssafy.io"));
+        cors.addAllowedHeader("*");
+        cors.addAllowedMethod("*");
+        cors.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", cors);
+        return source;
     }
 }

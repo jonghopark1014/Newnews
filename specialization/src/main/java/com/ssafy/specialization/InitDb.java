@@ -1,53 +1,72 @@
 package com.ssafy.specialization;
 
-import com.ssafy.specialization.entity.News;
-import com.ssafy.specialization.entity.NewsImage;
-import com.ssafy.specialization.entity.Notification;
-import com.ssafy.specialization.entity.User;
-import com.ssafy.specialization.entity.enums.Category;
-import com.ssafy.specialization.entity.enums.Press;
+import com.ssafy.specialization.entity.*;
+import com.ssafy.specialization.entity.dtype.*;
 import com.ssafy.specialization.entity.enums.Sex;
-import com.ssafy.specialization.repository.NewsRepository;
-import com.ssafy.specialization.repository.NotificationRepository;
-import com.ssafy.specialization.repository.UserRepository;
+import com.ssafy.specialization.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @Component
-@Transactional
 @RequiredArgsConstructor
 public class InitDb {
 
     private final NewsRepository newsRepository;
     private final UserRepository userRepository;
     private final NotificationRepository notificationRepository;
+    private final WatchedRepository watchedRepository;
+    private final BookmarkRepository bookmarkRepository;
 
-    @PostConstruct
+    @Transactional
     public void init(){
         insertNewsDummy();
         insertUserDummy();
-        insertNotification();
         insertWatched();
+        insertNotification();
         insertBookmark();
     }
 
-    private void insertNewsDummy(){
-        NewsImage newsImage = NewsImage.createNewsImage("https://image.ytn.co.kr/general/jpg/2017/1018/201710181100063682_d.jpg");
-
-        for (int i = 0; i < 10; i++) {
-            News news = News.createNews(Category.TEST,String.valueOf(i),String.valueOf(i),
-                    LocalDateTime.now(),String.valueOf(i), Press.TEST,newsImage);
-            newsRepository.save(news);
+    void insertNewsDummy(){
+        for (int i = 0; i < 2; i++) {
+            NewsImage newsImage = NewsImage.createNewsImage(
+                    "https://image.ytn.co.kr/general/jpg/2017/1018/201710181100063682_d.jpg",
+                    "이미지에 해당하는 설명입니다."
+            );
+            Economy economy = Economy.createEconomy("1", "1", LocalDateTime.now(), "1", "조선일보", newsImage);
+            newsImage = NewsImage.createNewsImage(
+                    "https://image.ytn.co.kr/general/jpg/2017/1018/201710181100063682_d.jpg",
+                    "이미지에 해당하는 설명입니다."
+            );
+            ItAndScience itAndScience = ItAndScience.createItAndScience("1", "1", LocalDateTime.now(), "1", "국민일보", newsImage);
+            newsImage = NewsImage.createNewsImage(
+                    "https://image.ytn.co.kr/general/jpg/2017/1018/201710181100063682_d.jpg",
+                    "이미지에 해당하는 설명입니다."
+            );
+            LifeAndCulture lifeAndCulture = LifeAndCulture.createLifeAndCulture("1", "1", LocalDateTime.now(), "1", "응애일보", newsImage);
+            newsImage = NewsImage.createNewsImage(
+                    "https://image.ytn.co.kr/general/jpg/2017/1018/201710181100063682_d.jpg",
+                    "이미지에 해당하는 설명입니다."
+            );
+            Politics politics = Politics.createPolitics("1", "1", LocalDateTime.now(), "1", "승엽일보", newsImage);
+            newsImage = NewsImage.createNewsImage(
+                    "https://image.ytn.co.kr/general/jpg/2017/1018/201710181100063682_d.jpg",
+                    "이미지에 해당하는 설명입니다."
+            );
+            Society society = Society.createSociety("1", "1", LocalDateTime.now(), "1", "승엽아카프카필요없어졌어", newsImage);
+            newsRepository.save(economy);
+            newsRepository.save(itAndScience);
+            newsRepository.save(lifeAndCulture);
+            newsRepository.save(politics);
+            newsRepository.save(society);
         }
     }
 
-    private void insertUserDummy(){
+    void insertUserDummy(){
         User user1 = User.builder()
                 .password("1")
                 .sex(Sex.MALE)
@@ -60,40 +79,44 @@ public class InitDb {
                 .username("ssafy2")
                 .yearOfBirth(2023)
                 .build();
-        userRepository.save(user1);
-        userRepository.save(user2);
+        User save = userRepository.save(user1);
+        User save1 = userRepository.save(user2);
+        System.out.println(save);
     }
 
-    private void insertNotification(){
+    void insertNotification(){
         Optional<User> optionalUser = userRepository.findById(1L);
         List<News> newsList = newsRepository.findAll();
+        System.out.println("ABC");
+        Watched watched = watchedRepository.findById(1L).get();
+        System.out.println("ABC");
 
         for (int i = 0; i < newsList.size(); i++) {
             Notification notification = Notification.
-                    createNotification(optionalUser.get(), newsList.get(i));
+                    createNotification(optionalUser.get(), newsList.get(i), watched);
             notificationRepository.save(notification);
         }
     }
 
-    private void insertWatched(){
+    void insertWatched(){
         Optional<User> optionalUser = userRepository.findById(1L);
+        System.out.println(optionalUser.get());
         List<News> newsList = newsRepository.findAll();
 
         for (int i = 0; i < newsList.size()/2; i++) {
-            Notification notification = Notification.
-                    createNotification(optionalUser.get(), newsList.get(i));
-            notificationRepository.save(notification);
+            Watched watched = Watched.createWatched(optionalUser.get(), newsList.get(i));
+            watchedRepository.save(watched);
         }
     }
 
-    private void insertBookmark(){
+
+    void insertBookmark(){
         Optional<User> optionalUser = userRepository.findById(1L);
         List<News> newsList = newsRepository.findAll();
 
         for (int i = 0; i < newsList.size()/3; i++) {
-            Notification notification = Notification.
-                    createNotification(optionalUser.get(), newsList.get(i));
-            notificationRepository.save(notification);
+            Bookmark bookmark = Bookmark.createBookmark(optionalUser.get(), newsList.get(i));
+            bookmarkRepository.save(bookmark);
         }
     }
 }
