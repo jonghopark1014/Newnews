@@ -47,15 +47,10 @@ public class NewsController {
         return Response.success(HttpStatus.OK, categoryNews);
     }
 
-    @GetMapping("/details/{newsId}")
-    public ResponseEntity showNews(@PathVariable Long newsId) {
+    @GetMapping("/details/{newsId}/{categoryId}")
+    public ResponseEntity showNews(@PathVariable Long newsId, @PathVariable int categoryId) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        NewsResponseDto news = null;
-        if (username.equals("anonymousUser")) {
-            news = newsService.getNews(newsId);
-        } else {
-            news = newsService.getNewsWithIsBookmark(username, newsId);
-        }
+        NewsResponseDto news = newsService.getNewsWithIsBookmark(username, newsId, categoryId);
         return Response.success(HttpStatus.OK, news);
     }
 
