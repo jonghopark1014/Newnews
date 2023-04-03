@@ -43,7 +43,7 @@ public class NewsController {
 
     @GetMapping("/category/{category}")
     public ResponseEntity getCategoryNews(@PathVariable("category") int category, Pageable pageable){
-        Page<NewsResponseDto> categoryNews = newsService.getCategoryNews(category, pageable);
+        Page<NewsThumbnailResponseDto> categoryNews = newsService.getCategoryNews(category, pageable);
         return Response.success(HttpStatus.OK, categoryNews);
     }
 
