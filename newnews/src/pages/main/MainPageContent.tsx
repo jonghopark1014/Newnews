@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { MainPageContentCard } from "@/components/mainpage/MainPageContentCard";
-import useMainNewsAll from '@/hooks/main/useMainNewsAll';
+import useMaincategoryNews from '@/hooks/main/useMaincategoryNews';
 import useMainNewsAfter from '@/hooks/main/useMainNewsAfter';
 import { LoginState } from '@/states/LoginState';
 import { topicAtom, topicStateType } from '@/stores/NewsTopics';
@@ -21,6 +21,15 @@ interface newsMain {
     newsImage : string,
 };
 
+const categoryName: Record<string, number>= {
+    "연관뉴스" : 0,
+    "경제" : 1,
+    "정치" : 2,
+    "사회" : 3,
+    "생활/문화" : 4,
+    "IT/과학" : 5,
+}
+
 export function MainPageContent(){
     const navigate = useNavigate();
     // 로그인 정보
@@ -29,16 +38,20 @@ export function MainPageContent(){
     const [news, setNews] = useState<newsMain[] | undefined>();
     // topicState : {토픽설정에서 고른 토픽들, 지금 클릭한 토픽}
     const [topicState, setTopicState] = useRecoilState<topicStateType>(topicAtom);
+    let focus
+    if (categoryName[topicState.focused] !== 0) {
+        focus = categoryName[topicState.focused]
+    } else {
+        focus = 1
+    }
     // 로그인, 연관뉴스 메세지
     const [alarm, setAlarm] = useState<null | string>(null);
     // 후속기사들
     const useNewsAfter = useMainNewsAfter();
     // 그외 토픽에 따른 기사들
-    const useNewsAll = useMainNewsAll();
+    const maincategoryNews = useMaincategoryNews(focus);
     // 현재 보고있는 뉴스의 index
     let ioIndex: any;
-
-    
     useEffect(()=>{
         
         // intersectionObserver 옵션
@@ -59,7 +72,7 @@ export function MainPageContent(){
                 // 화면에 노출 상태에 따라 해당 엘리먼트의 class를 컨트롤
                 if (entry.isIntersecting) {
                     ioIndex = Number($target.id);
-                    console.log(ioIndex);
+                    // console.log(ioIndex);
                     if (newsElems[ioIndex - 1]) {
                         // newsElems[ioIndex - 1].classList.add();
                     }
@@ -76,7 +89,7 @@ export function MainPageContent(){
         }, options);
 
         // 뉴스별 useQuery 다르게 요청
-        if (topicState.focused == "연관뉴스") {
+        if (topicState.focused === "연관뉴스") {
             if (isLogin.isLogin) {
                 useNewsAfter.mutate({ userId: isLogin.id, page: 0, size: SIZE}, {
                     onSuccess: (data) => {
@@ -97,11 +110,7 @@ export function MainPageContent(){
                 setTimeout(()=>{ setAlarm(null); setTopicState({topics: topicState.topics, focused: topicState.topics[1]}); }, SEC * 1000)
             }
         } else { // 정치, 경제, 사회, ...
-            useNewsAll.mutate({ category: topicState.focused }, {
-                onSuccess: (data) => {
-                    setNews(data.data.content.news);
-                }
-            });
+            setNews(maincategoryNews.data.content)
         }
         const newsElems = document.querySelectorAll<HTMLElement>('.main-page-content-card');
         const mainpage = document.querySelector('.main-page-content');
