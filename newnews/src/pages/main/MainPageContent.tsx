@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { MainPageContentCard } from "@/components/mainpage/MainPageContentCard";
-import useMainNewsRelated from '@/hooks/main/useMainNewsRelated';
 import useMainNewsAll from '@/hooks/main/useMainNewsAll';
 import useMainNewsAfter from '@/hooks/main/useMainNewsAfter';
 import { LoginState } from '@/states/LoginState';
@@ -11,7 +10,7 @@ import { topicAtom, topicStateType } from '@/stores/NewsTopics';
 import '@/styles/main/MainPageStyles.scss';
 import { useNavigate } from 'react-router-dom';
 
-const SIZE = 50;
+const SIZE = 10;
 const SEC = 3;
 
 interface newsMain {
@@ -81,9 +80,9 @@ export function MainPageContent(){
             if (isLogin.isLogin) {
                 useNewsAfter.mutate({ userId: isLogin.id, page: 0, size: SIZE}, {
                     onSuccess: (data) => {
-                        if (data.data.content.news) {
-                            console.log(data.data.content.news);
-                            setNews(data.data.content.news);
+                        if (data.data.content.length !== 0) {
+                            console.log(data.data.content);
+                            setNews(data.data.content);
                         } else {
                             setAlarm(`연관뉴스가 없습니다.\n ${SEC}초후 페이지를 이동합니다.`)
                             console.log("연관뉴스가 없습니다 3초후 페이지를 이동합니다.")
@@ -93,9 +92,9 @@ export function MainPageContent(){
                     }
                 });
             } else {
-                setAlarm(`로그인이 필요합니다.\n ${SEC}초후 페이지를 이동합니다.`)
+                setAlarm(`로그인시 이용가능합니다.\n ${SEC}초후 페이지를 이동합니다.`)
                 console.log("로그인이 필요합니다")
-                setTimeout(()=>{ setAlarm(null); navigate("/login") }, SEC * 1000)
+                setTimeout(()=>{ setAlarm(null); setTopicState({topics: topicState.topics, focused: topicState.topics[1]}); }, SEC * 1000)
             }
         } else { // 정치, 경제, 사회, ...
             useNewsAll.mutate({ category: topicState.focused }, {

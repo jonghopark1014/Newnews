@@ -22,6 +22,7 @@ import { BellNonePage } from './pages/bell/BellNonePage';
 import { MainPageSetTopics } from '@/pages/main/MainPageSetTopics';
 import { MainDetailPage } from '@/pages/main/MainDetailPage'
 import './index.scss'
+import { MainRelatedDetailPage } from './pages/main/MainRelatedDetailPage';
 
 const container = document.getElementById('root') as HTMLElement;
 const queryClient = new QueryClient();
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: 'topics',
         element: <MainPageSetTopics />,
+      },
+      {
+        path: 'relatedDetail',
+        element: <MainRelatedDetailPage />,
       },
       {
         path: 'detail',
