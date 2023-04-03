@@ -52,6 +52,7 @@ export function MainPageContent(){
     const maincategoryNews = useMaincategoryNews(focus);
     // 현재 보고있는 뉴스의 index
     let ioIndex: any;
+    
     useEffect(()=>{
         
         // intersectionObserver 옵션
@@ -100,7 +101,6 @@ export function MainPageContent(){
                             setAlarm(`연관뉴스가 없습니다.\n ${SEC}초후 페이지를 이동합니다.`)
                             console.log("연관뉴스가 없습니다 3초후 페이지를 이동합니다.")
                             setTimeout(()=>{setAlarm(null); setTopicState({topics: topicState.topics, focused: topicState.topics[1]}); }, SEC * 1000)
-
                         }
                     }
                 });
