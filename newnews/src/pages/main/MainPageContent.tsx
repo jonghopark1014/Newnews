@@ -1,13 +1,18 @@
 import { useEffect, useState, useRef } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { MainPageContentCard } from "@/components/mainpage/MainPageContentCard";
 import useMainNewsRelated from '@/hooks/main/useMainNewsRelated';
 import useMainNewsAll from '@/hooks/main/useMainNewsAll';
+import useMainNewsAfter from '@/hooks/main/useMainNewsAfter';
+import { LoginState } from '@/states/LoginState';
 import { topicAtom, topicStateType } from '@/stores/NewsTopics';
 
 import '@/styles/main/MainPageStyles.scss';
+import { useNavigate } from 'react-router-dom';
 
+const SIZE = 50;
+const SEC = 3;
 
 interface newsMain {
     newsId : number,
@@ -17,41 +22,18 @@ interface newsMain {
     newsImage : string,
 };
 
-const defaultNews: newsMain[] = [
-    {
-        newsId : 0,
-        preNewsId : 0,
-        title : 'title',
-        press : 'press',
-        newsImage: 'url',
-    },
-]
-
-// 넘기는 효과를 위한...
-// function reorder() {
-//     const books = document.querySelectorAll<HTMLElement>('.book');
-//     books.forEach((book, index)=>{
-//         const pages = book.querySelectorAll<HTMLElement>('.page');
-//         const pages_flipped = book.querySelectorAll<HTMLElement>('.flipped')
-//         pages.forEach((page, index)=>{
-//             page.style.zIndex = `${pages.length-index}`
-//         })
-//         pages_flipped.forEach((page, index)=>{
-//             page.style.zIndex = `${index + 1}`
-//         })
-//     })
-//     for (let i = 0; i < books.length; i++) {
-        
-//     }
-// }
-
 export function MainPageContent(){
+    const navigate = useNavigate();
+    // 로그인 정보
+    const isLogin = useRecoilValue(LoginState)[0];
     // 메인 뉴스 정보
-    const [news, setNews] = useState<newsMain[]>(defaultNews);
+    const [news, setNews] = useState<newsMain[] | undefined>();
     // topicState : {토픽설정에서 고른 토픽들, 지금 클릭한 토픽}
     const [topicState, setTopicState] = useRecoilState<topicStateType>(topicAtom);
+    // 로그인, 연관뉴스 메세지
+    const [alarm, setAlarm] = useState<null | string>(null);
     // 후속기사들
-    const useNewsAfter = useMainNewsRelated();
+    const useNewsAfter = useMainNewsAfter();
     // 그외 토픽에 따른 기사들
     const useNewsAll = useMainNewsAll();
     // 현재 보고있는 뉴스의 index
@@ -96,15 +78,29 @@ export function MainPageContent(){
 
         // 뉴스별 useQuery 다르게 요청
         if (topicState.focused == "연관뉴스") {
-            useNewsAfter.mutate({ userId: 1 }, {
-                onSuccess: (data) => {
-                    setNews(data.data.content);
-                }
-            });
+            if (isLogin.isLogin) {
+                useNewsAfter.mutate({ userId: isLogin.id, page: 0, size: SIZE}, {
+                    onSuccess: (data) => {
+                        if (data.data.content.news) {
+                            console.log(data.data.content.news);
+                            setNews(data.data.content.news);
+                        } else {
+                            setAlarm(`연관뉴스가 없습니다.\n ${SEC}초후 페이지를 이동합니다.`)
+                            console.log("연관뉴스가 없습니다 3초후 페이지를 이동합니다.")
+                            setTimeout(()=>{setAlarm(null); setTopicState({topics: topicState.topics, focused: topicState.topics[1]}); }, SEC * 1000)
+
+                        }
+                    }
+                });
+            } else {
+                setAlarm(`로그인이 필요합니다.\n ${SEC}초후 페이지를 이동합니다.`)
+                console.log("로그인이 필요합니다")
+                setTimeout(()=>{ setAlarm(null); navigate("/login") }, SEC * 1000)
+            }
         } else { // 정치, 경제, 사회, ...
             useNewsAll.mutate({ category: topicState.focused }, {
                 onSuccess: (data) => {
-                    setNews(data.data.content);
+                    setNews(data.data.content.news);
                 }
             });
         }
@@ -113,27 +109,6 @@ export function MainPageContent(){
         mainpage
         for (let i = 0; i < newsElems.length; i++) {
             newsElems[i].id = `page-${i}`;
-            // 책 넘기는 효과 도즈언
-            // const upper = document.querySelector(`.main-page-content#page-${i} > .upper-half`);
-            // const lower = document.querySelector(`.main-page-content#page-${i} > .lower-half`);
-            // newsElems[i].addEventListener('click', ()=>{
-            //     newsElems[i].classList.remove('no-anim');
-            //     newsElems[i].classList.toggle('flipped');
-            //     const div = document.querySelector('.page > div');
-            //     div?.addEventListener('click',(e)=>{
-            //         e.stopPropagation();
-            //     })
-            //     reorder();
-            // });
-            // if (upper) {
-            //     upper.id = `p${i}`;
-            // }
-            // upper?.classList.add('side-2')
-            // if (lower) {
-            //     lower.id = `p${i}`;
-            // }
-            // lower?.classList.add('side-1')
-
             // 카드들 observer 등록
             io.observe(newsElems[i]);
         }
@@ -147,7 +122,8 @@ export function MainPageContent(){
     }, [topicState.focused])
     return (
         <div className="main-page-content">
-            {news.map((news, index)=>{return <MainPageContentCard newsId={news.newsId} preNewsId={news.preNewsId} title={news.title} press={news.press} newsImage={news.newsImage} newsIndex={index} key={index}/>})}
+            {news && news.map((news, index)=>{return <MainPageContentCard newsId={news.newsId} preNewsId={news.preNewsId} title={news.title} press={news.press} newsImage={news.newsImage} newsIndex={index} key={index}/>})}
+            {alarm && <div className="main-page-alarm"><h3>{alarm}</h3></div>}
         </div>
     )
 }
