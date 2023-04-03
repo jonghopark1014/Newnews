@@ -1,7 +1,9 @@
 package com.ssafy.specialization.service;
 
 import com.ssafy.specialization.dto.*;
-import com.ssafy.specialization.entity.*;
+import com.ssafy.specialization.entity.News;
+import com.ssafy.specialization.entity.NewsImage;
+import com.ssafy.specialization.entity.Notification;
 import com.ssafy.specialization.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,6 +25,7 @@ public class NewsService {
     private final SocietyRepository societyRepository;
     private final ItAndScienceRepository itAndScienceRepository;
     private final UserRepository userRepository;
+    private final BookmarkRepository bookmarkRepository;
 
     public NewsResponseDto getNews(Long newsId) {
         News news = newsRepository.findById(newsId).orElseThrow(
@@ -130,20 +133,22 @@ public class NewsService {
                 .build();
     }
 
-    public NewsResponseDto getNewsWithIsBookmark(String username, Long newsId) {
-        News news = newsRepository.findById(newsId).orElseThrow(
-                () -> new IllegalArgumentException("해당하는 뉴스가 없습니다.")
-        );
+    public NewsResponseDto getNewsWithIsBookmark(String username, Long newsId, int categoryId) {
+        News news = null;
+        if(categoryId==1) news = economyRepository.findWithImageListByNewsId(newsId).orElse(null);
+        else if(categoryId==2) news = politicsRepository.findWithImageListByNewsId(newsId).orElse(null);
+        else if(categoryId==3) news = societyRepository.findWithImageListByNewsId(newsId).orElse(null);
+        else if(categoryId==4) news = lifeAndCultureRepository.findWithImageListByNewsId(newsId).orElse(null);
+        else if(categoryId==5) news = itAndScienceRepository.findWithImageListByNewsId(newsId).orElse(null);
 
-        User user = userRepository.findWithBookmarkByUsername(username).orElseThrow(
-                () -> new IllegalArgumentException("해당하는 유저가 없습니다.")
-        );
+        if (news == null) throw new IllegalArgumentException("해당하는 뉴스가 없습니다.");
 
-        for (Bookmark bookmark : user.getBookmarkList()) {
-            if (bookmark.getNews().getId() == newsId)
-                return createNewsResponseDto(news, true);
-        }
-        return createNewsResponseDto(news, false);
+        if(username.equals("anonymousUser")) return createNewsResponseDto(news, false);
+
+        if(bookmarkRepository.findByUserUsernameAndNewsId(username, newsId).isEmpty())
+            return createNewsResponseDto(news, false);
+        else
+            return createNewsResponseDto(news, true);
     }
 
     private NewsResponseDto createNewsResponseDto(News news, boolean bookmarked) {
