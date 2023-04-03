@@ -17,6 +17,7 @@ public class User {
     private long id;
     private String password;
     private int yearOfBirth;
+    private String role;
 
     @Enumerated(EnumType.STRING)
     private Sex sex;

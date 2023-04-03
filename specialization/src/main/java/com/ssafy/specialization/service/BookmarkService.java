@@ -38,10 +38,7 @@ public class BookmarkService {
                 .orElseThrow(() -> new IllegalArgumentException("뉴스가 비어있습니다."));
 
 
-        Bookmark bookmark = Bookmark.builder()
-                .news(news)
-                .user(user)
-                .build();
+        Bookmark bookmark = Bookmark.createBookmark(user, news);
 
         Bookmark savedBookmark = bookmarkRepository.save(bookmark);
         return savedBookmark.getId();
