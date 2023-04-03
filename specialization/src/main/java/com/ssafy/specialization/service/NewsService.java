@@ -42,7 +42,7 @@ public class NewsService {
                 )
                 .build();
     }
-
+    
     public Page<RelatedNewsResponseDto> getRelatedNews(Long userId, Pageable pageable) {
         Page<Notification> notificationList = notificationRepository.findAllWithRelativeNewsByUserId(userId, pageable);
         return notificationList.map(
