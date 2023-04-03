@@ -42,7 +42,7 @@ public class NewsService {
                 )
                 .build();
     }
-    
+
     public Page<RelatedNewsResponseDto> getRelatedNews(Long userId, Pageable pageable) {
         Page<Notification> notificationList = notificationRepository.findAllWithRelativeNewsByUserId(userId, pageable);
         return notificationList.map(
@@ -105,7 +105,7 @@ public class NewsService {
 
     public RelatedNewsOneResponseDto getRelatedNewsOne(Long newsId, Long preNewsId) {
         News preNews = newsRepository.findById(preNewsId).orElseThrow(
-                () -> new IllegalArgumentException("해당하는 뉴스가 없습니다.")
+                () -> new IllegalArgumentException("해당하는 이전 뉴스가 없습니다.")
         );
 
         News news = newsRepository.findById(newsId).orElseThrow(
@@ -137,18 +137,22 @@ public class NewsService {
                 () -> new IllegalArgumentException("해당하는 뉴스가 없습니다.")
         );
 
-        User user = userRepository.findByUsername(username).get();
-        Long userId = user.getId();
+        User user = userRepository.findByUsername(username).orElseThrow(
+                () -> new IllegalArgumentException("해당하는 유저가 없습니다.")
+        );
 
-        Bookmark bookmark = bookmarkRepository.findByUserIdAndNewsId(userId, newsId).orElseGet(
-                () -> null
+        Bookmark bookmark = bookmarkRepository.findByUserIdAndNewsId(user.getId(), newsId).orElse(
+                null
         );
 
         return bookmark == null ?
-                new NewsResponseDto(
-                        news.getId(), news.getTitle(), news.getContent(), news.getNewsDate(), news.getReporter(),
-                        news.getPress(), getNewsImageResponseDto(news.getNewsImageList()), false
-                ) : new NewsResponseDto(news.getId(), news.getTitle(), news.getContent(), news.getNewsDate(),
-                news.getReporter(), news.getPress(), getNewsImageResponseDto(news.getNewsImageList()), true);
+                createNewsResponseDto(news, false) : createNewsResponseDto(news, true);
+    }
+
+    private NewsResponseDto createNewsResponseDto(News news, boolean bookmarked) {
+        return new NewsResponseDto(
+                news.getId(), news.getTitle(), news.getContent(), news.getNewsDate(), news.getReporter(),
+                news.getPress(), getNewsImageResponseDto(news.getNewsImageList()), bookmarked
+        );
     }
 }
