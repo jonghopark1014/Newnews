@@ -1,9 +1,6 @@
 package com.ssafy.specialization.service;
 
-import com.ssafy.specialization.dto.NewsImageResponseDto;
-import com.ssafy.specialization.dto.NewsResponseDto;
-import com.ssafy.specialization.dto.RelatedNewsOneResponseDto;
-import com.ssafy.specialization.dto.RelatedNewsResponseDto;
+import com.ssafy.specialization.dto.*;
 import com.ssafy.specialization.entity.*;
 import com.ssafy.specialization.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -46,26 +43,12 @@ public class NewsService {
                 .build();
     }
 
-    private List<NewsImageResponseDto> getNewsImageResponseDto(List<NewsImage> newsImageList) {
-        return newsImageList.stream().map(
-                (newsImage) -> NewsImageResponseDto.builder()
-                        .url(newsImage.getUrl())
-                        .description(newsImage.getDescription())
-                        .build()
-        ).collect(Collectors.toList());
-    }
-
     public Page<RelatedNewsResponseDto> getRelatedNews(Long userId, Pageable pageable) {
         Page<Notification> notificationList = notificationRepository.findAllWithRelativeNewsByUserId(userId, pageable);
         return notificationList.map(
                 (notification) -> {
                     News news = notification.getNews();
-                    List<NewsImage> newsImageList = news.getNewsImageList();
-                    String imageUrl = "";
-                    if (!(newsImageList.size() == 0)) {
-                        NewsImage newsImage = newsImageList.get(0);
-                        imageUrl = newsImage.getUrl();
-                    }
+                    String imageUrl = getThumbnailImg(news);
 
                     return RelatedNewsResponseDto.builder()
                             .newsId(news.getId())
@@ -78,75 +61,46 @@ public class NewsService {
         );
     }
 
-    public Page<NewsResponseDto> getCategoryNews(int category, Pageable pageable) {
-        if(category==1){
-            return economyRepository.findAllWithCategory(pageable).map((news) ->
-                    NewsResponseDto.builder()
-                            .id(news.getId())
-                            .title(news.getTitle())
-                            .content(news.getContent())
-                            .press(news.getPress())
-                            .reporter(news.getReporter())
-                            .newsDate(news.getNewsDate())
-                            .newsImageList(
-                                    getNewsImageResponseDto(news.getNewsImageList())
-                            )
-                            .build());
-        }else if(category==2){
-            return politicsRepository.findAllWithCategory(pageable).map((news) ->
-                    NewsResponseDto.builder()
-                            .id(news.getId())
-                            .title(news.getTitle())
-                            .content(news.getContent())
-                            .press(news.getPress())
-                            .reporter(news.getReporter())
-                            .newsDate(news.getNewsDate())
-                            .newsImageList(
-                                    getNewsImageResponseDto(news.getNewsImageList())
-                            )
-                            .build());
-        }else if(category==3){
-            return societyRepository.findAllWithCategory(pageable).map((news) ->
-                    NewsResponseDto.builder()
-                            .id(news.getId())
-                            .title(news.getTitle())
-                            .content(news.getContent())
-                            .press(news.getPress())
-                            .reporter(news.getReporter())
-                            .newsDate(news.getNewsDate())
-                            .newsImageList(
-                                    getNewsImageResponseDto(news.getNewsImageList())
-                            )
-                            .build());
-        }else if(category==4){
-            return lifeAndCultureRepository.findAllWithCategory(pageable).map((news) ->
-                    NewsResponseDto.builder()
-                            .id(news.getId())
-                            .title(news.getTitle())
-                            .content(news.getContent())
-                            .press(news.getPress())
-                            .reporter(news.getReporter())
-                            .newsDate(news.getNewsDate())
-                            .newsImageList(
-                                    getNewsImageResponseDto(news.getNewsImageList())
-                            )
-                            .build());
-        }else if(category==5){
-            return itAndScienceRepository.findAllWithCategory(pageable).map((news) ->
-                    NewsResponseDto.builder()
-                            .id(news.getId())
-                            .title(news.getTitle())
-                            .content(news.getContent())
-                            .press(news.getPress())
-                            .reporter(news.getReporter())
-                            .newsDate(news.getNewsDate())
-                            .newsImageList(
-                                    getNewsImageResponseDto(news.getNewsImageList())
-                            )
-                            .build());
-        }else{
-            throw new IllegalArgumentException("잘못된 카테고리입니다.");
+    public Page<NewsThumbnailResponseDto> getCategoryNews(int category, Pageable pageable) {
+        Page<News> news;
+        if(category==1) news = economyRepository.findAllWithCategory(pageable);
+        else if(category==2) news = politicsRepository.findAllWithCategory(pageable);
+        else if(category==3) news = societyRepository.findAllWithCategory(pageable);
+        else if(category==4) news = lifeAndCultureRepository.findAllWithCategory(pageable);
+        else if(category==5) news = itAndScienceRepository.findAllWithCategory(pageable);
+        else throw new IllegalArgumentException("잘못된 카테고리입니다.");
+
+        return news.map((n) -> {
+            String imageUrl = getThumbnailImg(n);
+
+            return NewsThumbnailResponseDto.builder()
+                    .id(n.getId())
+                    .title(n.getTitle())
+                    .press(n.getPress())
+                    .newsImage(imageUrl)
+                    .build();
+        });
+    }
+
+    //== 서비스 내부에서 사용하는 메서드 ==//
+
+    private List<NewsImageResponseDto> getNewsImageResponseDto(List<NewsImage> newsImageList) {
+        return newsImageList.stream().map(
+                (newsImage) -> NewsImageResponseDto.builder()
+                        .url(newsImage.getUrl())
+                        .description(newsImage.getDescription())
+                        .build()
+        ).collect(Collectors.toList());
+    }
+
+    private String getThumbnailImg(News n) {
+        List<NewsImage> newsImageList = n.getNewsImageList();
+        String imageUrl = "";
+        if (!newsImageList.isEmpty()) {
+            NewsImage newsImage = newsImageList.get(0);
+            imageUrl = newsImage.getUrl();
         }
+        return imageUrl;
     }
 
     public RelatedNewsOneResponseDto getRelatedNewsOne(Long newsId, Long preNewsId) {
