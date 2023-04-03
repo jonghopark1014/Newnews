@@ -23,7 +23,6 @@ public class NewsService {
     private final SocietyRepository societyRepository;
     private final ItAndScienceRepository itAndScienceRepository;
     private final UserRepository userRepository;
-    private final BookmarkRepository bookmarkRepository;
 
     public NewsResponseDto getNews(Long newsId) {
         News news = newsRepository.findById(newsId).orElseThrow(
@@ -42,7 +41,7 @@ public class NewsService {
                 )
                 .build();
     }
-    
+
     public Page<RelatedNewsResponseDto> getRelatedNews(Long userId, Pageable pageable) {
         Page<Notification> notificationList = notificationRepository.findAllWithRelativeNewsByUserId(userId, pageable);
         return notificationList.map(
@@ -105,7 +104,7 @@ public class NewsService {
 
     public RelatedNewsOneResponseDto getRelatedNewsOne(Long newsId, Long preNewsId) {
         News preNews = newsRepository.findById(preNewsId).orElseThrow(
-                () -> new IllegalArgumentException("해당하는 뉴스가 없습니다.")
+                () -> new IllegalArgumentException("해당하는 이전 뉴스가 없습니다.")
         );
 
         News news = newsRepository.findById(newsId).orElseThrow(
@@ -129,7 +128,6 @@ public class NewsService {
                 .preNewsTitle(preNews.getTitle())
                 .news(newsResponseDto)
                 .build();
-
     }
 
     public NewsResponseDto getNewsWithIsBookmark(String username, Long newsId) {
@@ -137,18 +135,21 @@ public class NewsService {
                 () -> new IllegalArgumentException("해당하는 뉴스가 없습니다.")
         );
 
-        User user = userRepository.findByUsername(username).get();
-        Long userId = user.getId();
-
-        Bookmark bookmark = bookmarkRepository.findByUserIdAndNewsId(userId, newsId).orElseGet(
-                () -> null
+        User user = userRepository.findWithBookmarkByUsername(username).orElseThrow(
+                () -> new IllegalArgumentException("해당하는 유저가 없습니다.")
         );
 
-        return bookmark == null ?
-                new NewsResponseDto(
-                        news.getId(), news.getTitle(), news.getContent(), news.getNewsDate(), news.getReporter(),
-                        news.getPress(), getNewsImageResponseDto(news.getNewsImageList()), false
-                ) : new NewsResponseDto(news.getId(), news.getTitle(), news.getContent(), news.getNewsDate(),
-                news.getReporter(), news.getPress(), getNewsImageResponseDto(news.getNewsImageList()), true);
+        for (Bookmark bookmark : user.getBookmarkList()) {
+            if (bookmark.getNews().getId() == newsId)
+                return createNewsResponseDto(news, true);
+        }
+        return createNewsResponseDto(news, false);
+    }
+
+    private NewsResponseDto createNewsResponseDto(News news, boolean bookmarked) {
+        return new NewsResponseDto(
+                news.getId(), news.getTitle(), news.getContent(), news.getNewsDate(), news.getReporter(),
+                news.getPress(), getNewsImageResponseDto(news.getNewsImageList()), bookmarked
+        );
     }
 }
