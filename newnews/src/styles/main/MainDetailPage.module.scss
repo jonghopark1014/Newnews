@@ -106,13 +106,19 @@
         background-color: #fff;
         border-radius: 4px;
         box-shadow: 0px 4px 4px #36363640;
-        overflow: hidden;
         transition: all 500ms cubic-bezier(0.770, 0.085, 0.240, 0.945);
-        p {
-            margin: 10px 2% 5px 2%;
-        }
-        h5 {
-            margin: 0 2% 10px 2%;
+        > div {
+            width: min(90%, 540px);
+            height: 50%;
+            display: flex;
+            overflow: scroll;
+            white-space: nowrap;
+            > p {
+                margin: 10px 2% 5px 2%;
+            }
+            > h5 {
+                margin: 0 2% 10px 2%;
+            }
         }
     }
 }

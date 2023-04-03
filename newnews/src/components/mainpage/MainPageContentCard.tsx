@@ -1,11 +1,13 @@
+import { topicAtom } from "@/stores/NewsTopics";
 import "@/styles/main/MainPageStyles.scss";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 
 
 interface Iprops {
     newsId: number,
-    preNewsId : number,
+    preNewsId? : number,
     title: string,
     press: string,
     newsImage: string,
@@ -18,6 +20,15 @@ export function MainPageContentCard(props: Iprops){
     const press = props.press;
     const newsImage = props.newsImage;
     const newsIndex = props.newsIndex + 1;
+    const topicState = useRecoilValue(topicAtom);
+
+    const address = ()=>{
+        if (topicState.focused === "연관뉴스") {
+            navigate("/relatedDetail", { state: { newsId: props.newsId, preNewsId: props.preNewsId }})
+        } else {
+            navigate("/detail", { state: { newsId: props.newsId }})
+        }
+    }
 
     useEffect(()=>{
         const newsCardUpper = document.querySelector<HTMLElement>(`div.main-page-content-card:nth-child(${newsIndex})>.upper-half`);
@@ -32,7 +43,7 @@ export function MainPageContentCard(props: Iprops){
     }, [newsImage]);
 
     return (
-        <div className="main-page-content-card page no-anim" onClick={()=>navigate("/detail", { state: { newsId: props.newsId, preNewsId: props.preNewsId } })}>
+        <div className="main-page-content-card page no-anim" onClick={()=>address()}>
             <div className="upper-half">
 
             </div>

@@ -9,7 +9,6 @@ interface Iprops {
 
 export function MainDetailPageModal({}: Iprops){
     const newsTile = "메타버스 소셜 앱 '본디(bondee)' 인기... 뜨는 이유는??";
-    const userName = "박진성";
     const [modal, setModal] = useState<boolean>(true);
     const modalWindow = ()=>{
         if (modal) {
@@ -19,7 +18,7 @@ export function MainDetailPageModal({}: Iprops){
                         <p>{newsTile}</p>
                     </div>
                     <div>
-                        <h5>{`${userName}님이 보신 위 뉴스에 대한 관련뉴스에요`}</h5>
+                        <h5>{`님이 보신 위 뉴스에 대한 관련뉴스에요`}</h5>
                     </div>
                     <BsFillArrowRightCircleFill onClick={()=>setModal(!modal)}/>
                 </div>
