@@ -54,11 +54,7 @@ h4{
 	#root {
 		display: flex;
 		flex-direction: column;
-		> #blank {
-			width: 100%;
-			height: 51px;
-		}
-		> #blank+div {
+		>div {
 			display: flex;
 			flex-direction: column;
 			flex: 1;

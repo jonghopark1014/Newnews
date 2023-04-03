@@ -1,18 +1,21 @@
-import { useRecoilState } from "recoil"
 import { useEffect, useState } from "react"
-import { topicAtom } from "@/stores/NewsTopics"
-import { IoIosArrowBack } from "react-icons/io"
-import "@/styles/main/MainPageStyles.scss"
-import { SetTopicButton } from "@/components/mainpage/SetTopicButton";
 import { useNavigate } from "react-router-dom"
+import { useRecoilState } from "recoil"
+import { IoIosArrowBack } from "react-icons/io"
+
+import { topicAtom } from "@/stores/NewsTopics"
+import { SetTopicButton } from "@/components/mainpage/SetTopicButton";
+
+import "@/styles/main/MainPageStyles.scss"
 
 export function MainPageSetTopics(){
     const [chosenTopic, setChosenTopic] = useRecoilState(topicAtom);
-    const defaultTopics = ["정치", "경제", "사회", "생활/문화", "IT/과학", "세계", "국내축구", "해외축구", "연예"];
+    const defaultTopics = ["정치", "경제", "사회", "생활/문화", "IT/과학"];
     const [topicState, setTopicState] = useState<boolean[]>([]);
     const navigate = useNavigate();
 
     useState(()=>{
+        console.log('defaultTopics', defaultTopics)
         for (let i = 0; i < defaultTopics.length; i++) {
             if (chosenTopic.topics.indexOf(defaultTopics[i]) === -1){
                 topicState[i] = false;
