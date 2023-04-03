@@ -59,62 +59,14 @@
     }
     // contents-main
     .main-page-content {
-        // 책장 넘기기 도전
-        // *:before, *:after {
-        //     margin: 0;
-        //     padding: 0;
-        //     box-sizing: border-box;
-        //     position: relative;
-        // }
-        // ::selection {
-        //     background: #222;
-        //     color: white;
-        //     }
-        // ::-moz-selection {
-        //     background: #222;
-        //     color: white;
-        // }
-        //
+        
         flex: 1;
         overflow: scroll;
         scroll-snap-type: y mandatory;
         .main-page-content-card {
             position: relative;
             height: 100%;
-            // // 1은 아래, 2는 위에
-            // .side-1 {
-            //     z-index: 2;
-            //     box-shadow: inset 50px 0 50px rgba(0,0,0,.5);
-            //     transition: .5s;
-            // }
-            // .side-2 {
-            //     transform:
-            //     rotateY(180deg);
-            //     box-shadow: inset -50px 0 50px rgba(0,0,0,.5);
-            // }
-            // .flipped > .side-1 {
-            //     box-shadow: inset 300px 0 50px rgba(0,0,0,.8);   
-            //     transition: .6s;
-            // }
-            // .flipped > [class*='side'] {
-            //     pointer-events: auto;
-            // }
-            // .page.flipped:after {
-            //     content: 'prev-page';
-            //     transform:
-            //     rotateY(180deg);
-            //     pointer-events: auto;
-            // }
-            // @keyframes hide {
-            //     0% {opacity: 0;}
-            //     85% {opacity: 0;}
-            //     100% {opacity: 1;}
-            // }
-            // .flipped {
-            //     transform:
-            //     rotateY(-180deg);
-            //     pointer-events: none;
-            // }
+            
 
             > .upper-half {
                 position: relative;
@@ -152,6 +104,22 @@
             }
 
         }
+    }
+    .main-page-alarm {
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: min(80vw, 400px);
+        height: min(20vh, 240px);
+        border-radius: 6px;
+        box-shadow: 0px 4px 4px #36363640;
+        // > h3 {
+
+        // }
     }
 }
 
