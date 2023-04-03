@@ -21,7 +21,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Sex sex;
     private String username;
-    private String role;
 
     @OneToMany(mappedBy = "user")
     private List<Notification> notificationList = new ArrayList<>();

@@ -24,12 +24,6 @@ public class Bookmark {
     @JoinColumn(name = "news_id")
     private News news;
 
-    @Builder
-    public Bookmark(User user, News news) {
-        this.user = user;
-        this.news = news;
-    }
-
     //연관관계 메소드
     private void setUser(User user){
         this.user = user;

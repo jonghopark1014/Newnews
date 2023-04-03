@@ -23,12 +23,6 @@ public class Watched {
     @JoinColumn(name = "news_id")
     private News news;
 
-    @Builder
-    public Watched(User user, News news) {
-        this.user = user;
-        this.news = news;
-    }
-
     //연관관계 메소드
     private void setUser(User user){
         this.user = user;
