@@ -23,7 +23,6 @@ public class NewsService {
     private final SocietyRepository societyRepository;
     private final ItAndScienceRepository itAndScienceRepository;
     private final UserRepository userRepository;
-    private final BookmarkRepository bookmarkRepository;
 
     public NewsResponseDto getNews(Long newsId) {
         News news = newsRepository.findById(newsId).orElseThrow(
@@ -129,7 +128,6 @@ public class NewsService {
                 .preNewsTitle(preNews.getTitle())
                 .news(newsResponseDto)
                 .build();
-
     }
 
     public NewsResponseDto getNewsWithIsBookmark(String username, Long newsId) {
@@ -137,16 +135,15 @@ public class NewsService {
                 () -> new IllegalArgumentException("해당하는 뉴스가 없습니다.")
         );
 
-        User user = userRepository.findByUsername(username).orElseThrow(
+        User user = userRepository.findWithBookmarkByUsername(username).orElseThrow(
                 () -> new IllegalArgumentException("해당하는 유저가 없습니다.")
         );
 
-        Bookmark bookmark = bookmarkRepository.findByUserIdAndNewsId(user.getId(), newsId).orElse(
-                null
-        );
-
-        return bookmark == null ?
-                createNewsResponseDto(news, false) : createNewsResponseDto(news, true);
+        for (Bookmark bookmark : user.getBookmarkList()) {
+            if (bookmark.getNews().getId() == newsId)
+                return createNewsResponseDto(news, true);
+        }
+        return createNewsResponseDto(news, false);
     }
 
     private NewsResponseDto createNewsResponseDto(News news, boolean bookmarked) {
