@@ -1,14 +1,14 @@
 package com.ssafy.specialization.service;
 
 import com.ssafy.specialization.dto.*;
-import com.ssafy.specialization.entity.News;
-import com.ssafy.specialization.entity.NewsImage;
-import com.ssafy.specialization.entity.Notification;
+import com.ssafy.specialization.entity.*;
 import com.ssafy.specialization.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -105,7 +105,10 @@ public class NewsService {
         return imageUrl;
     }
 
+    @Transactional
     public RelatedNewsOneResponseDto getRelatedNewsOne(Long newsId, Long preNewsId) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
         News preNews = newsRepository.findById(preNewsId).orElseThrow(
                 () -> new IllegalArgumentException("해당하는 이전 뉴스가 없습니다.")
         );
@@ -125,6 +128,9 @@ public class NewsService {
                         getNewsImageResponseDto(news.getNewsImageList())
                 )
                 .build();
+
+        User user = userRepository.findWatchedListByUsername(username);
+        Watched.createWatched(user, news);
 
         return RelatedNewsOneResponseDto.builder()
                 .preNewsId(preNews.getId())

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -36,9 +37,22 @@ public class Watched {
     //생성 메소드
     public static Watched createWatched(User user, News news ) {
         Watched watched = new Watched();
-        watched.setUser(user);
         watched.setNews(news);
+        watched.setUser(user);
 
         return watched;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this.getClass() != object.getClass()) {
+            return false;
+        }
+        return ((Watched) object).news == this.news;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(news);
     }
 }
