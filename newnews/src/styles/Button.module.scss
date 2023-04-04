@@ -7,14 +7,22 @@
     justify-content: center;
     background-color: #ffffff;
     color: #363636;
-    height: 40px;
-    width: 80px;
-    border-color: #ffffff;
+    height: 45px;
+    width: 140px;
     border-radius: 6px;
-    border-color: 2px solid #363636;
-    box-shadow: 1px 1px 1px 1px rgba(78, 78, 78, 0.25);
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    border: none;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    border: 1px solid #0096ED;
 }
 .buttonStyle:hover,
 .buttonStyle:focus-within {
-    color: #0096ED;
+    background-color: #0096ED;
+    box-shadow: 0px 15px 20px rgba(46, 138, 229, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
 }

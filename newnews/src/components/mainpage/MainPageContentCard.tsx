@@ -1,10 +1,12 @@
-import useBellDelete from "@/hooks/bell/useBellDelete";
-import { LoginState } from "@/states/LoginState";
-import { topicAtom } from "@/stores/NewsTopics";
-import "@/styles/main/MainPageStyles.scss";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
+
+import { LoginState } from "@/states/LoginState";
+import { topicAtom } from "@/stores/NewsTopics";
+import "@/styles/main/MainPageStyles.scss";
+
+// import useBellDelete from "@/hooks/bell/useBellDelete";
 
 
 interface Iprops {
@@ -18,18 +20,21 @@ interface Iprops {
 
 export function MainPageContentCard(props: Iprops){
     const navigate = useNavigate();
+    
     const title = props.title;
     const press = props.press;
     const newsImage = props.newsImage;
     const newsIndex = props.newsIndex + 1;
+
     const topicState = useRecoilValue(topicAtom);
     const isLogin = useRecoilValue(LoginState)
     const isLog = isLogin[0].id
-    const bellDelete = useBellDelete()
+
+    // const bellDelete = useBellDelete()
 
     const address = ()=>{
         if (topicState.focused === "연관뉴스") {
-            bellDelete.mutate({ userId: isLog, newsId : props.newsId})
+            // bellDelete.mutate({ userId: isLog, newsId : props.newsId})
             navigate("/relatedDetail", { state: { newsId: props.newsId, preNewsId: props.preNewsId }})
         } else {
             navigate("/detail", { state: { newsId: props.newsId }})

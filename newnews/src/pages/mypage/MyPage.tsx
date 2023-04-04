@@ -2,11 +2,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { LoginState } from '@/states/LoginState';
 import styles from '@/styles/mypage/MyPage.module.scss';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BiLogOut } from "react-icons/bi";
 
 export function MyPage(){
     const navigate = useNavigate()
+    const [alarm, setAlarm] = useState<null | string>(null);
 
     const isLogin = useRecoilValue(LoginState)
     const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState);
@@ -14,7 +15,7 @@ export function MyPage(){
 
     useEffect(() => {
         if (!isLogin[0]?.isLogin) {
-            alert("로그인이 필요한 페이지 입니다. 로그인 페이지로 이동합니다.")
+            setAlarm('로그인이 필요한 페이지 입니다')
             navigate('/login');
         }
     }, [isLogin, navigate])
@@ -48,6 +49,10 @@ export function MyPage(){
             <div className={styles.dropout}>
                 <button>탈퇴하기</button>
             </div>
+            {alarm && 
+                <div className={styles.alarm}>
+                    <h3>{alarm}</h3>
+                </div>}
         </section>
     )
 }

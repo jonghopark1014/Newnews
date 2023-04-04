@@ -22,7 +22,7 @@ export function BookMarkNonePage() {
                     스크랩하고 싶은 뉴스를 저장해주세요.
                 </h3>
                 <br />
-                <Button width={150} onClick={()=>{navigate('/')}}>
+                <Button width={180} onClick={()=>{navigate('/')}}>
                     추천뉴스 보러가기
                 </Button>
             </div>

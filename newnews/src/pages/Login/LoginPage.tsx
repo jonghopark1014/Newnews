@@ -49,9 +49,10 @@ export function LoginPage() {
 
     useEffect(() => {
         if (isLog) {
-            setAlarm(`로그인이 되어있지 않습니다. ${SEC}초후 페이지를 이동합니다.`)
-            setTimeout(()=>{setAlarm(null)
-                navigate('/') }, SEC * 1000)
+            setAlarm("로그인이 되어있습니다.")
+            setTimeout(()=>{
+                navigate('/') },
+                 SEC * 1000)
         }
     }, [isLogin, navigate])
 
@@ -145,7 +146,10 @@ export function LoginPage() {
                 <p>비밀번호 찾기</p>
             </div>
             {isLog && <MemberShipModal onClickToggleModal={onClickToggleModal} children="로그인 되어있습니다"/>}
-            {alarm && <div className="main-page-alarm"><h3>{alarm}</h3></div>}
+            {alarm && 
+                <div className={styles.alarm}>
+                    <h3>{alarm}</h3>
+                </div>}
         </div>
     )
 }
