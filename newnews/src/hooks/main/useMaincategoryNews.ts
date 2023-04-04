@@ -1,12 +1,10 @@
-import { topicAtom } from "@/stores/NewsTopics";
 import { useEffect } from "react";
 
 import axios from "axios";
+import { useRecoilState } from "recoil";
 
 import { SERVER_URL } from "@/utils/urls";
-import { RiH3 } from "react-icons/ri";
-import { useQuery } from "react-query";
-import { useRecoilValue } from "recoil";
+import { topicAtom, topicStateType } from "@/stores/NewsTopics";
 
 const API_URL = '/api/news/category';
 // {카테고리이름}?page=?&size=?
@@ -21,7 +19,7 @@ const fetcher = (categoryId: number, page: number, size: number) => axios.get(SE
  */
 const useMaincategoryNews = (categoryId: number, page: number, size: number) => {
     console.log('됨?', categoryId, page, size)
-    const {data, isSuccess, isError, isLoading, refetch} =  useQuery(["newsData"], () => fetcher(categoryId, page, size), {
+    return useQuery(["newsData"], () => fetcher(categoryId, page, size), {
         staleTime: 0, cacheTime: 0,
         refetchOnWindowFocus: false, refetchOnReconnect: false
     });
