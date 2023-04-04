@@ -26,7 +26,8 @@ interface newsDetail {
 export function MainDetailPage() {
     const location = useLocation();
     const newsId = location.state.newsId;
-    const useMainDetail = useMainNewsDetail(newsId);
+    const categoryId = location.state.categoryId;
+    const useMainDetail = useMainNewsDetail(newsId, categoryId);
     const addBookmark = useAddBookmark();
     const removeBookmark = useRemoveBookmark();
     const [marked, setMarked] = useState(true);

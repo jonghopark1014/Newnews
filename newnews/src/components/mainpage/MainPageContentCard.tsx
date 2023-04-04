@@ -6,6 +6,7 @@ import { useRecoilValue } from "recoil";
 
 
 interface Iprops {
+    categoryId: number
     newsId: number,
     preNewsId? : number,
     title: string,
@@ -26,7 +27,7 @@ export function MainPageContentCard(props: Iprops){
         if (topicState.focused === "연관뉴스") {
             navigate("/relatedDetail", { state: { newsId: props.newsId, preNewsId: props.preNewsId }})
         } else {
-            navigate("/detail", { state: { newsId: props.newsId }})
+            navigate("/detail", { state: { newsId: props.newsId, categoryId: props.categoryId }})
         }
     }
 
