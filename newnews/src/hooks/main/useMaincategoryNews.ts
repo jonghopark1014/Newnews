@@ -1,11 +1,9 @@
-import { topicAtom } from "@/stores/NewsTopics";
-import { SERVER_URL } from "@/utils/urls";
+import { useQuery } from "react-query";
 import axios from "axios";
+import { useRecoilState } from "recoil";
 
 import { SERVER_URL } from "@/utils/urls";
-import { RiH3 } from "react-icons/ri";
-import { useQuery } from "react-query";
-import { useRecoilValue } from "recoil";
+import { topicAtom, topicStateType } from "@/stores/NewsTopics";
 
 const API_URL = '/api/news/category';
 // {카테고리이름}?page=?&size=?
@@ -18,9 +16,18 @@ const fetcher = (categoryId: number, page: number, size: number) => axios.get(SE
  * @param categoryId 
  * @returns [data, dataUpdatedAt, error, errorUpdatedAt, failureCount, failureReason, isError, isFetched, isFetchedAfterMount, isFetching, isPaused, isLoading, isLoadingError, isPlaceholderData, isPreviousData, isRefetchError, isRefetching, isInitialLoading, isStale, isSuccess, refetch, remove, status, fetchStatus]
  */
-const useMaincategoryNews = (categoryId: number, page: number, size: number) => {
-    console.log('됨?', categoryId, page, size)
-    return useQuery(["newsData"], () => fetcher(categoryId, page, size), {
+const useMaincategoryNews = (page: number, size: number) => {
+    const [topicState, set] = useRecoilState<topicStateType>(topicAtom)
+    const categoryName: Record<string, number>= {
+        "연관뉴스" : 1,
+        "경제" : 1,
+        "정치" : 2,
+        "사회" : 3,
+        "생활/문화" : 4,
+        "IT/과학" : 5,
+    }
+
+    return useQuery(["newsData", topicState.focused], () => fetcher(categoryName[topicState.focused], page, size), {
         staleTime: 0, cacheTime: 0,
         refetchOnWindowFocus: true, refetchOnReconnect: false
     });

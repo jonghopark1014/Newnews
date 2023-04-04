@@ -13,7 +13,7 @@ const SIZE = 10;
 const SEC = 3;
 
 interface newsMain {
-    newsId : number,
+    id : number,
     preNewsId : number,
     title : string,
     press : string,
@@ -21,7 +21,7 @@ interface newsMain {
 };
 
 const categoryName: Record<string, number>= {
-    "연관뉴스" : 0,
+    "연관뉴스" : 1,
     "경제" : 1,
     "정치" : 2,
     "사회" : 3,
@@ -30,28 +30,25 @@ const categoryName: Record<string, number>= {
 }
 
 export function MainPageContent(){
-    console.log('?')
     // 로그인 정보
     const isLogin = useRecoilValue(LoginState)[0];
     // 메인 뉴스 정보
     const [news, setNews] = useState<newsMain[] | undefined>();
     // topicState : {토픽설정에서 고른 토픽들, 지금 클릭한 토픽}
     const [topicState, setTopicState] = useRecoilState<topicStateType>(topicAtom);
-    const [categoryId, setCategoryId] = useState(categoryName[topicState.focused])
+    // 처음엔 경제로 받아오기
+    const [categoryId, setCategoryId] = useState<number>(1)
     // 로그인, 연관뉴스 메세지
     const [alarm, setAlarm] = useState<null | string>(null);
     // 후속기사들
     const useNewsAfter = useMainNewsAfter();
     // 그외 토픽에 따른 기사들
-    console.log("카테고리요청전")
-    const maincategoryNews = useMaincategoryNews(categoryId, 1, 5);
-    console.log("카테고리요청후")
+    const maincategoryNews = useMaincategoryNews(0, 5);
     // 현재 보고있는 뉴스의 index
     let ioIndex: any;
     
     useEffect(()=>{
         setCategoryId(categoryName[topicState.focused])
-        console.log(categoryName[topicState.focused])
         // intersectionObserver 옵션
         // root : viewport로 판단할 타겟
         // threshold: 관찰할 타겟이 얼마나 보일때 callback 할 지, 0~1
@@ -96,7 +93,6 @@ export function MainPageContent(){
                             setNews(data.data.content);
                         } else {
                             setAlarm(`연관뉴스가 없습니다.\n ${SEC}초후 페이지를 이동합니다.`)
-                            console.log("연관뉴스가 없습니다 3초후 페이지를 이동합니다.")
                             setTimeout(()=>{
                                 setAlarm(null); 
                                 setTopicState({topics: topicState.topics, focused: topicState.topics[1]}); 
@@ -106,15 +102,15 @@ export function MainPageContent(){
                 });
             } else {
                 setAlarm(`로그인시 이용가능합니다.\n ${SEC}초후 페이지를 이동합니다.`)
-                console.log("로그인이 필요합니다")
                 setTimeout(()=>{ 
                     setAlarm(null); 
                     setTopicState({topics: topicState.topics, focused: topicState.topics[1]}); 
                 }, SEC * 1000)
             }
         } else { // 정치, 경제, 사회, ...
+            maincategoryNews
             if (maincategoryNews.isSuccess) {
-                console.log(maincategoryNews)
+                console.log(maincategoryNews.data.data.content)
                 setNews(maincategoryNews.data.data.content)
             }
         }
@@ -133,10 +129,11 @@ export function MainPageContent(){
         }
         
         // reorder()
-    }, [topicState.focused])
+    }, [topicState.focused, maincategoryNews.isSuccess])
+
     return (
         <div className="main-page-content">
-            {news && news.map((news, index)=>{return <MainPageContentCard categoryId={categoryId} newsId={news.newsId} preNewsId={news.preNewsId} title={news.title} press={news.press} newsImage={news.newsImage} newsIndex={index} key={index}/>})}
+            {news && news.map((news, index)=>{return <MainPageContentCard categoryId={categoryId} newsId={news.id} preNewsId={news.preNewsId} title={news.title} press={news.press} newsImage={news.newsImage} newsIndex={index} key={index}/>})}
             {alarm && <div className="main-page-alarm"><h3>{alarm}</h3></div>}
         </div>
     )

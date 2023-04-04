@@ -27,6 +27,7 @@ export function MainDetailPage() {
     const location = useLocation();
     const newsId = location.state.newsId;
     const categoryId = location.state.categoryId;
+    console.log(newsId)
     const useMainDetail = useMainNewsDetail(newsId, categoryId);
     const addBookmark = useAddBookmark();
     const removeBookmark = useRemoveBookmark();
