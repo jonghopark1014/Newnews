@@ -1,14 +1,16 @@
-import { useEffect } from "react";
-import { isError, useQuery } from "react-query";
+import { topicAtom } from "@/stores/NewsTopics";
+import { SERVER_URL } from "@/utils/urls";
 import axios from "axios";
 
 import { SERVER_URL } from "@/utils/urls";
 import { RiH3 } from "react-icons/ri";
+import { useQuery } from "react-query";
+import { useRecoilValue } from "recoil";
 
 const API_URL = '/api/news/category';
 // {카테고리이름}?page=?&size=?
 
-const fetcher = (categoryId: number | undefined) => axios.get(SERVER_URL + API_URL + `/${categoryId}`).then(({ data }) => data);
+const fetcher = (categoryId: number, page: number, size: number) => axios.get(SERVER_URL + API_URL + `/${categoryId}`, {params: {page: page, size: size}}).then(({ data }) => data);
 
 /**
  * userId: useQuery안에 fetcher(axios요청)에 넣을 파라미터 값(들)
@@ -16,28 +18,13 @@ const fetcher = (categoryId: number | undefined) => axios.get(SERVER_URL + API_U
  * @param categoryId 
  * @returns [data, dataUpdatedAt, error, errorUpdatedAt, failureCount, failureReason, isError, isFetched, isFetchedAfterMount, isFetching, isPaused, isLoading, isLoadingError, isPlaceholderData, isPreviousData, isRefetchError, isRefetching, isInitialLoading, isStale, isSuccess, refetch, remove, status, fetchStatus]
  */
-const useMaincategoryNews = (categoryId: number | undefined) => {
-            
-            const {data, error, isLoading, refetch, ...res} = useQuery("newsData", () => fetcher(categoryId), {
-                
-                staleTime: 0, cacheTime: 60 * 5 * 1000,
-                refetchOnWindowFocus: true, refetchOnReconnect: false
-            });
-
-            useEffect(() => {
-                refetch()
-            }, [categoryId])
-            
-            if (error) {
-                
-            }
-            if (isLoading) {
-
-            } else{
-                console.log(`${categoryId}`, data)
-                return data 
-            }
-    }
+const useMaincategoryNews = (categoryId: number, page: number, size: number) => {
+    console.log('됨?', categoryId, page, size)
+    return useQuery(["newsData"], () => fetcher(categoryId, page, size), {
+        staleTime: 0, cacheTime: 0,
+        refetchOnWindowFocus: true, refetchOnReconnect: false
+    });
+}
 
 
 export default useMaincategoryNews;

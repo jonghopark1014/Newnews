@@ -1,22 +1,35 @@
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { LoginState } from '@/states/LoginState';
-import styles from '@/styles/mypage/MyPage.module.scss';
-import { useEffect, useState } from "react";
+
 import { BiLogOut } from "react-icons/bi";
+import { LoginState } from '@/states/LoginState';
+
+import styles from '@/styles/mypage/MyPage.module.scss';
+
+interface info {
+    id: string,
+    sex: string,
+    age: string,
+}
+
+const SEC = 3
 
 export function MyPage(){
     const navigate = useNavigate()
     const [alarm, setAlarm] = useState<null | string>(null);
-
+    const [myInfo, setMyInfo] = useState<info | null>(null)
     const isLogin = useRecoilValue(LoginState)
     const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState);
-    const defaultTopics = ["정치", "경제", "사회", "생활/문화", "IT/과학", "세계", "국내축구", "해외축구", "연예"];
+    const defaultTopics = ["경제", "정치", "사회", "생활/문화", "IT/과학"];
 
     useEffect(() => {
         if (!isLogin[0]?.isLogin) {
-            setAlarm('로그인이 필요한 페이지 입니다')
-            navigate('/login');
+            setAlarm("로그인이 필요한 페이지 입니다. 로그인 페이지로 이동합니다.")
+            setTimeout(()=>{
+                setAlarm(null);
+                navigate('/login');
+            }, SEC * 1000)
         }
     }, [isLogin, navigate])
 
@@ -25,14 +38,16 @@ export function MyPage(){
     }
     
     useEffect(()=>{
+        // 성향 관련 
         const len = defaultTopics.length;
         const degree = 360 / len;
 
-        for (let i = 1; i <= len; i++) {
+        for (let i = 1; i <= len + 1; i++) {
+            console.log(i)
             const line = document.querySelector<HTMLElement>(`.${styles.line}:nth-child(${i})`);
-            console.log(degree);
+            console.log(line)
             if (line) {
-                line.style.transform = `rotate(${(i - 1) * degree}deg)`;
+                line.style.transform = `rotate(${(i) * degree - (90 - degree)}deg)`;
             }
         }
         

@@ -10,6 +10,7 @@ import "@/styles/main/MainPageStyles.scss";
 
 
 interface Iprops {
+    categoryId: number
     newsId: number,
     preNewsId? : number,
     title: string,
@@ -37,7 +38,7 @@ export function MainPageContentCard(props: Iprops){
             // bellDelete.mutate({ userId: isLog, newsId : props.newsId})
             navigate("/relatedDetail", { state: { newsId: props.newsId, preNewsId: props.preNewsId }})
         } else {
-            navigate("/detail", { state: { newsId: props.newsId }})
+            navigate("/detail", { state: { newsId: props.newsId, categoryId: props.categoryId }})
         }
     }
 
