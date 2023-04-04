@@ -86,7 +86,6 @@ export function MainRelatedDetailPage() {
             onSuccess: (data)=>{
                 setNewsDetail(data.data);
                 setMarked(newsDetail.news.bookmark);
-                console.log(data.data);
             }
         })
     }, []);

@@ -21,7 +21,7 @@ interface newsMain {
 };
 
 const categoryName: Record<string, number>= {
-    "연관뉴스" : 0,
+    "연관뉴스" : 1,
     "경제" : 1,
     "정치" : 2,
     "사회" : 3,
@@ -44,7 +44,7 @@ export function MainPageContent(){
     const useNewsAfter = useMainNewsAfter();
     // 그외 토픽에 따른 기사들
     console.log("카테고리요청전")
-    const maincategoryNews = useMaincategoryNews(categoryId, 1, 5);
+    const maincategoryNews = useMaincategoryNews(categoryId, 0, 5);
     console.log("카테고리요청후")
     // 현재 보고있는 뉴스의 index
     let ioIndex: any;
@@ -113,10 +113,8 @@ export function MainPageContent(){
                 }, SEC * 1000)
             }
         } else { // 정치, 경제, 사회, ...
-            if (maincategoryNews.isSuccess) {
-                console.log(maincategoryNews)
-                setNews(maincategoryNews.data.data.content)
-            }
+            console.log("maincategoryNews", maincategoryNews.data)
+            // setNews(maincategoryNews.data.data.content)
         }
         const newsElems = document.querySelectorAll<HTMLElement>('.main-page-content-card');
         const mainpage = document.querySelector('.main-page-content');

@@ -2,15 +2,17 @@
     display: flex;
     width: 80%;
     margin: 8% auto;
+    height: auto;
     flex-direction: row-reverse;
     max-width: 400px;
+    max-height: 400px;
 }
 .bookmarkArticleCard{
     border-color: #ffffff;
     width: 100%;
     height: 200px;
     border-radius: 8px;
-    box-shadow: 1px 1px 4px 1px;
+    box-shadow: 10px 10px 20px rgba(46, 138, 229, 0.25);
     overflow: hidden;
     img {
         width: 100%;

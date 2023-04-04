@@ -15,7 +15,6 @@ export function MainPageSetTopics(){
     const navigate = useNavigate();
 
     useState(()=>{
-        console.log('defaultTopics', defaultTopics)
         for (let i = 0; i < defaultTopics.length; i++) {
             if (chosenTopic.topics.indexOf(defaultTopics[i]) === -1){
                 topicState[i] = false;

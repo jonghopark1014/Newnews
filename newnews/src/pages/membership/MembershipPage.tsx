@@ -121,7 +121,7 @@ export function MemberShipPage() {
                 withCredentials: true,
             })
             .then((res) => {
-            console.log('response:', res)
+                console.log('response:', res)
             if (!isMember) {
                 onClickToggleDuplicationModal()
             }
@@ -138,6 +138,7 @@ export function MemberShipPage() {
             }
             })
             } catch (err) {
+            setDuplicationModal(true)
             console.error(err)
             }
         } 
@@ -158,13 +159,11 @@ export function MemberShipPage() {
                         setIsUsername(false)
                         onClickToggleEmailModal()
                     } else {
-                        console.log(res.data.status)
                         setMember(true)
                         onClickToggleModal()
                     }
                 })
             } catch (err) {
-                console.log(err)
                 setUsername('')
                 onClickToggleErrorModal()
                 
@@ -250,7 +249,7 @@ export function MemberShipPage() {
                 <div className={styles.email}>
                     <div className={styles.emailGrid}>
                         <p>이메일</p>
-                        <Button width={140} onClick={() => {checkUsername(username)}} children={"중복확인"}/>
+                        <Button onClick={() => {checkUsername(username)}} children={"중복확인"}/>
                     </div>
                         <input type="email" onChange={onChangeUsername} value={username} placeholder="이메일을 입력해주세요"/>
                         {username.length > 0 && <span className={`message ${isusername ? 'success' : 'error'}`}>{usernameMessage}</span>}
@@ -297,7 +296,7 @@ export function MemberShipPage() {
                     <h3>{alarm}</h3>
                 </div>}
             <div className={styles.buttonGrid}>
-                <Button width={140} children={"가입하기"} onClick={()=>{onSubmitMemberShip({username, password, passwordChk, sex, yearOfBirth})}}></Button>
+                <Button children={"가입하기"} onClick={()=>{onSubmitMemberShip({username, password, passwordChk, sex, yearOfBirth})}}></Button>
             </div>
         </section>
     )

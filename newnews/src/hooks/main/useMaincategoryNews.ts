@@ -1,5 +1,6 @@
 import { topicAtom } from "@/stores/NewsTopics";
-import { SERVER_URL } from "@/utils/urls";
+import { useEffect } from "react";
+
 import axios from "axios";
 
 import { SERVER_URL } from "@/utils/urls";
@@ -20,10 +21,17 @@ const fetcher = (categoryId: number, page: number, size: number) => axios.get(SE
  */
 const useMaincategoryNews = (categoryId: number, page: number, size: number) => {
     console.log('됨?', categoryId, page, size)
-    return useQuery(["newsData"], () => fetcher(categoryId, page, size), {
+    const {data, isSuccess, isError, isLoading, refetch} =  useQuery(["newsData"], () => fetcher(categoryId, page, size), {
         staleTime: 0, cacheTime: 0,
-        refetchOnWindowFocus: true, refetchOnReconnect: false
+        refetchOnWindowFocus: false, refetchOnReconnect: false
     });
+    useEffect(() =>{
+        refetch()
+    },[categoryId, page, size])
+    if (isSuccess) {
+        return data
+        
+    }
 }
 
 

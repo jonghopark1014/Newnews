@@ -39,9 +39,6 @@
         flex-direction: column;
         justify-content: flex-start;
         margin-top: 5%;
-        input{
-            place-self: center center;
-        }
         .emailGrid{
             display: flex;
             justify-content: space-between;
@@ -136,30 +133,3 @@
 // }
 // }
 
-// .signup-wrapper {
-// display: flex;
-// flex-direction: column;
-// align-items: center;
-
-// .input-forms {
-//     background-color: #ffffff;
-//     border-radius: 10px;
-//     display: flex;
-//     flex-direction: column;
-
-//     .input-label {
-//     font-size: 1.2rem;
-//     font-weight: bold;
-//     color: #363636;
-//     }
-
-//     .input-forms-item {
-//     padding: 7px 0;
-//     .error-message {
-//         font-size: 1rem;
-//         color: 0096ED;
-//         font-weight: bold;
-//     }
-//     }
-// }
-// }
