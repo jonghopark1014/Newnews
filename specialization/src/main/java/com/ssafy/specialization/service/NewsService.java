@@ -17,6 +17,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class NewsService {
 
+    private final NotificationService notificationService;
+
     private final NewsRepository newsRepository;
     private final NotificationRepository notificationRepository;
     private final EconomyRepository economyRepository;
@@ -131,6 +133,8 @@ public class NewsService {
 
         User user = userRepository.findWatchedListByUsername(username);
         Watched.createWatched(user, news);
+
+        notificationService.delete(user.getId(), preNewsId);
 
         return RelatedNewsOneResponseDto.builder()
                 .preNewsId(preNews.getId())
