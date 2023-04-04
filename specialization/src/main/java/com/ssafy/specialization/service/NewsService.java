@@ -134,7 +134,9 @@ public class NewsService {
         User user = userRepository.findWatchedListByUsername(username);
         Watched.createWatched(user, news);
 
-        notificationService.delete(user.getId(), preNewsId);
+//        notificationService.delete(user.getId(), preNewsId);
+
+        notificationRepository.deleteByUserIdAndNewsId(user.getId(), preNewsId);
 
         return RelatedNewsOneResponseDto.builder()
                 .preNewsId(preNews.getId())
