@@ -26,9 +26,6 @@ class NotificationServiceTest {
 
     @Test
     void 모든알림삭제(){
-        notificationService.addNotification(1L, 1L);
-        notificationService.addNotification(1L, 1L);
-        notificationService.addNotification(1L, 1L);
         notificationService.deleteAll(1L);
 
         List<Notification> list = notificationRepository.findAllByUserId(1L);
