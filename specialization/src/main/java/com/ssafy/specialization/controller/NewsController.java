@@ -5,6 +5,7 @@ import com.ssafy.specialization.response.Response;
 import com.ssafy.specialization.service.BookmarkService;
 import com.ssafy.specialization.service.NewsService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -12,12 +13,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/news")
+@Slf4j
 public class NewsController {
 
     private final BookmarkService bookmarkService;
@@ -48,7 +52,11 @@ public class NewsController {
     }
 
     @GetMapping("/details/{newsId}/{categoryId}")
-    public ResponseEntity showNews(@PathVariable Long newsId, @PathVariable int categoryId) {
+    public ResponseEntity showNews(@PathVariable Long newsId, @PathVariable int categoryId, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        log.info("session = {}", session);
+        log.info("session.getAttribute = {}", session.getAttribute("SPRING_SECURITY_CONTEXT"));
+
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         NewsResponseDto news = newsService.getNewsWithIsBookmark(username, newsId, categoryId);
         return Response.success(HttpStatus.OK, news);
