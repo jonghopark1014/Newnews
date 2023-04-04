@@ -23,7 +23,7 @@ export function BellNonePage() {
                     알림이 없습니다.
                 </h3>
                 <br />
-                <Button width={150} onClick={()=>{navigate('/')}}>
+                <Button width={180} onClick={()=>{navigate('/')}}>
                     추천뉴스 보러가기
                 </Button>
             </div>

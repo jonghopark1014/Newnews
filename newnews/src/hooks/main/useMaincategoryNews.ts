@@ -1,7 +1,9 @@
-import { SERVER_URL } from "@/utils/urls";
+import { useEffect } from "react";
+import { isError, useQuery } from "react-query";
 import axios from "axios";
+
+import { SERVER_URL } from "@/utils/urls";
 import { RiH3 } from "react-icons/ri";
-import { useQuery } from "react-query";
 
 const API_URL = '/api/news/category';
 // {카테고리이름}?page=?&size=?
@@ -16,11 +18,16 @@ const fetcher = (categoryId: number | undefined) => axios.get(SERVER_URL + API_U
  */
 const useMaincategoryNews = (categoryId: number | undefined) => {
             
-            const {data, error, isLoading} = useQuery("newsData", () => fetcher(categoryId), {
+            const {data, error, isLoading, refetch, ...res} = useQuery("newsData", () => fetcher(categoryId), {
                 
                 staleTime: 0, cacheTime: 60 * 5 * 1000,
                 refetchOnWindowFocus: true, refetchOnReconnect: false
             });
+
+            useEffect(() => {
+                refetch()
+            }, [categoryId])
+            
             if (error) {
                 
             }

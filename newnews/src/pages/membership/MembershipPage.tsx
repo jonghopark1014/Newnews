@@ -20,11 +20,13 @@ interface Iprops{
 
 export function MemberShipPage() {
     const navigate = useNavigate()
+    const [alarm, setAlarm] = useState<null | string>(null);
+
     const isLogin = useRecoilValue(LoginState);
     const isLog = isLogin[0].isLogin
     useEffect(() => {
         if (isLog) {
-            alert('로그인이 되어있습니다')
+            setAlarm("로그인이 되어있습니다.")
             navigate('/');
         }
     }, [isLogin, navigate])
@@ -248,7 +250,7 @@ export function MemberShipPage() {
                 <div className={styles.email}>
                     <div className={styles.emailGrid}>
                         <p>이메일</p>
-                        <Button onClick={() => {checkUsername(username)}} children={"중복확인"}/>
+                        <Button width={140} onClick={() => {checkUsername(username)}} children={"중복확인"}/>
                     </div>
                         <input type="email" onChange={onChangeUsername} value={username} placeholder="이메일을 입력해주세요"/>
                         {username.length > 0 && <span className={`message ${isusername ? 'success' : 'error'}`}>{usernameMessage}</span>}
@@ -290,8 +292,12 @@ export function MemberShipPage() {
             { isPasswordModal && <MemberShipModal onClickToggleModal={ onClickTogglePasswordModal } children="비밀번호를 확인해주세요"/>}
             { isSexModal && <MemberShipModal onClickToggleModal={ onClickToggleSexModal } children="성별을 선택해주세요"/>}
             { isEmailModal && <MemberShipModal onClickToggleModal={ onClickToggleEmailModal } children="이메일 형식을 확인해주세요"/>}
+            {alarm && 
+                <div className={styles.alarm}>
+                    <h3>{alarm}</h3>
+                </div>}
             <div className={styles.buttonGrid}>
-                <Button children={"가입하기"} onClick={()=>{onSubmitMemberShip({username, password, passwordChk, sex, yearOfBirth})}}></Button>
+                <Button width={140} children={"가입하기"} onClick={()=>{onSubmitMemberShip({username, password, passwordChk, sex, yearOfBirth})}}></Button>
             </div>
         </section>
     )
