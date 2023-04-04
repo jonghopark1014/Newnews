@@ -70,8 +70,6 @@ export function MyPage(){
     
     return (
         <section className={styles.mypage}>
-            <Link to="/login">mypage</Link>
-            <BiLogOut onClick={() => {onClickLogout()}} />
             <ResponsiveContainer width="90%" height="90%">
                 <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
                     <PolarGrid />
@@ -79,7 +77,10 @@ export function MyPage(){
                     <Radar name="Mike" dataKey="A" stroke="#0096ED" fill="#0096ED" fillOpacity={0.6} />
                 </RadarChart>
             </ResponsiveContainer>
-            <Button children="탈퇴하기" width={0} onClick={()=>{}} onKeyDown={()=>{}}></Button>
+            <div>
+                <Button children="탈퇴하기" width={140} onClick={()=>{}} onKeyDown={()=>{}}></Button>
+                <BiLogOut onClick={() => {onClickLogout()}} />
+            </div>
             {alarm && 
                 <div className={styles.alarm}>
                     <h3>{alarm}</h3>
