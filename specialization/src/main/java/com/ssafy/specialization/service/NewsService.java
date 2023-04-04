@@ -111,12 +111,14 @@ public class NewsService {
 
     @Transactional
     public RelatedNewsOneResponseDto getRelatedNewsOne(Long newsId, Long preNewsId) {
+        log.info("이전 뉴스 불러오기");
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
         News preNews = newsRepository.findById(preNewsId).orElseThrow(
                 () -> new IllegalArgumentException("해당하는 이전 뉴스가 없습니다.")
         );
 
+        log.info("연관 뉴스 불러오기");
         News news = newsRepository.findById(newsId).orElseThrow(
                 () -> new IllegalArgumentException("해당하는 뉴스가 없습니다.")
         );
