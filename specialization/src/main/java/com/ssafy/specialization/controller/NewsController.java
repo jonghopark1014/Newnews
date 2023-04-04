@@ -29,9 +29,9 @@ public class NewsController {
         return Response.success(HttpStatus.OK);
     }
 
-    @DeleteMapping("/bookmark")
-    public ResponseEntity deleteBookmark(@RequestBody UserHistoryRequestDto userHistoryRequestDto){
-        bookmarkService.deleteBookmark(userHistoryRequestDto.getUserId(), userHistoryRequestDto.getNewsId());
+    @DeleteMapping("/bookmark/{userId}/{newsId}")
+    public ResponseEntity deleteBookmark(@PathVariable("userId")Long userId, @PathVariable("newsId")Long newsId){
+        bookmarkService.deleteBookmark(userId, newsId);
         return Response.success(HttpStatus.OK);
     }
 
