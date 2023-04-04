@@ -13,7 +13,7 @@ const SIZE = 10;
 const SEC = 3;
 
 interface newsMain {
-    id : number,
+    newsId : number,
     preNewsId : number,
     title : string,
     press : string,
@@ -133,7 +133,7 @@ export function MainPageContent(){
 
     return (
         <div className="main-page-content">
-            {news && news.map((news, index)=>{return <MainPageContentCard categoryId={categoryId} newsId={news.id} preNewsId={news.preNewsId} title={news.title} press={news.press} newsImage={news.newsImage} newsIndex={index} key={index}/>})}
+            {news && news.map((news, index)=>{return <MainPageContentCard categoryId={categoryId} newsId={news.newsId} preNewsId={news.preNewsId} title={news.title} press={news.press} newsImage={news.newsImage} newsIndex={index} key={index}/>})}
             {alarm && <div className="main-page-alarm"><h3>{alarm}</h3></div>}
         </div>
     )
