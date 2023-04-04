@@ -32,15 +32,15 @@ export function Header({children}: Iprops) {
     /**
      * 페이지 랜더링하자마자 알람을 가져오기
     */
-    if (loginBoolean) {
-        useState(() => {
+    useState(() => {
+        if (loginBoolean) {
             bellList.mutate({ userId: userId }, {
                 onSuccess: (data) => {
                     setData(data.data)
                 }
             })
-        })    
-    }
+        }
+    })    
     
     const BellIcon = (state : boolean) =>{
         if (loginBoolean) {

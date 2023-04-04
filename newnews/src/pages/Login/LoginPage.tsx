@@ -5,7 +5,7 @@ import { LoginState } from '@/states/LoginState';
 import { HiOutlineUsers, HiOutlineLockClosed } from "react-icons/hi";
 import axios from "axios";
 
-import { SERVER_URL } from "@/utils/urls"
+import { SERVER_URL, REST_API_KEY } from "@/utils/urls"
 import { Button } from "@/components/Button";
 import MemberShipModal from "@/components/membership/MemberShipModal";
 import { KakaoLogin } from "@/components/login/Kakao";
@@ -16,7 +16,7 @@ import { GoogleLogin } from '@react-oauth/google';
 
 import styles from "@/styles/login/Login.module.scss"
 
-const SEC = 3;
+const SEC = 1;
 
 interface Iprops{
     username : string
@@ -25,7 +25,6 @@ interface Iprops{
 
 
 
-const REST_API_KEY = '758949398062-ossaflmuh3pmgl7igje8cvqmgf9cpoi1.apps.googleusercontent.com'
 
 export function LoginPage() {
     const navigate = useNavigate()
@@ -54,10 +53,9 @@ export function LoginPage() {
                 navigate('/') },
                  SEC * 1000)
         }
-    }, [isLogin, navigate])
+    }, [isLogin])
 
     async function onSubmitLogin({username, password}: Iprops) {
-
         try {
         await axios
             .post(API, {
@@ -68,11 +66,10 @@ export function LoginPage() {
                 withCredentials: true,
             })
             .then((res) => {
-                console.log('response', res.data)
                 setIsLoggedIn([{isLogin: true, username: username, password:password, id: res.data.id}])
                 setTimeout(()=> {
                     navigate("/");
-                }, 2000);
+                }, SEC * 1000);
             })
             } catch (err) {
                 console.error(err)
@@ -132,7 +129,6 @@ export function LoginPage() {
             <KakaoLogin />
                 <GoogleOAuthProvider clientId={`${REST_API_KEY}`}>
                     <GoogleLogin onSuccess={(credentialRespose) =>{
-                        console.log(credentialRespose)
                     }}
                     onError={() =>{
                         console.log('login Failed')

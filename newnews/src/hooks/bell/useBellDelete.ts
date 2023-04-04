@@ -10,10 +10,10 @@ const fetcher = (variables: { userId: number | null | undefined, newsId : number
 const useBellDelete = () => {
     return useMutation(fetcher, {
         onSuccess: (data) => {
-            console.log('알람 하나 제거 성공', data);
+            // console.log('알람 하나 제거 성공', data);
         },
         onError: (error) => {
-            console.log('알람 하나 제거 에러', error);
+            // console.log('알람 하나 제거 에러', error);
         }
     });
 }
