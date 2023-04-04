@@ -139,6 +139,7 @@ public class NewsService {
                 .build();
     }
 
+    @Transactional
     public NewsResponseDto getNewsWithIsBookmark(String username, Long newsId, int categoryId) {
         News news = null;
         if(categoryId==1) news = economyRepository.findWithImageListByNewsId(newsId).orElse(null);
@@ -150,6 +151,9 @@ public class NewsService {
         if (news == null) throw new IllegalArgumentException("해당하는 뉴스가 없습니다.");
 
         if(username.equals("anonymousUser")) return createNewsResponseDto(news, false);
+
+        User user = userRepository.findWatchedListByUsername(username);
+        Watched.createWatched(user, news);
 
         if(bookmarkRepository.findByUserUsernameAndNewsId(username, newsId).isEmpty())
             return createNewsResponseDto(news, false);
