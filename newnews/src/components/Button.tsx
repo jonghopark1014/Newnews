@@ -5,6 +5,7 @@ interface Props {
     children?: React.ReactNode;
     width?: number;
     onClick: () => void;
+    onKeyDown?: () => void | undefined;
 }
 
 /**
@@ -15,7 +16,8 @@ interface Props {
 export const Button: React.FC<Props> = ({ 
     children,
     width,
-    onClick, 
+    onClick,
+    onKeyDown,
 }) => { 
 
     useEffect(() => {
