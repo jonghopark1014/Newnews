@@ -22,9 +22,7 @@ export function SearchBar(){
      * 결과 페이지로 가는 함수
      */
     function resultPage (e: string) {
-        
         navigate('/result')
-        console.log(e)
     }
 
     /**

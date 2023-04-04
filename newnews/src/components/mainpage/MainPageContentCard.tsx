@@ -1,3 +1,5 @@
+import useBellDelete from "@/hooks/bell/useBellDelete";
+import { LoginState } from "@/states/LoginState";
 import { topicAtom } from "@/stores/NewsTopics";
 import "@/styles/main/MainPageStyles.scss";
 import { useEffect } from "react";
@@ -21,9 +23,13 @@ export function MainPageContentCard(props: Iprops){
     const newsImage = props.newsImage;
     const newsIndex = props.newsIndex + 1;
     const topicState = useRecoilValue(topicAtom);
+    const isLogin = useRecoilValue(LoginState)
+    const isLog = isLogin[0].id
+    const bellDelete = useBellDelete()
 
     const address = ()=>{
         if (topicState.focused === "연관뉴스") {
+            bellDelete.mutate({ userId: isLog, newsId : props.newsId})
             navigate("/relatedDetail", { state: { newsId: props.newsId, preNewsId: props.preNewsId }})
         } else {
             navigate("/detail", { state: { newsId: props.newsId }})
