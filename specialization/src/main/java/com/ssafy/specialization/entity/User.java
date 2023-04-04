@@ -6,7 +6,9 @@ import lombok.Getter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -27,8 +29,8 @@ public class User {
     private List<Notification> notificationList = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Bookmark> bookmarkList = new ArrayList<>();
-    @OneToMany(mappedBy = "user")
-    private List<Watched> watchedList = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Watched> watchedList = new HashSet<>();
 
     @Builder
     public User(String password, int yearOfBirth, Sex sex, String username) {
