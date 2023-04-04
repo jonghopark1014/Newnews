@@ -20,7 +20,7 @@ export default function MemberShipModal( {children, onClickToggleModal} : Iprops
                 <div className={styles.textGrid}>
                     <h3>{children}</h3>
                     <br />
-                    <Button onClick={() => {onClickToggleModal()}} children={"확인"}></Button>
+                    <Button onClick={() => {onClickToggleModal()}} width={100} children={"확인"}></Button>
                 </div>
             </div>
         </section>

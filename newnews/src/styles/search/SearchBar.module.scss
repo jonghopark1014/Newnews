@@ -1,8 +1,9 @@
 .container{
-    height: 40px;
-    width: 360px;
+    height: 6%;
+    width: 85%;
     max-width: 800px;
-    margin: 5%;
+    margin: auto;
+    margin-top: 8%;
 }
 .searchbar {
     display: flex;
@@ -17,7 +18,7 @@
     justify-content: center;
 }
 .searchInput {
-    width: 95%;
+    width: 90%;
     height: 100%;
     border-radius: 4px;
     max-width: 720px;

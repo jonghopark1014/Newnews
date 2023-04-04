@@ -64,7 +64,10 @@ export function MyPage(){
             <div className={styles.dropout}>
                 <button>탈퇴하기</button>
             </div>
-            {alarm && <div className="main-page-alarm"><h3>{alarm}</h3></div>}
+            {alarm && 
+                <div className={styles.alarm}>
+                    <h3>{alarm}</h3>
+                </div>}
         </section>
     )
 }

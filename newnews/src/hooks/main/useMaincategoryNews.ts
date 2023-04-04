@@ -1,6 +1,8 @@
 import { topicAtom } from "@/stores/NewsTopics";
 import { SERVER_URL } from "@/utils/urls";
 import axios from "axios";
+
+import { SERVER_URL } from "@/utils/urls";
 import { RiH3 } from "react-icons/ri";
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";

@@ -16,16 +16,21 @@ import { GoogleLogin } from '@react-oauth/google';
 
 import styles from "@/styles/login/Login.module.scss"
 
+const SEC = 3;
 
 interface Iprops{
     username : string
     password : string
 }
+
+
+
 const REST_API_KEY = '758949398062-ossaflmuh3pmgl7igje8cvqmgf9cpoi1.apps.googleusercontent.com'
 
 export function LoginPage() {
     const navigate = useNavigate()
     const API = `${SERVER_URL}/api/login`;
+    const [alarm, setAlarm] = useState<null | string>(null);
     
     //
     const isLogin = useRecoilValue(LoginState);
@@ -44,8 +49,10 @@ export function LoginPage() {
 
     useEffect(() => {
         if (isLog) {
-            alert('로그인이 되어있습니다')
-            navigate('/');
+            setAlarm("로그인이 되어있습니다.")
+            setTimeout(()=>{
+                navigate('/') },
+                 SEC * 1000)
         }
     }, [isLogin, navigate])
 
@@ -71,8 +78,14 @@ export function LoginPage() {
                 console.error(err)
             }
         }
-    
 
+    function keyDown (e: React.KeyboardEvent<HTMLInputElement>) {
+        if (e.code === "Enter") {
+            e.preventDefault(); 
+            onSubmitLogin({username, password})
+        }
+    }
+    
 
     /**
      * 
@@ -100,7 +113,7 @@ export function LoginPage() {
                     <HiOutlineLockClosed className={styles.icons} />
                     <hr />
                     <input  
-                    type="password" placeholder="비밀번호를 입력해주세요" autoComplete="off" value={password} onChange={onChangePassword}/>
+                    type="password" placeholder="비밀번호를 입력해주세요" autoComplete="off" value={password} onChange={onChangePassword} onKeyDown={keyDown}/>
                 </form>
             {/* 아이디저장 자동로그인 체크박스 */}
             <div className={styles.checkBox}>
@@ -133,6 +146,10 @@ export function LoginPage() {
                 <p>비밀번호 찾기</p>
             </div>
             {isLog && <MemberShipModal onClickToggleModal={onClickToggleModal} children="로그인 되어있습니다"/>}
+            {alarm && 
+                <div className={styles.alarm}>
+                    <h3>{alarm}</h3>
+                </div>}
         </div>
     )
 }
