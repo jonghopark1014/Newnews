@@ -21,11 +21,12 @@ conn = db_connection.connect()
 
 app = FastAPI()
 
-data = pd.read_sql(text("select * from news n left join news_image ni on n.news_id = ni.news_news_id limit 100;"), conn)
+datas = pd.read_sql(text("select * from news n left join news_image ni on n.news_id = ni.news_news_id limit 100;"), conn)
 
 @app.get("/fast/api/search")
 def search(keyword: str):
-    global data
+    global datas
+    data = datas[:]
     findspark.init()
     # # spark 세션 연결
     # spark = SparkSession.builder.master('local').config("spark.hadoop.dfs.client.use.datanode.hostname", "true").getOrCreate()
