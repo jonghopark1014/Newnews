@@ -1,16 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,  } from "react";
+import { useLocation } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { LoginState } from "@/states/LoginState";
 
-import { SearchBar } from "@/components/SearchBar";
+import { SearchBar } from "@/components/searchpage/SearchBar";
 import { ArticleCard} from "@/components/ArticleCard"
+import useSearchKeyword from "@/hooks/search/useSearchKeyword";
 
 import styles from "@/styles/search/SearchPages.module.scss"
 
 
 interface Iporps{
     id: number ,
-    newsImage: string
+    url: string
     title: string,
     categoryId : number
 }
@@ -22,7 +24,11 @@ interface Iporps{
 export function SearchResultPage(){
     
     const [newsData, setData] = useState<Iporps[]>()
+    const location = useLocation()
+    const keyword = location.state.keyword
 
+    const searchKeyword = useSearchKeyword(keyword)
+    
     const isLogin = useRecoilValue(LoginState);
     // 로그인되어있는지 확인
     const isLogBoolean = isLogin[0]?.isLogin
@@ -31,21 +37,18 @@ export function SearchResultPage(){
     // bookmark hook
     // const searchList = useBookmarkList()
     
+    console.log(newsData)
 
-    // useEffect(()=> {
-    //     searchList.mutate({ userId: userId }, {
-    //         onSuccess : (data) => {
-    //             setData(data.data)
-    //         }
-    //     })
-    // }, [])
+    useEffect(()=> {
+        setData(searchKeyword.data)
+    }, [searchKeyword])
 
     return (
         <section className={styles.searchSection}>
             <SearchBar/>
             <div>
                 {newsData && newsData.map((item, index) =>
-                <ArticleCard key={index} title={item.title} id={item.id} categoryId={item.categoryId} url={item.newsImage} page={false} />
+                <ArticleCard key={index} title={item.title} id={item.id} categoryId={item.categoryId} url={item.url} page={false} />
                 )}
             </div>
         </section>

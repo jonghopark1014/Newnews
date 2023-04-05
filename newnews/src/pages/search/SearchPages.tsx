@@ -2,7 +2,7 @@ import { useRecoilValue } from 'recoil';
 import { useEffect } from 'react';
 
 import { LoginState } from '@/states/LoginState';
-import { SearchBar } from "@/components/SearchBar";
+import { SearchBar } from "@/components/searchpage/SearchBar";
 import { PopularContent } from "@/components/searchpage/PopularContent";
 
 import styles from "@/styles/search/SearchPages.module.scss"
@@ -17,13 +17,14 @@ export function SearchPages(){
 
     const userId = isLogin[0].id
 
+
     useEffect(() =>{
 
     }, [])
 
     return (
         <section className={styles.searchSection}>
-            <SearchBar/>
+            <SearchBar />
             <div>
                 <h2 className={styles.popularSearchTerms}>
                     추천 키워드

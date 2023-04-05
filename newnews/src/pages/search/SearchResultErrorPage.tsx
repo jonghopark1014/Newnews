@@ -1,4 +1,4 @@
-import { SearchBar } from "@/components/SearchBar";
+import { SearchBar } from "@/components/searchpage/SearchBar";
 import styles from "@/styles/search/SearchPages.module.scss"
 import { Button } from "@/components/Button";
 import { useNavigate } from "react-router";
