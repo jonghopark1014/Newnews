@@ -5,7 +5,7 @@ import { LoginState } from "@/states/LoginState";
 import { BellHeader } from "@/components/bell/BellHeader";
 import { BellComponents } from "@/components/bell/BellComponents";
 import useBellList from "@/hooks/bell/useBellList";
-import useBellDelete from "@/hooks/bell/useBellDelete";
+// import useBellDelete from "@/hooks/bell/useBellDelete";
 
 import styles from "@/styles/bell/Bellpages.module.scss"
 
@@ -24,7 +24,7 @@ interface Iprops{
  */
 export function BellPages(){
     const bellList = useBellList()
-    const bellDelete= useBellDelete()
+    // const bellDelete= useBellDelete()
     
     const isLogin = useRecoilValue(LoginState)
     const userId = isLogin[0].id
