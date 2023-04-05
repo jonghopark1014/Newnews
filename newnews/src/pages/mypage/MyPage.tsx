@@ -2,23 +2,22 @@ import { useEffect, useState, PureComponent, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } from 'recharts';
-
 import { BiLogOut } from "react-icons/bi";
-import { LoginState } from '@/states/LoginState';
 
-import styles from '@/styles/mypage/MyPage.module.scss';
 import { Button } from "@/components/Button";
 import MemberShipModal from "@/components/membership/MemberShipModal";
 import Modal from "@/components/bell/Modal";
 import useUserDropout from "@/hooks/mypage/useUserDropout";
+import useUserTendency from "@/hooks/mypage/useUserTendency";
+import { LoginState } from '@/states/LoginState';
+
+import styles from '@/styles/mypage/MyPage.module.scss';
 
 interface info {
     id: string,
     sex: string,
     age: string,
 }
-
-
 
 const SEC = 2
 
@@ -31,35 +30,37 @@ export function MyPage(){
     const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState);
     const userId = isLogin[0].id
     const password = isLogin[0].password
-
-    const defaultTopics = ["경제", "정치", "사회", "생활/문화", "IT/과학"];
-
     const userDropout = useUserDropout(userId, password)
-
+    // 성향
+    const useTendency = useUserTendency(userId);
+    let sum = Object.values(useTendency).reduce(function add(sum, currValue) {
+        return sum + currValue
+    }, 0)
+    console.log(sum)
     const data = [
         {
             subject: '경제',
-            A: 120,
+            A: useTendency["economyNews"] / sum * 100,
             fullMark: 150,
         },
         {
             subject: '정치',
-            A: 98,
+            A: useTendency["politicsNews"] / sum * 100,
             fullMark: 150,
         },
         {
             subject: '사회',
-            A: 86,
+            A: useTendency["societyNews"] / sum * 100,
             fullMark: 150,
         },
         {
             subject: '생활/문화',
-            A: 99,
+            A: useTendency["lifeAndCultureNews"] / sum * 100,
             fullMark: 150,
         },
         {
             subject: 'IT/과학',
-            A: 85,
+            A: useTendency["itAndScienceNews"] / sum * 100,
             fullMark: 150,
         },
     ];
@@ -77,10 +78,9 @@ export function MyPage(){
         return setModal(!modal)
     }
     const onClcikWithdrawal = () =>{
-        userDropout.mutate({ userId: userId, password: password})
+        // userDropout.mutate({ userId: userId, password: password})
         // navigate('/')
     }
-
 
     const onLgoinToggleModal = useCallback (() => {
             setAlarm(!alarm);
