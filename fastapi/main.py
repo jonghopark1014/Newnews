@@ -23,7 +23,7 @@ app = FastAPI()
 
 data = pd.read_sql(text("select * from news n left join news_image ni on n.news_id = ni.news_news_id;"), conn)
 
-@app.get("/")
+@app.get("/fast/api/search")
 def search(keyword: str):
     global data
     findspark.init()
