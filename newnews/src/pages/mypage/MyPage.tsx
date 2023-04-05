@@ -1,7 +1,7 @@
 import { useEffect, useState, PureComponent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } from 'recharts';
 
 import { BiLogOut } from "react-icons/bi";
 import { LoginState } from '@/states/LoginState';
@@ -70,8 +70,8 @@ export function MyPage(){
     
     return (
         <section className={styles.mypage}>
-            <ResponsiveContainer width="90%" height="90%">
-                <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
+            <ResponsiveContainer width="100%" height="100%">
+                <RadarChart cx="50%" cy="50%" outerRadius="70%" data={data}>
                     <PolarGrid />
                     <PolarAngleAxis dataKey="subject" />
                     <Radar name="Mike" dataKey="A" stroke="#0096ED" fill="#0096ED" fillOpacity={0.6} />
