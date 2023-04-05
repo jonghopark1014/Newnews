@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
+import { useRecoilValue } from 'recoil';
 
 import { IoIosArrowBack } from "react-icons/io";
 import { BsBookmarkPlus, BsBookmarkCheckFill } from "react-icons/bs";
 import useMainNewsDetail from "@/hooks/main/useMainNewsDetail";
 import useAddBookmark from "@/hooks/bookmark/useAddBookmark";
 import useRemoveBookmark from "@/hooks/bookmark/useRemoveBookmark";
+import { LoginState } from '@/states/LoginState';
 
 import styles from "@/styles/main/MainDetailPage.module.scss";
 
@@ -27,10 +29,15 @@ export function MainDetailPage() {
     const location = useLocation();
     const newsId = location.state.newsId;
     const categoryId = location.state.categoryId;
-    console.log(newsId)
+    
+    const isLogin = useRecoilValue(LoginState)
+    const userId = isLogin[0].id
+    
     const useMainDetail = useMainNewsDetail(newsId, categoryId);
+
     const addBookmark = useAddBookmark();
-    const removeBookmark = useRemoveBookmark();
+    const removeBookmark = useRemoveBookmark(userId ,newsId);
+
     const [marked, setMarked] = useState(true);
     const [newsDetail, setNewsDetail] = useState<newsDetail>({
         id : 0,
@@ -50,11 +57,11 @@ export function MainDetailPage() {
     const bookMark = (state: boolean)=>{
         if (state) {
             return (
-                <BsBookmarkPlus className={styles.beforeMarked} onClick={()=>{ setMarked(!marked); addBookmark.mutate({ userId: 1, newsId: newsId }); }}/>
+                <BsBookmarkPlus className={styles.beforeMarked} onClick={()=>{ setMarked(!marked); addBookmark.mutate({ userId: userId, newsId: newsId }); }}/>
             )
         } else {
             return (
-                <BsBookmarkCheckFill className={styles.afterMarked} onClick={()=>{ setMarked(!marked); removeBookmark.mutate({ userId: 1, newsId: newsId }); }}/>
+                <BsBookmarkCheckFill className={styles.afterMarked} onClick={()=>{ setMarked(!marked); removeBookmark.mutate({ userId: userId, newsId: newsId }); }}/>
             )
         }
     }

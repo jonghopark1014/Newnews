@@ -15,7 +15,7 @@ export function SearchPages(){
 
     const isLogin = useRecoilValue(LoginState)
 
-    const isLog = isLogin[0].id
+    const userId = isLogin[0].id
 
     useEffect(() =>{
 

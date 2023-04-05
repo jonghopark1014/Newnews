@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
+import { useRecoilValue } from 'recoil';
+
 
 import { BsBookmarkPlus, BsBookmarkCheckFill, BsFillArrowRightCircleFill } from "react-icons/bs";
 import { IoIosArrowBack } from "react-icons/io";
+import { LoginState } from '@/states/LoginState';
 import useAddBookmark from "@/hooks/bookmark/useAddBookmark";
 import useRemoveBookmark from "@/hooks/bookmark/useRemoveBookmark";
 import useMainNewsRelated from "@/hooks/main/useMainNewsRelated";
@@ -32,8 +35,13 @@ export function MainRelatedDetailPage() {
     const newsId = location.state.newsId;
     const preNewsId = location.state.preNewsId;
     const useMainRelated = useMainNewsRelated();
+
+    const isLogin = useRecoilValue(LoginState)
+    const userId = isLogin[0].id
+
     const addBookmark = useAddBookmark();
-    const removeBookmark = useRemoveBookmark();
+
+    const removeBookmark = useRemoveBookmark(userId, newsId);
     const [marked, setMarked] = useState(true);
     const [newsDetail, setNewsDetail] = useState<newsDetail>({
         prenewsId: 0,
