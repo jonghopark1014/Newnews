@@ -90,7 +90,7 @@ export function MainRelatedDetailPage() {
     }
 
     useEffect(()=>{
-        useMainRelated.mutate({ newsId: newsId, preNewsId: preNewsId }, {
+        useMainRelated.mutate({ newsId: newsId, preNewsId: preNewsId, userId: userId }, {
             onSuccess: (data)=>{
                 setNewsDetail(data.data);
                 setMarked(newsDetail.news.bookmark);
