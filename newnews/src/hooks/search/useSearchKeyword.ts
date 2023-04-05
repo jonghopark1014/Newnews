@@ -25,6 +25,7 @@ const useSearchKeyword = (keyword : string) => {
 
     return useQuery("keyword", () => fetcher(keyword), {
         staleTime: 0, cacheTime: 0,
+        refetchInterval: false,
         refetchOnWindowFocus: true, refetchOnReconnect: false
     });
 }
