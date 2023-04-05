@@ -35,18 +35,41 @@ public class NewsRepositoryImpl implements CustomNewsRepository{
             Long object = bigInteger.longValue();
 
             BookmarkedNewsResponseDto dto = BookmarkedNewsResponseDto.builder()
-                .categoryId((String) objects[0])
-                .id(object)
-                .content((String) objects[2])
-                .newsDate((Timestamp) objects[3])
-                .press((String) objects[4])
-                .reporter((String) objects[5])
-                .title((String) objects[6])
-                .newsImage((String) objects[7])
-                .build();
+                    .categoryId(getCategoryId((String) objects[0]))
+                    .id(object)
+                    .content((String) objects[2])
+                    .newsDate((Timestamp) objects[3])
+                    .press((String) objects[4])
+                    .reporter((String) objects[5])
+                    .title((String) objects[6])
+                    .newsImage((String) objects[7])
+                    .build();
             list.add(dto);
         }
 
         return list;
+    }
+
+    private static int getCategoryId(String str) {
+        int categoryId=0;
+
+        switch (str) {
+            case "Economy":
+                categoryId = 1;
+                break;
+            case "Politics":
+                categoryId = 2;
+                break;
+            case "Society":
+                categoryId = 3;
+                break;
+            case "LifeAndCulture":
+                categoryId = 4;
+                break;
+            case "ItAndScience":
+                categoryId = 5;
+                break;
+        }
+        return categoryId;
     }
 }

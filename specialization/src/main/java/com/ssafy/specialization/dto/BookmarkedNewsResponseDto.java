@@ -13,7 +13,7 @@ public class BookmarkedNewsResponseDto {
     private Timestamp newsDate;
     private String reporter;
     private String press;
-    private String categoryId;
+    private int categoryId;
     private String newsImage;
 
     @Builder
@@ -24,7 +24,7 @@ public class BookmarkedNewsResponseDto {
             Timestamp newsDate,
             String reporter,
             String press,
-            String categoryId,
+            int categoryId,
             String newsImage
         ) {
             this.id = id;
