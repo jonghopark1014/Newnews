@@ -37,7 +37,7 @@ export function MainDetailPage() {
     const useMainDetail = useMainNewsDetail(newsId, categoryId);
 
     const addBookmark = useAddBookmark();
-    const removeBookmark = useRemoveBookmark(userId ,newsId);
+    const removeBookmark = useRemoveBookmark(userId, newsId);
 
     const [marked, setMarked] = useState<boolean>(false);
     const [modal, setModal] = useState<boolean>(true);
@@ -78,6 +78,7 @@ export function MainDetailPage() {
     useEffect(()=>{
         if (useMainDetail.isSuccess) {
             setNewsDetail(useMainDetail.data.data);
+            console.log(newsDetail)
             setMarked(newsDetail.bookmark)
         }
     }, [useMainDetail]);

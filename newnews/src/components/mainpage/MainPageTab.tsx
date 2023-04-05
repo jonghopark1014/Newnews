@@ -1,10 +1,12 @@
-import { MainPageTabTopic } from "./MainPageTabTopic";
-import "@/styles/main/MainPageStyles.scss"
-import { useRecoilState } from "recoil"
-import { topicAtom, topicStateType } from "@/stores/NewsTopics"
 import { useEffect, useState } from "react";
-import { BsPlus } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { useRecoilState } from "recoil"
+
+import { BsPlus } from "react-icons/bs";
+import { MainPageTabTopic } from "./MainPageTabTopic";
+import { topicAtom, topicStateType } from "@/stores/NewsTopics"
+
+import "@/styles/main/MainPageStyles.scss"
 
 export function MainPageTab(){
     const [topicState, setTopicState] = useRecoilState<topicStateType>(topicAtom);
@@ -24,10 +26,13 @@ export function MainPageTab(){
 
         if (topicState.topics.indexOf(topicState.focused) == -1) {
             setState("연관뉴스")
-        }
+        } 
         for (let i = 0; i < elems.length; i++){
             if (elems[i].dataset.focus === "true"){
                 boundingRectX = elems[i].offsetLeft * 1;
+                console.log(elems[i].offsetLeft)
+                console.log(elems[i])
+                console.log(boundingRectX)
                 boundingRectWidth = elems[i].getBoundingClientRect().width * 1;
             }
         }
