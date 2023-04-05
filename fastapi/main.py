@@ -21,7 +21,7 @@ conn = db_connection.connect()
 
 app = FastAPI()
 
-data = pd.read_sql(text("select * from news n left join news_image ni on n.news_id = ni.news_news_id;"), conn)
+data = pd.read_sql(text("select * from news n left join news_image ni on n.news_id = ni.news_news_id limit 100;"), conn)
 
 @app.get("/fast/api/search")
 def search(keyword: str):
