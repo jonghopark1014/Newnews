@@ -110,15 +110,11 @@ public class NewsService {
     }
 
     @Transactional
-    public RelatedNewsOneResponseDto getRelatedNewsOne(Long newsId, Long preNewsId) {
-        log.info("이전 뉴스 불러오기");
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-
+    public RelatedNewsOneResponseDto getRelatedNewsOne(Long newsId, Long preNewsId, Long userId) {
         News preNews = newsRepository.findById(preNewsId).orElseThrow(
                 () -> new IllegalArgumentException("해당하는 이전 뉴스가 없습니다.")
         );
 
-        log.info("연관 뉴스 불러오기");
         News news = newsRepository.findById(newsId).orElseThrow(
                 () -> new IllegalArgumentException("해당하는 뉴스가 없습니다.")
         );
@@ -135,9 +131,7 @@ public class NewsService {
                 )
                 .build();
 
-        log.info("Username = {}", username);
-
-        User user = userRepository.findWatchedListByUsername(username);
+        User user = userRepository.findWatchedListById(userId);
         Watched.createWatched(user, news);
 
         notificationRepository.deleteByUserIdAndNewsId(user.getId(), preNewsId);
@@ -150,7 +144,7 @@ public class NewsService {
     }
 
     @Transactional
-    public NewsResponseDto getNewsWithIsBookmark(String username, Long newsId, int categoryId) {
+    public NewsResponseDto getNewsWithIsBookmark(Long userId, Long newsId, int categoryId) {
         News news = null;
         if(categoryId==1) news = economyRepository.findWithImageListByNewsId(newsId).orElse(null);
         else if(categoryId==2) news = politicsRepository.findWithImageListByNewsId(newsId).orElse(null);
@@ -160,12 +154,12 @@ public class NewsService {
 
         if (news == null) throw new IllegalArgumentException("해당하는 뉴스가 없습니다.");
 
-        if(username.equals("anonymousUser")) return createNewsResponseDto(news, false);
+        if(userId == -1) return createNewsResponseDto(news, false);
 
-        User user = userRepository.findWatchedListByUsername(username);
+        User user = userRepository.findWatchedListById(userId);
         Watched.createWatched(user, news);
 
-        if(bookmarkRepository.findByUserUsernameAndNewsId(username, newsId).isEmpty())
+        if(bookmarkRepository.findByUserIdAndNewsId(userId, newsId).isEmpty())
             return createNewsResponseDto(news, false);
         else
             return createNewsResponseDto(news, true);
