@@ -15,7 +15,7 @@ from sqlalchemy import text
 pymysql.install_as_MySQLdb()
 
 # db연결
-db_connection_str = 'mysql+pymysql://${DB_NAME_PASSWORD}@${DB_LOCATION}'
+db_connection_str = 'mysql+pymysql://${DB_NAME_PASSWORD}@${DB_LOCATION}/${DB_DATABASE}'
 db_connection = create_engine(db_connection_str)
 conn = db_connection.connect()
 
