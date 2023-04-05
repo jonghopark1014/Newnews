@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AiOutlineSearch } from "react-icons/ai"
 import { useNavigate } from "react-router";
 import styles from "@/styles/search/SearchBar.module.scss";
@@ -14,17 +14,16 @@ interface Props{
  * @returns searchBar component
  */
 export function SearchBar(){
-
-    const [inputs, setInputs] = useState('');
     const navigate = useNavigate()
+
+    const [inputs, setInputs] = useState<string>('');
 
     /**
      * 결과 페이지로 가는 함수
      */
     function resultPage (e: string) {
-        navigate('/result')
+        navigate('/result', {state: { keyword : inputs}})    
     }
-
     /**
      * 
      * @param e input값을 실시간으로 보여주는 값
@@ -33,11 +32,22 @@ export function SearchBar(){
         setInputs(e.target.value);
     };
 
+    /**
+     * enter를 치면 검색해줌
+     * @param e enter 
+     */
+    function keywordDown (e: React.KeyboardEvent<HTMLInputElement>) {
+        if (e.code === "Enter") {
+            e.preventDefault();
+            navigate('/result', {state: { keyword : inputs}})
+        }
+    }
+
     return (
     <div className={styles.container}>
         <div className={styles.searchbar}>
             <input className={styles.searchInput} type="search" placeholder="검색어를 입력해주세요"
-            onChange={onChange} value={inputs}/>
+            onChange={onChange} value={inputs} onKeyDown={keywordDown}/>
             <div onClick={()=> resultPage(inputs)}>
                 <AiOutlineSearch className={styles.searchIcon} />
             </div>

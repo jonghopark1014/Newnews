@@ -17,15 +17,12 @@ import { GoogleLogin } from '@react-oauth/google';
 
 import styles from "@/styles/login/Login.module.scss"
 
-const SEC = 1;
+const SEC = 1.5;
 
 interface Iprops{
     username : string
     password : string
 }
-
-
-
 
 export function LoginPage() {
     const navigate = useNavigate()
@@ -51,7 +48,6 @@ export function LoginPage() {
 
     useEffect(() => {
         if (isLog) {
-            setAlarm("로그인이 되어있습니다.")
             setTimeout(()=>{
                 navigate('/') },
                  SEC * 1000)
@@ -59,7 +55,6 @@ export function LoginPage() {
             if (cookies.rememberUserId !== undefined) {
                 setUsername(cookies.rememberUserId)
                 setCheckBox(true)
-                console.log(cookies.rememberUserId)
             }}
     }, [isLogin, checkBox])
 
@@ -93,7 +88,6 @@ export function LoginPage() {
             onSubmitLogin({username, password})
         }
     }
-    
 
     /**
      * 
@@ -105,7 +99,6 @@ export function LoginPage() {
     const onChangePassword = (e : React.ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
     };
-    
     /**
      * 체크박스 true false
      * @param e 아이디저장 
@@ -116,7 +109,6 @@ export function LoginPage() {
             removeCookie('rememberUserId')
         }
     }
-
 
     return(
         <div className={styles.container}>
@@ -164,10 +156,6 @@ export function LoginPage() {
                 <p>비밀번호 찾기</p>
             </div>
             {isLog && <MemberShipModal onClickToggleModal={onClickToggleModal} children="로그인 되어있습니다"/>}
-            {alarm && 
-                <div className={styles.alarm}>
-                    <h3>{alarm}</h3>
-                </div>}
         </div>
     )
 }
