@@ -1,6 +1,7 @@
 package com.ssafy.specialization.controller;
 
 import com.ssafy.specialization.dto.JoinRequestDto;
+import com.ssafy.specialization.dto.WatchedResponseDto;
 import com.ssafy.specialization.response.Response;
 import com.ssafy.specialization.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,12 @@ public class UserController {
     public ResponseEntity join(@RequestBody JoinRequestDto requestDto) {
         userService.join(requestDto);
         return Response.success(HttpStatus.CREATED);
+    }
+
+    @GetMapping("/user/tendency/{userId}")
+    public ResponseEntity findTendency(@PathVariable("userId") Long userId) {
+        WatchedResponseDto tendency = userService.findTendency(userId);
+        return Response.success(HttpStatus.OK, tendency);
     }
 
     @GetMapping("/user/exist/{username}")

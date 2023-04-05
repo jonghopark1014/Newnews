@@ -1,30 +1,31 @@
-//package com.ssafy.specialization.service;
-//
-//import com.ssafy.specialization.dto.JoinRequestDto;
-//import com.ssafy.specialization.entity.User;
-//import com.ssafy.specialization.repository.UserRepository;
-//import lombok.extern.slf4j.Slf4j;
-//import org.assertj.core.api.Assertions;
-//import org.junit.jupiter.api.Test;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.security.authentication.BadCredentialsException;
-//import org.springframework.transaction.annotation.Transactional;
-//
-//import java.util.Optional;
-//
-//import static org.assertj.core.api.Assertions.assertThat;
-//import static org.junit.jupiter.api.Assertions.*;
-//
-//@SpringBootTest
-//@Transactional
-//@Slf4j
-//class UserServiceTest {
-//
-//    @Autowired UserService userService;
-//    @Autowired UserRepository userRepository;
-//
-//
+package com.ssafy.specialization.service;
+
+import com.ssafy.specialization.dto.WatchedResponseDto;
+import com.ssafy.specialization.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@SpringBootTest
+@Transactional
+@Slf4j
+class UserServiceTest {
+
+    @Autowired UserService userService;
+    @Autowired UserRepository userRepository;
+
+    @Test
+    void 유저경향조회(){
+        WatchedResponseDto tendency = userService.findTendency(1L);
+        Assertions.assertThat(tendency.getEconomyNews()).isEqualTo(2);
+    }
+
+
 //    @Test
 //    void 회원가입() {
 //        JoinRequestDto requestDto = new JoinRequestDto(
@@ -80,9 +81,9 @@
 //            userService.join(requestDto2);
 //        });
 //    }
-//
-//    @Test
-//    void 아이디중복검사() {
-//        assertThat(userService.isExistUsername("test@gmail.com")).isEqualTo(true);
-//    }
-//}
+
+    @Test
+    void 아이디중복검사() {
+        assertThat(userService.isExistUsername("test@gmail.com")).isEqualTo(true);
+    }
+}
