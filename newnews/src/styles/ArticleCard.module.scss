@@ -1,8 +1,8 @@
 .articleCard{
     display: flex;
-    width: 80%;
-    margin: 8% auto;
-    height: auto;
+    width: 75%;
+    margin: 5% auto;
+    height: 100%;
     flex-direction: row-reverse;
     max-width: 400px;
     max-height: 400px;
@@ -10,9 +10,9 @@
 .bookmarkArticleCard{
     border-color: #ffffff;
     width: 100%;
-    height: 200px;
+    height: 180px;
     border-radius: 8px;
-    box-shadow: 10px 10px 20px rgba(46, 138, 229, 0.25);
+    box-shadow: 10px 10px 20px rgba(46, 138, 229, 0.2);
     overflow: hidden;
     img {
         width: 100%;
@@ -20,14 +20,14 @@
     }
     .gradation{
         position: relative;
-        height: 10vh;
-        top: -10vh;
+        height: 15vh;
+        top: -12vh;
         background: linear-gradient(0deg, rgba(54, 54, 54, 0.83) 61.46%, rgba(54, 54, 54, 0) 100%);
         h3 {
             position: relative;
             top: 1vh;
             margin:0 0 0 0.5rem;
-            width: 90%;
+            width: 85%;
             color: #ffffff;
             font-weight: 300;
             overflow: hidden;
