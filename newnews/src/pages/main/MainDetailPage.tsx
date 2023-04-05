@@ -38,7 +38,7 @@ export function MainDetailPage() {
     const addBookmark = useAddBookmark();
     const removeBookmark = useRemoveBookmark(userId ,newsId);
 
-    const [marked, setMarked] = useState(true);
+    const [marked, setMarked] = useState<boolean>(false);
     const [newsDetail, setNewsDetail] = useState<newsDetail>({
         id : 0,
         title : "로딩중",
@@ -54,14 +54,21 @@ export function MainDetailPage() {
     });
 
     const navigate = useNavigate();
-    const bookMark = (state: boolean)=>{
-        if (state) {
+    const bookMark = ()=>{
+        if (marked) {
             return (
-                <BsBookmarkPlus className={styles.beforeMarked} onClick={()=>{ setMarked(!marked); addBookmark.mutate({ userId: userId, newsId: newsId }); }}/>
+                <BsBookmarkCheckFill className={styles.afterMarked} onClick={()=>{
+                    setMarked(false) 
+                    removeBookmark.mutate({ userId: userId, newsId: newsId }); 
+                }}/>
+                
             )
         } else {
             return (
-                <BsBookmarkCheckFill className={styles.afterMarked} onClick={()=>{ setMarked(!marked); removeBookmark.mutate({ userId: userId, newsId: newsId }); }}/>
+                <BsBookmarkPlus className={styles.beforeMarked} onClick={()=>{
+                    setMarked(true)
+                    addBookmark.mutate({ userId: userId, newsId: newsId })
+                }}/>
             )
         }
     }
@@ -70,10 +77,10 @@ export function MainDetailPage() {
     useEffect(()=>{
         if (useMainDetail.isSuccess) {
             setNewsDetail(useMainDetail.data.data);
-            console.log('본문', useMainDetail.data.data);
+            setMarked(newsDetail.bookmark)
         }
     }, [useMainDetail]);
-    
+
     useEffect(()=>{
         const arrow = document.querySelector<HTMLElement>(`.${styles.direction}`);
         const modalStyle = document.querySelector<HTMLElement>(`.${styles.modalwindow}`);
@@ -92,7 +99,7 @@ export function MainDetailPage() {
             <div className={styles.header}>
                 <IoIosArrowBack onClick={()=> navigate(-1)}/>
                 <div></div>
-                {bookMark(marked)}
+                {bookMark()}
             </div>
             <div className={styles.content}>
                 <h3></h3>
