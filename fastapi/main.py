@@ -23,10 +23,13 @@ db_connection = create_engine(db_connection_str)
 conn = db_connection.connect()
 
 app = FastAPI()
+app.router.redirect_slashes = False
 
 # CORS 해결
 origins = [
     "https://j8b309.p.ssafy.io",
+    "http://localhost:8889",
+    "http://localhost:8000",
     "http://localhost:3000",
 ]
 
