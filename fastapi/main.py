@@ -7,6 +7,9 @@ from sklearn.cluster import DBSCAN
 
 from fastapi import FastAPI
 
+# for CORS
+from fastapi.middleware.cors import CORSMiddleware
+
 # python - mysql
 import pandas as pd
 import pymysql
@@ -20,6 +23,20 @@ db_connection = create_engine(db_connection_str)
 conn = db_connection.connect()
 
 app = FastAPI()
+
+# CORS 해결
+origins = [
+    "https://j8b309.p.ssafy.io",
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 datas = pd.read_sql(text("select * from news n left join news_image ni on n.news_id = ni.news_news_id limit 100;"), conn)
 
@@ -60,14 +77,10 @@ def search(keyword: str):
     result = model.fit_predict(vector)
     data['result'] = result
     print('unique_df들어갑니다~')
-    data = data.drop(columns="nouns")
-    data = data.drop(columns="news_date")
-    data = data.drop(columns="press")
-    data = data.drop(columns="reporter")
-    data = data.drop(columns="news_news_id")
-    data = data.drop(columns="content")
+    data = data.drop(columns=["content", "newsimage_id", "news_news_id", "reporter", "press", "news_date", "nouns", "description"])
     unique_df = data.drop_duplicates(subset=["result"], keep="first").reset_index(drop=True)
     print('unique_df들어갑니다2')
+    
     # unique_df = unique_df.drop([1], axis=0, inplace=False)
     unique_df = unique_df.to_dict(orient = 'records')
 
