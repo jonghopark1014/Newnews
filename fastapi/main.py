@@ -69,7 +69,7 @@ def search(keyword: str):
     unique_df = data.drop_duplicates(subset=["result"], keep="first").reset_index(drop=True)
     print('unique_df들어갑니다2')
     # unique_df = unique_df.drop([1], axis=0, inplace=False)
-    # unique_df = unique_df.to_json(force_ascii=False, orient = 'index')
+    unique_df = unique_df.to_dict(force_ascii=False, orient = 'records')
 
     return unique_df
 
