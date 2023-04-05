@@ -10,11 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 
@@ -41,7 +38,7 @@ public class NewsController {
 
     @PostMapping("/bookmark/list")
     public ResponseEntity getBookmarkedNewsList(@RequestBody HashMap<String, Long> map) {
-        List<NewsResponseDto> bookmarkedNewsList = bookmarkService.getBookmarkedNewsList(map.get("userId"));
+        List<BookmarkedNewsResponseDto> bookmarkedNewsList = bookmarkService.getBookmarkedNewsList(map.get("userId"));
         return Response.success(HttpStatus.OK, bookmarkedNewsList);
     }
 

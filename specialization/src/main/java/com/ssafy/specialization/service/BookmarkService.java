@@ -1,10 +1,8 @@
 package com.ssafy.specialization.service;
 
-import com.ssafy.specialization.dto.NewsImageResponseDto;
-import com.ssafy.specialization.dto.NewsResponseDto;
+import com.ssafy.specialization.dto.BookmarkedNewsResponseDto;
 import com.ssafy.specialization.entity.Bookmark;
 import com.ssafy.specialization.entity.News;
-import com.ssafy.specialization.entity.NewsImage;
 import com.ssafy.specialization.entity.User;
 import com.ssafy.specialization.repository.BookmarkRepository;
 import com.ssafy.specialization.repository.NewsRepository;
@@ -13,9 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -45,39 +41,11 @@ public class BookmarkService {
     }
 
     //북마크된 뉴스 리스트 반환
-    public List<NewsResponseDto> getBookmarkedNewsList(Long userId){
-        List<News> bookmarkedNewsByUserId = newsRepository.findBookmarkedNewsByUserId(userId);
-
-        List<NewsResponseDto> list = new ArrayList<>();
-
-        for(News news : bookmarkedNewsByUserId) {
-            NewsResponseDto newsResponseDto = NewsResponseDto.builder()
-                    .id(news.getId())
-                    .title(news.getTitle())
-                    .content(news.getContent())
-                    .press(news.getPress())
-                    .reporter(news.getReporter())
-                    .newsDate(news.getNewsDate())
-                    .newsImageList(
-                            getNewsImageResponseDto(news.getNewsImageList())
-                    )
-                    .build();
-            list.add(newsResponseDto);
-        }
-        return list;
+    public List<BookmarkedNewsResponseDto> getBookmarkedNewsList(Long userId){
+        return newsRepository.getBookmarkedNewsListWithCategory(userId);
     }
 
-    //뉴스 이미지 converter
-    private List<NewsImageResponseDto> getNewsImageResponseDto(List<NewsImage> newsImageList) {
-        return newsImageList.stream().map(
-                (newsImage) -> NewsImageResponseDto.builder()
-                        .url(newsImage.getUrl())
-                        .description(newsImage.getDescription())
-                        .build()
-        ).collect(Collectors.toList());
-    }
-
-//    북마크 중복 체크
+    //북마크 중복 체크
     public void checkDuplicatedBookmark(Long userId, Long newsId){
         if(!bookmarkRepository.findByUserIdAndNewsId(userId, newsId).isEmpty()){
             throw new IllegalArgumentException("이미 북마크가 등록되었습니다.");
