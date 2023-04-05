@@ -32,13 +32,13 @@ export function SearchResultPage(){
     // 로그인되어있는지 확인
     const isLogBoolean = isLogin[0]?.isLogin
     // 아이디 
-    const isLog = isLogin[0].id
+    const userId = isLogin[0].id
     // bookmark hook
     // const searchList = useBookmarkList()
     
 
     // useEffect(()=> {
-    //     searchList.mutate({ userId: isLog }, {
+    //     searchList.mutate({ userId: userId }, {
     //         onSuccess : (data) => {
     //             setData(data.data)
     //         }

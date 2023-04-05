@@ -29,13 +29,13 @@ export function MainPageContentCard(props: Iprops){
 
     const topicState = useRecoilValue(topicAtom);
     const isLogin = useRecoilValue(LoginState)
-    const isLog = isLogin[0].id
+    const userId = isLogin[0].id
 
-    // const bellDelete = useBellDelete()
+    // const bellDelete = useBellDelete(userId, props.newsId)
 
     const address = ()=>{
         if (topicState.focused === "연관뉴스") {
-            // bellDelete.mutate({ userId: isLog, newsId : props.newsId})
+            // bellDelete.mutate({ userId: userId, newsId : props.newsId})
             navigate("/relatedDetail", { state: { newsId: props.newsId, preNewsId: props.preNewsId }})
         } else {
             navigate("/detail", { state: { newsId: props.newsId, categoryId: props.categoryId }})

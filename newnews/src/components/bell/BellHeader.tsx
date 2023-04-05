@@ -23,19 +23,15 @@ export function BellHeader(){
     const isLogin = useRecoilValue(LoginState)
     const userId = isLogin[0].id
     const [isOpenModal, setOpenModal] = useState<boolean>(false);
-    const bellDeleteAll = useBellDeleteAll()
-    
+    const bellDeleteAll = useBellDeleteAll(userId)
+    console.log(userId)
     /**
      * 알림 전체 삭제
      */
     const onClcikDeleteBellAll = () =>{
-        bellDeleteAll.mutate({ userId: userId }, {
-            onSuccess : (data) => {
-                console.log(data)
-            }
-        })
+        bellDeleteAll.mutate( {userId: userId})
+        navigate('/bell/none')
     }
-
     /**
      * 모달창을 열고 닫고
      */

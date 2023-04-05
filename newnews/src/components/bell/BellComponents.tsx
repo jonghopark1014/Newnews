@@ -1,7 +1,7 @@
 import { IoEarth } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
-// import useBellDelete  from "@/hooks/bell/useBellDelete";
+import useBellDelete  from "@/hooks/bell/useBellDelete";
 import { LoginState } from "@/states/LoginState";
 import { useRecoilValue } from "recoil";
 import styles from "@/styles/bell/BellComponents.module.scss";
@@ -15,12 +15,12 @@ interface Iprops{
 
 export const BellComponents = ({ children, preNewsId, newsId } : Iprops) =>{
     const navigate = useNavigate()
-    // const bellDelete = useBellDelete()
     const isLogin = useRecoilValue(LoginState)
-    const isLog = isLogin[0].id
+    const userId = isLogin[0].id
+    const bellDelete = useBellDelete(userId , newsId)
 
     const onClickRead = () => {
-        // bellDelete.mutate({ userId: isLog, newsId : newsId})
+        bellDelete.mutate({ userId: userId, newsId : newsId })
         navigate('/detail', { state: { newsId: newsId, preNewsId: preNewsId }})
     }
 
