@@ -87,6 +87,7 @@ export function MyPage(){
     }, [alarm])
 
     const onClickLogout = () =>{
+        localStorage.clear()
         setIsLoggedIn([{isLogin: false, username: null, password: null, id: null}])
     }
     

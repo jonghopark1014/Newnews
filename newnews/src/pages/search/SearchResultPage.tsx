@@ -7,17 +7,12 @@ import { ArticleCard} from "@/components/ArticleCard"
 
 import styles from "@/styles/search/SearchPages.module.scss"
 
-interface DropImgProps{
-    url : string, 
-    description : string,
-}
 
 interface Iporps{
     id: number ,
-    newsImageList: Array<DropImgProps>,
+    newsImage: string
     title: string,
-    width: number,
-    height: number,
+    categoryId : number
 }
 
 /**
@@ -50,10 +45,9 @@ export function SearchResultPage(){
             <SearchBar/>
             <div>
                 {newsData && newsData.map((item, index) =>
-                <ArticleCard key={index} title={item.title} id={item.id} url={item.newsImageList[0].url} page={false} />
+                <ArticleCard key={index} title={item.title} id={item.id} categoryId={item.categoryId} url={item.newsImage} page={false} />
                 )}
             </div>
         </section>
-
     )
 }

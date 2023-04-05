@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router";
+
 import { Button } from "@/components/Button";
-import styles from "@/styles/bell/Bellpages.module.scss"
 import { BellHeader } from "@/components/bell/BellHeader";
 
+import styles from "@/styles/bell/Bellpages.module.scss"
 
 interface Iporps{
     onClick(): React.MouseEvent<HTMLDivElement>,

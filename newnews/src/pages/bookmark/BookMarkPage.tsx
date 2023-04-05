@@ -14,10 +14,9 @@ interface DropImgProps{
 
 interface Iporps{
     id: number ,
-    newsImageList: Array<DropImgProps>,
+    newsImage: string,
     title: string,
-    width: number,
-    height: number,
+    categoryId: number
 }
 
 /**
@@ -30,16 +29,16 @@ export function BookMarkPage(){
 
     const isLogin = useRecoilValue(LoginState);
     // 로그인되어있는지 확인
-    const isLogBoolean = isLogin[0]?.isLogin
+    const isLogBoolean = isLogin[0].isLogin
     // 아이디 
-    const isLog = isLogin[0].id
+    const userId = isLogin[0].id
     // bookmark hook
     const bookmarkList = useBookmarkList()
     
     
 
     useEffect(()=> {
-        bookmarkList.mutate({ userId: isLog }, {
+        bookmarkList.mutate({ userId: userId }, {
             onSuccess : (data) => {
                 setData(data.data)
             }
@@ -50,7 +49,7 @@ export function BookMarkPage(){
     return (
         <div className={styles.bookmarkGrid}>
             {NewsData && NewsData.map((item, index) =>
-                <ArticleCard key={index} title={item.title} id={item.id} url={item.newsImageList[0].url} page={true} />
+                <ArticleCard key={index} title={item.title} id={item.id} categoryId={item.categoryId} url={item.newsImage} page={true} />
                 )}
         </div>
     )
