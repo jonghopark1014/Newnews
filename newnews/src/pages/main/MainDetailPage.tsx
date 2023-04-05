@@ -27,11 +27,12 @@ interface newsDetail {
 
 export function MainDetailPage() {
     const location = useLocation();
-    const newsId = location.state.newsId;
-    const categoryId = location.state.categoryId;
-    
+    const navigate = useNavigate();
     const isLogin = useRecoilValue(LoginState)
     const userId = isLogin[0].id
+
+    const newsId = location.state.newsId;
+    const categoryId = location.state.categoryId;
     
     const useMainDetail = useMainNewsDetail(newsId, categoryId);
 
@@ -39,6 +40,8 @@ export function MainDetailPage() {
     const removeBookmark = useRemoveBookmark(userId ,newsId);
 
     const [marked, setMarked] = useState<boolean>(false);
+    const [modal, setModal] = useState<boolean>(true);
+
     const [newsDetail, setNewsDetail] = useState<newsDetail>({
         id : 0,
         title : "로딩중",
@@ -53,7 +56,6 @@ export function MainDetailPage() {
         bookmark: false,
     });
 
-    const navigate = useNavigate();
     const bookMark = ()=>{
         if (marked) {
             return (
@@ -72,7 +74,6 @@ export function MainDetailPage() {
             )
         }
     }
-    const [modal, setModal] = useState<boolean>(true);
 
     useEffect(()=>{
         if (useMainDetail.isSuccess) {
@@ -93,7 +94,8 @@ export function MainDetailPage() {
                 modalStyle.style.width = '1px';
             }
         }
-    }, [, modal]);
+    }, [modal]);
+
     return (
         <div className={styles.detailpage}>
             <div className={styles.header}>
@@ -106,7 +108,7 @@ export function MainDetailPage() {
                 <h2>{newsDetail.title}</h2>
                 <h5>{`${newsDetail.reporter} ${newsDetail.press} 기자  |  ${newsDetail.newsDate}`}</h5>
                 <img src={newsDetail.newsImageList[0].url} alt="" />
-                <p>{"이미지설명"}</p>
+                <p>{newsDetail.newsImageList[0].description}</p>
                 <span>{newsDetail.content}</span>
             </div>
         </div>

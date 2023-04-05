@@ -4,6 +4,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { LoginState } from '@/states/LoginState';
 import { HiOutlineUsers, HiOutlineLockClosed } from "react-icons/hi";
 import axios from "axios";
+import { useCookies } from "react-cookie"
 
 import { SERVER_URL, REST_API_KEY } from "@/utils/urls"
 import { Button } from "@/components/Button";
@@ -29,11 +30,13 @@ interface Iprops{
 export function LoginPage() {
     const navigate = useNavigate()
     const API = `${SERVER_URL}/api/login`;
+    const [cookies, setCookie, removeCookie] = useCookies(["rememberUserId"])
+    const [checkBox, setCheckBox]= useState<boolean>(false)
     const [alarm, setAlarm] = useState<null | string>(null);
     
     //
     const isLogin = useRecoilValue(LoginState);
-    const isLog = isLogin[0]?.isLogin
+    const isLog = isLogin[0].isLogin
     const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState);
 
     // 로그인
@@ -52,8 +55,13 @@ export function LoginPage() {
             setTimeout(()=>{
                 navigate('/') },
                  SEC * 1000)
-        }
-    }, [isLogin])
+        } else {
+            if (cookies.rememberUserId !== undefined) {
+                setUsername(cookies.rememberUserId)
+                setCheckBox(true)
+                console.log(cookies.rememberUserId)
+            }}
+    }, [isLogin, checkBox])
 
     async function onSubmitLogin({username, password}: Iprops) {
         try {
@@ -66,7 +74,10 @@ export function LoginPage() {
                 withCredentials: true,
             })
             .then((res) => {
+                localStorage.clear()
                 setIsLoggedIn([{isLogin: true, username: username, password:password, id: res.data.id}])
+                localStorage.setItem('id', res.data.id)
+                localStorage.setItem('token', res.data.token)
                 setTimeout(()=> {
                     navigate("/");
                 }, SEC * 1000);
@@ -95,6 +106,17 @@ export function LoginPage() {
         setPassword(e.target.value);
     };
     
+    /**
+     * 체크박스 true false
+     * @param e 아이디저장 
+     */
+    const handleEchange = (e : React.FocusEvent<HTMLInputElement>) => {
+        setCheckBox(e.target.checked)
+        if (!e.target.checked) {
+            removeCookie('rememberUserId')
+        }
+    }
+
 
     return(
         <div className={styles.container}>
@@ -114,8 +136,8 @@ export function LoginPage() {
                 </form>
             {/* 아이디저장 자동로그인 체크박스 */}
             <div className={styles.checkBox}>
-                <input type="checkbox" name="" id="idSave" />
-                <label htmlFor="">아이디 저장</label> 
+                <input type="checkbox" name="" id="saveId" onChange={handleEchange} checked={checkBox}/>
+                <label htmlFor="saveId">아이디 저장</label> 
                 <input type="checkbox" name="" id="" />
                 <label htmlFor="">자동 로그인</label>
             </div>
