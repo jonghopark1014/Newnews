@@ -43,15 +43,15 @@ class NewsServiceTest {
 
     @Test
     void 북마크뉴스성공체크(){
-        NewsResponseDto dto = newsService.getNewsWithIsBookmark("ssafy1", 1L,1);
+        NewsResponseDto dto = newsService.getNewsWithIsBookmark(1L, 1L,1);
         assertThat(dto.getTitle()).isEqualTo("야옹");
-        dto = newsService.getNewsWithIsBookmark("anonymousUser", 1L,1);
+        dto = newsService.getNewsWithIsBookmark(1L, 1L,1);
         assertThat(dto.getTitle()).isEqualTo("야옹");
     }
 
     @Test
     void 북마크뉴스실페체크() {
-        assertThrows(IllegalArgumentException.class, () -> newsService.getNewsWithIsBookmark("ssafy1", 111111111L,1));
+        assertThrows(IllegalArgumentException.class, () -> newsService.getNewsWithIsBookmark(1L, 111111111L,1));
     }
 
     @Test

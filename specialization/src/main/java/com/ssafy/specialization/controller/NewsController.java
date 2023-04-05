@@ -51,14 +51,13 @@ public class NewsController {
         return Response.success(HttpStatus.OK, categoryNews);
     }
 
-    @GetMapping("/details/{newsId}/{categoryId}")
-    public ResponseEntity showNews(@PathVariable Long newsId, @PathVariable int categoryId, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        log.info("session = {}", session);
-        log.info("session.getAttribute = {}", session.getAttribute("SPRING_SECURITY_CONTEXT"));
+    @GetMapping(value = {"/details/{newsId}/{categoryId}/{userId}", "/details/{newsId}/{categoryId}"})
+    public ResponseEntity showNews(@PathVariable Long newsId, @PathVariable int categoryId, @PathVariable(required = false) Long userId) {
+        if (userId == null) {
+            userId = -1L;
+        }
 
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        NewsResponseDto news = newsService.getNewsWithIsBookmark(username, newsId, categoryId);
+        NewsResponseDto news = newsService.getNewsWithIsBookmark(userId, newsId, categoryId);
         return Response.success(HttpStatus.OK, news);
     }
 
@@ -70,7 +69,7 @@ public class NewsController {
 
     @PostMapping("/details/relatedNews")
     public ResponseEntity showRelatedNews(@RequestBody RelatedNewsRequestDto requestDto) {
-        RelatedNewsOneResponseDto relatedNewsOne = newsService.getRelatedNewsOne(requestDto.getNewsId(), requestDto.getPreNewsId());
+        RelatedNewsOneResponseDto relatedNewsOne = newsService.getRelatedNewsOne(requestDto.getNewsId(), requestDto.getPreNewsId(), requestDto.getUserId());
         return Response.success(HttpStatus.OK, relatedNewsOne);
     }
 

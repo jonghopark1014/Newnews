@@ -7,4 +7,5 @@ public class RelatedNewsRequestDto {
 
     private Long newsId;
     private Long preNewsId;
+    private Long userId;
 }
