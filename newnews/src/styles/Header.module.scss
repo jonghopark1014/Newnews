@@ -80,6 +80,11 @@
         width: 50%;
         align-items: center;
     }
+    svg{
+        path:nth-child(2){
+            fill: #F67442;
+        }
+    }
 }
 @media (prefers-color-scheme: light) {
 	.logoBlack{

@@ -62,7 +62,7 @@ export function Header({children, img}: Iprops) {
     return (
         <header>
             <div className={styles.headerStyle}>
-                {img && (<img src={logoBlack} alt="" className={styles.logoBlack}/> )}
+                {img && (<img src={logoBlack} alt="" className={styles.logoBlack} onClick={()=>{navigate('/')}}/> )}
                 {children && <h2 className={styles.h1Style}>{children}</h2>}
                 {BellIcon(true)}
             </div>

@@ -10,7 +10,7 @@ import "@/styles/main/MainPageStyles.scss"
 
 export function MainPageSetTopics(){
     const [chosenTopic, setChosenTopic] = useRecoilState(topicAtom);
-    const defaultTopics = ["정치", "경제", "사회", "생활/문화", "IT/과학"];
+    const defaultTopics = ["경제", "정치", "사회", "생활/문화", "IT/과학"];
     const [topicState, setTopicState] = useState<boolean[]>([]);
     const navigate = useNavigate();
 
