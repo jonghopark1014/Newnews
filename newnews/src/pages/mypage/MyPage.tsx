@@ -103,8 +103,8 @@ export function MyPage(){
                 </RadarChart>
             </ResponsiveContainer>}
             <div className={!isLog ? (styles.buttonGrid) : (styles.bttonGrid)}>
-                <Button children="탈퇴하기" width={100} onClick={()=>{modalHandle()}} onKeyDown={()=>{}}></Button>
-                <Button children="로그아웃" width={100} onClick={()=>{onClickLogout()}} onKeyDown={()=>{}}></Button>
+                <Button children="탈퇴하기"  onClick={()=>{modalHandle()}} onKeyDown={()=>{}}></Button>
+                <Button children="로그아웃"  onClick={()=>{onClickLogout()}} onKeyDown={()=>{}}></Button>
             </div>
             {modal && <Modal children={"정말로 탈퇴하시겠습니까?"} onClickToggleModal={modalHandle} onClickChoice={onClickWithdrawal}/>}
             {alarm && <MemberShipModal children={"로그인이 필요한 페이지 입니다"} onClickToggleModal={onLoginToggleModal}/>}
