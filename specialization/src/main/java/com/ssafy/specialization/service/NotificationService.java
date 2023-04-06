@@ -5,6 +5,7 @@ import com.ssafy.specialization.entity.News;
 import com.ssafy.specialization.entity.Notification;
 import com.ssafy.specialization.entity.User;
 import com.ssafy.specialization.entity.Watched;
+import com.ssafy.specialization.repository.CustomNotificationRepository;
 import com.ssafy.specialization.repository.NewsRepository;
 import com.ssafy.specialization.repository.NotificationRepository;
 import com.ssafy.specialization.repository.UserRepository;
@@ -23,6 +24,7 @@ public class NotificationService {
     private final NotificationRepository notificationRepository;
     private final UserRepository userRepository;
     private final NewsRepository newsRepository;
+    private final CustomNotificationRepository customNotificationRepository;
 
     //알림 추가
     @Transactional
@@ -85,14 +87,6 @@ public class NotificationService {
 //    }
 
     public List<NotificationListResponseDto> getNotificationList(Long userId) {
-        List<Notification> notificationList = notificationRepository.findAllByUserId(userId);
-
-        return notificationList.stream().map(
-                (notification -> new NotificationListResponseDto(
-                        notification.getNews().getId(),
-                        notification.getWatched().getNews().getId(),
-                        notification.getWatched().getNews().getTitle()
-                ))
-        ).collect(Collectors.toList());
+        return customNotificationRepository.getNotificationList(userId);
     }
 }
