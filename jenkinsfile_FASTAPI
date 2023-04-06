@@ -24,7 +24,6 @@ pipeline{
                     sh "sed -i 's/\${DB_DOMAIN_1}/${DB_DOMAIN_1}/' '${WORKSPACE}/fastapi/main.py'"
                     sh "sed -i 's/\${DB_DOMAIN_2}/${DB_DOMAIN_2}/' '${WORKSPACE}/fastapi/main.py'"
                     sh "sed -i 's/\${DB_DOMAIN_3}/${DB_DOMAIN_3}/' '${WORKSPACE}/fastapi/main.py'"
-                    sh "sed -i 's/\${DB_DOMAIN_4}/${DB_DOMAIN_4}/' '${WORKSPACE}/fastapi/main.py'"
                     sh "sed -i 's/\${DB_PORT}/${DB_PORT}/' '${WORKSPACE}/fastapi/main.py'"
                     sh "docker build -t ${BACK_NAME} ./fastapi/."
                 }
