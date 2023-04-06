@@ -35,13 +35,16 @@ def search(keyword: str):
     # spark 세션 연결
     data_parameter = f"hdfs://${DB_DOMAIN_1}:${DB_PORT}/${DB_DOMAIN_2}/${DB_DOMAIN_3}/*"
     spark = SparkSession.builder.master('local').config("spark.hadoop.dfs.client.use.datanode.hostname", "true").getOrCreate()
+    print("=============================자료 읽기======================")
     data = spark.read.json(data_parameter, encoding='utf8')
-    data = data.select('*').filter(array_contains(data.nouns, keyword)).toPandas()
+    print("=========================자료 전처리==========================")
+    data = data.select('*').filter(array_contains(data.nouns, keyword))
 
     try:
         print("try")
         # tf-idf
         print("tf-idf")
+        text = [" ".join(noun) for noun in data["nouns"]]
         tfidf_vectorizer = TfidfVectorizer(min_df=3, ngram_range=(1, 5))
         tfidf_vectorizer.fit(text)
         vector = tfidf_vectorizer.transform(text).toarray()
