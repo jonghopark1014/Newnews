@@ -15,6 +15,7 @@ interface Iprops{
     preNewsTitle : string
     newsId : number | null | undefined,
 	preNewsId : number | null | undefined,
+    category : string 
 }
 
 /**
@@ -22,11 +23,9 @@ interface Iprops{
  * @returns 알림페이지
  */
 export function BellPages(){
-    
     const isLogin = useRecoilValue(LoginState)
     const userId = isLogin[0].id
     const [data, setData] = useState<Iprops[]>([])
-    
     const bellList = useBellList()
     /**
      * 페이지 랜더링하자마자 알람을 가져오기

@@ -14,6 +14,14 @@ interface Iprops{
 }
 
 export const BellComponents = ({ children, preNewsId, newsId } : Iprops) =>{
+    // const categoryName: Record<string, number>= {
+    //     "Economy" : 1,
+    //     "Politics" : 2,
+    //     "Society" : 3,
+    //     "LifeAndCulture" : 4,
+    //     "ItAndScience" : 5,
+    // }
+    // const categoryId = categoryName[category]
     const navigate = useNavigate()
     const isLogin = useRecoilValue(LoginState)
     const userId = isLogin[0].id
@@ -21,7 +29,7 @@ export const BellComponents = ({ children, preNewsId, newsId } : Iprops) =>{
     
     const onClickRead = () => {
         bellDelete.mutate({ userId: userId, newsId : newsId })
-        navigate('/detail', { state: { newsId: newsId, preNewsId: preNewsId }})
+        navigate('/relatedDetail', { state: { newsId: newsId, preNewsId: preNewsId }})
     }
 
     return (

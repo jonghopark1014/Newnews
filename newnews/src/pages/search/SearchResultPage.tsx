@@ -12,7 +12,7 @@ import useSearchSave from "@/hooks/search/useSearchSave";
 import styles from "@/styles/search/SearchPages.module.scss"
 
 interface Iporps{
-    url: string,
+    Img: string,
     title: string,
     dtype : string
     news_id : number
@@ -76,7 +76,7 @@ export function SearchResultPage(){
                         <div className={styles.circle}><i className={styles.fa}></i></div>
                     </div>
                     <div>
-                        <ArticleCard  title={item.title} id={item.news_id} categoryId={item.dtype} url={item.url} page={false} />
+                        <ArticleCard  title={item.title} id={item.news_id} categoryId={item.dtype} url={item.Img} page={false} />
                     </div>
                 </div>
             )}
