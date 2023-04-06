@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { AiOutlineSearch } from "react-icons/ai"
+// import { AiOutlineSearch } from "react-icons/ai"
 import { useNavigate } from "react-router";
+
 import styles from "@/styles/search/SearchBar.module.scss";
 
 // 검색창 컴포넌트
@@ -16,6 +17,7 @@ interface Props{
 export function SearchBar(){
     const navigate = useNavigate()
     const [inputs, setInputs] = useState<string>('');
+    
 
     const onFocus = (e: React.FocusEvent<HTMLInputElement>) => {
         e.currentTarget.parentElement?.parentElement?.parentElement?.classList.add(styles.active);
@@ -27,8 +29,10 @@ export function SearchBar(){
         e.currentTarget.parentElement?.parentElement?.parentElement?.classList.remove(styles.active);
         }
     };
+
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
         const finder = e.currentTarget.querySelector<HTMLDivElement>(".finder");
         finder?.classList.add(styles.processing);
         const input = e.currentTarget.querySelector<HTMLInputElement>(".finder__input");
@@ -40,6 +44,7 @@ export function SearchBar(){
             finder?.classList.add(styles.active);
             }
         }, 1000);
+
         navigate('/result', { state: { keyword: inputs } });
     };
 
@@ -58,6 +63,7 @@ export function SearchBar(){
     function keywordDown (e: React.KeyboardEvent<HTMLInputElement>) {
         if (e.code === "Enter") {
             e.preventDefault();
+
             navigate('/result', {state: { keyword : inputs}})
         }
     }
