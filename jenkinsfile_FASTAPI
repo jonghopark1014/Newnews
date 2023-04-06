@@ -21,10 +21,10 @@ pipeline{
         stage('Build') {
             steps {
                 script{
-                    sh "sed -i 's/\${DB_NAME_PASSWORD}/${DB_NAME_PASSWORD}/' '${WORKSPACE}/fastapi/main.py'"
-                    sh "sed -i 's/\${DB_LOCATION}/${DB_LOCATION}/' '${WORKSPACE}/fastapi/main.py'"
-                    sh "sed -i 's/\${HDFS_LOCATION}/${HDFS_LOCATION}/' '${WORKSPACE}/fastapi/main.py'"
-                    sh "sed -i 's/\${DB_DATABASE}/${DB_DATABASE}/' '${WORKSPACE}/fastapi/main.py'"
+                    sh "sed -i 's/\${DB_DOMAIN}/${DB_DOMAIN}/' '${WORKSPACE}/fastapi/main.py'"
+                    sh "sed -i 's/\${DB_DOMAIN_2}/${DB_DOMAIN_2}/' '${WORKSPACE}/fastapi/main.py'"
+                    sh "sed -i 's/\${DB_DOMAIN_3}/${DB_DOMAIN_3}/' '${WORKSPACE}/fastapi/main.py'"
+                    sh "sed -i 's/\${DB_DOMAIN_4}/${DB_DOMAIN_4}/' '${WORKSPACE}/fastapi/main.py'"
                     sh "docker build -t ${BACK_NAME} ./fastapi/."
                 }
             }
