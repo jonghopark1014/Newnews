@@ -7,6 +7,7 @@ import { LoginState } from "@/states/LoginState";
 import { SearchBar } from "@/components/searchpage/SearchBar";
 import { ArticleCard} from "@/components/ArticleCard"
 import useSearchKeyword from "@/hooks/search/useSearchKeyword";
+import useSearchSave from "@/hooks/search/useSearchSave";
 
 import styles from "@/styles/search/SearchPages.module.scss"
 
@@ -34,10 +35,21 @@ export function SearchResultPage(){
     const [loading, setLoading] = useState(false)
 
     const isLogin = useRecoilValue(LoginState);
+    
     // 로그인되어있는지 확인
     const isLogBoolean = isLogin[0].isLogin
     // 아이디 
     const userId = isLogin[0].id
+    const keyword = location.state.keyword
+    const username = isLogin[0].username
+
+    const searchSave =  useSearchSave()
+    
+    // const username = isLogin[0].username
+    // const keyword = location.state.keyword
+    // const searchSave =  useSearchSave(keyword, username)
+    const searchKeyword = useSearchKeyword(keyword)
+    
     
     useEffect(()=> {
         setData(searchKeyword.data)
@@ -53,7 +65,9 @@ export function SearchResultPage(){
             navigate('/search/error')
         }
         
-    }, [searchKeyword])
+    }, [keyword])
+
+
     return (
         <section className={styles.searchSection}>
             {/* <motion.div className={styles.progressBar} style={{ scaleX: scrollYProgress }} initial={{ opacity: 0 }}
@@ -66,7 +80,7 @@ export function SearchResultPage(){
                         <div className={styles.circle}><i className={styles.fa}></i></div>
                     </div>
                     <div>
-                        <ArticleCard key={index} title={item.title} id={item.news_id} categoryId={item.dtype} url={item.url} page={false} />
+                        <ArticleCard  title={item.title} id={item.news_id} categoryId={item.dtype} url={item.url} page={false} />
                     </div>
                 </div>
             )}
