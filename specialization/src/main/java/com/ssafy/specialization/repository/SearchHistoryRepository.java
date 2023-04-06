@@ -14,6 +14,6 @@ public interface SearchHistoryRepository extends JpaRepository<SearchHistory, Lo
     @Query("select w from Word w join fetch w.searchHistoryList where w.keyword = :keyword")
     Optional<Word> findWithSearchHistoryByKeyword(@Param("keyword")String keyword);
 
-    @Query("select w.keyword from Word w order by w.hit desc")
+    @Query("select distinct w.keyword from Word w order by w.hit desc")
     List<String> findWordOrderByHit();
 }
