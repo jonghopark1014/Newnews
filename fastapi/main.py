@@ -1,8 +1,7 @@
 import findspark
 from pyspark.sql import SparkSession
 
-from pyspark.sql.functions import array_contains
-from pyspark.sql import col
+from pyspark.sql.functions import array_contains, col
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import DBSCAN
 
