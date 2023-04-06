@@ -30,7 +30,7 @@ public class NotificationController {
             return Response.success(HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete//{userId}/{newsId}")
+    @DeleteMapping("/delete/{userId}/{newsId}")
     public ResponseEntity deleteNotification(@PathVariable("userId")Long userId, @PathVariable("newsId")Long newsId){
             notificationService.delete(userId, newsId);
             return Response.success(HttpStatus.OK);
