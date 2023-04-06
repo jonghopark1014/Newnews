@@ -18,7 +18,7 @@ export const BellComponents = ({ children, preNewsId, newsId } : Iprops) =>{
     const isLogin = useRecoilValue(LoginState)
     const userId = isLogin[0].id
     const bellDelete = useBellDelete(userId , newsId)
-
+    
     const onClickRead = () => {
         bellDelete.mutate({ userId: userId, newsId : newsId })
         navigate('/detail', { state: { newsId: newsId, preNewsId: preNewsId }})

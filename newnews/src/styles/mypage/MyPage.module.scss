@@ -36,11 +36,22 @@
         box-shadow: 0px 4px 4px #36363640;
     }
     .icons{
-        width: 15%;
+        width: 13%;
         height: 100%;
         :hover{
             color: #0096ED;
         }
+    }
+    .buttonGrid{
+        display: flex;
+        position: relative;
+        top: 70vh;
+        width: 100%;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .bttonGrid{
+        
     }
 }
 

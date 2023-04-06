@@ -28,15 +28,17 @@ export function MyPage(){
     const [myInfo, setMyInfo] = useState<info | null>(null)
     const isLogin = useRecoilValue(LoginState)
     const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState);
+
     const userId = isLogin[0].id
     const password = isLogin[0].password
+    const isLog = isLogin[0].isLogin
     const userDropout = useUserDropout(userId, password)
     // 성향
     const useTendency = useUserTendency(userId);
     let sum = Object.values(useTendency).reduce(function add(sum, currValue) {
         return sum + currValue
     }, 0)
-    console.log(sum)
+
     const data = [
         {
             subject: '경제',
@@ -65,14 +67,14 @@ export function MyPage(){
         },
     ];
     useEffect(() => {
-        if (!isLogin[0]?.isLogin) {
+        if (!isLogin[0].isLogin) {
             setAlarm(!alarm)
             setTimeout(()=>{
                 setAlarm(!alarm);
                 navigate('/login');
             }, SEC * 1000)
         }
-    }, [isLogin, navigate])
+    }, [isLogin])
 
     const modalHandle = () => {
         return setModal(!modal)
@@ -93,19 +95,19 @@ export function MyPage(){
     
     return (
         <section className={styles.mypage}>
-            <ResponsiveContainer width="100%" height="100%">
+            {isLog && <ResponsiveContainer width="100%" height="100%">
                 <RadarChart cx="50%" cy="50%" outerRadius="70%" data={data}>
                     <PolarGrid />
                     <PolarAngleAxis dataKey="subject" />
                     <Radar name="Mike" dataKey="A" stroke="#0096ED" fill="#0096ED" fillOpacity={0.6} />
                 </RadarChart>
-            </ResponsiveContainer>
-            <div>
+            </ResponsiveContainer>}
+            <div className={!isLog ? (styles.buttonGrid) : (styles.bttonGrid)}>
                 <Button children="탈퇴하기" width={100} onClick={()=>{modalHandle()}} onKeyDown={()=>{}}></Button>
                 <Button children="로그아웃" width={100} onClick={()=>{onClickLogout()}} onKeyDown={()=>{}}></Button>
             </div>
             {modal && <Modal children={"정말로 탈퇴하시겠습니까?"} onClickToggleModal={modalHandle} onClickChoice={onClickWithdrawal}/>}
-            {alarm && <MemberShipModal children={"로그인이 필요한 페이지 입니다. 로그인 페이지로 이동합니다."} onClickToggleModal={onLoginToggleModal}/>}
+            {alarm && <MemberShipModal children={"로그인이 필요한 페이지 입니다"} onClickToggleModal={onLoginToggleModal}/>}
         </section>
     )
 }
