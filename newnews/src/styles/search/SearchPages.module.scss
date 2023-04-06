@@ -213,43 +213,43 @@ left: 6vw;
         &:nth-of-type(2) {
             top: -2rem;
             left: 0;
-            animation-delay: -0.5s / 8;
+            animation-delay: calc(-0.5s / 8);
         }
         
         &:nth-of-type(3) {
             top: -2rem;
             left: 2rem;
-            animation-delay: -2 * 0.5s / 8;
+            animation-delay: calc(-2 * 0.5s / 8);
         }
         
         &:nth-of-type(4) {
             top: 0;
             left: 2rem;
-            animation-delay: -3 * 0.5s / 8;
+            animation-delay: calc(-3 * 0.5s / 8);
         }
         
         &:nth-of-type(5) {
             top: 2rem;
             left: 2rem;
-            animation-delay: -4 * 0.5s / 8;
+            animation-delay: calc(-4 * 0.5s / 8);
         }
         
         &:nth-of-type(6) {
             top: 2rem;
             left: 0;
-            animation-delay: -5 * 0.5s / 8;
+            animation-delay: calc(-5 * 0.5s / 8);
         }
         
         &:nth-of-type(7) {
             top: 2rem;
             left: -2rem;
-            animation-delay: -6 * 0.5s / 8;
+            animation-delay: calc(-6 * 0.5s / 8);
         }
         
         &:nth-of-type(8) {
             top: 0;
             left: -2rem;
-            animation-delay: -7 * 0.5s / 8;
+            animation-delay: calc(-7 * 0.5s / 8);
         }
     }
 }
