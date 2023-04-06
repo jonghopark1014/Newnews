@@ -38,7 +38,7 @@ def search(keyword: str):
     print("=============================자료 읽기======================")
     data = spark.read.json(data_parameter, encoding='utf8')
     print("=========================자료 전처리==========================")
-    data = data.select('*').filter(array_contains(data.nouns, keyword))
+    data = data.select('*').filter(array_contains(data.nouns, keyword)).toPandas()
 
     try:
         print("try")
