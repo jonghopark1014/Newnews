@@ -133,7 +133,7 @@ def write_to_mysql(df, epoch_id):
             tfidf = TfidfVectorizer()
             tfidf_matrix = tfidf.fit_transform(text_arr)
             cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
-            if cosine_sim[0][1] <= 0.5:
+            if 0.4 <= cosine_sim[0][1] <= 0.7:
                 df2 = df.withColumn("news_id", lit(news_id))
                 df2 = df2.withColumn("user_id", lit(wuser_id))
                 df2 = df2.withColumn("watched_id", lit(wwat_id))
