@@ -17,13 +17,13 @@ import java.util.List;
 public class SearchController {
     private final SearchHistoryService keywordService;
 
-    @PostMapping
+    @PostMapping("/save")
     public ResponseEntity searchKeyword(@RequestBody SearchKeywordDto searchKeywordDto){
         keywordService.searchKeyword(searchKeywordDto.getKeyword(), searchKeywordDto.getUsername());
         return Response.success(HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping()
     public ResponseEntity getWordList(){
         List<RecommendedWordListDto> wordList = keywordService.getWordList();
         return Response.success(HttpStatus.OK, wordList);
