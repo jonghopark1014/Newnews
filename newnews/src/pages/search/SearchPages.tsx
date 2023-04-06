@@ -17,11 +17,6 @@ export function SearchPages(){
 
     const userId = isLogin[0].id
 
-
-    useEffect(() =>{
-
-    }, [])
-
     return (
         <section className={styles.searchSection}>
             <SearchBar />

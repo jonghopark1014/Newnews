@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"
 import { useRecoilValue } from "recoil";
 import { VscBell, VscBellDot  } from "react-icons/vsc"
@@ -6,12 +6,16 @@ import { VscBell, VscBellDot  } from "react-icons/vsc"
 import { LoginState } from "@/states/LoginState";
 import useBellList from "@/hooks/bell/useBellList";
 
-import styles from "../styles/Header.module.scss"
+import styles from "@/styles/Header.module.scss"
+import logoBlack from "@/assets/logo_black.jpg";
+import logoWhite from "@/assets/logo_black.jpg";
+
 
 interface Iprops {
     children?: React.ReactNode,
     data? : string[] | number[],
     userId? : number | null | undefined,
+    img? : boolean,
 }
 
 /**
@@ -19,7 +23,7 @@ interface Iprops {
  * @param param0 상단위의 이름
  * @returns 상단 바 
  */
-export function Header({children}: Iprops) {
+export function Header({children, img}: Iprops) {
     const navigate = useNavigate()
     
     const isLogin = useRecoilValue(LoginState)
@@ -32,7 +36,7 @@ export function Header({children}: Iprops) {
     /**
      * 페이지 랜더링하자마자 알람을 가져오기
     */
-    useState(() => {
+    useEffect(() => {
         if (loginBoolean) {
             bellList.mutate({ userId: userId }, {
                 onSuccess: (data) => {
@@ -40,7 +44,7 @@ export function Header({children}: Iprops) {
                 }
             })
         }
-    })    
+    },[])    
     
     const BellIcon = (state : boolean) =>{
         if (loginBoolean) {
@@ -58,7 +62,8 @@ export function Header({children}: Iprops) {
     return (
         <header>
             <div className={styles.headerStyle}>
-                <h2 className={styles.h1Style}>{children}</h2>
+                {img && (<img src={logoBlack} alt="" className={styles.logoBlack}/> )}
+                {children && <h2 className={styles.h1Style}>{children}</h2>}
                 {BellIcon(true)}
             </div>
         </header>

@@ -1,3 +1,4 @@
+
 @keyframes popularanmation {
     from{
         opacity: 0;
@@ -16,6 +17,7 @@
     width: 100vw;
     height: 85vh;
     overflow: scroll;
+    
 }
 .popularSearchTerms{
     position: relative;
@@ -68,4 +70,82 @@
     .popularContent{
         display: none;
     }
+}
+.step {
+    position: relative;
+    min-height: 1em;
+    color: gray;
+}
+.step > div:first-child {
+    position: static;
+    height: 0;
+}
+.step > div:not(:first-child) {
+    margin-left: 1.5em;
+    padding-left: 1em;
+}
+.circle {
+background: gray;
+position: relative;
+width: 2.5em;
+height: 2.5em;
+line-height: 2em;
+border-radius: 100%;
+color: #fff;
+text-align: center;
+box-shadow: 0 0 0 3px #fff;
+top: 14vh;
+left: 6vw;
+}
+.circle:before {
+    content: ' ';
+    position: absolute;
+    display: block;
+    top: -120px;
+    right: 48%;
+    bottom: -1px;
+    left: 48%;
+    height: 98%;
+    width: 4px;
+    transform: scale(1, 2);
+    transform-origin: 50% -100%;
+    background-color: rgba(0, 0, 0, 0.25);
+    z-index: -1;
+}
+.circle:after {
+    content: ' ';
+    position: absolute;
+    display: block;
+    top: 1px;
+    right: 48%;
+    bottom: 1px;
+    left: 48%;
+    height: 110%;
+    width: 4px;
+    transform: scale(1, 2);
+    transform-origin: 50% -100%;
+    background-color: rgba(0, 0, 0, 0.25);
+    z-index: -1;
+}
+
+.fa:hover{
+    color: #0096ED
+}
+.step:last-child .circle:after {
+    display: none
+}
+.step.step-active {
+    color: #0096ED
+}
+.step.step-active .circle {
+    background-color: #0096ED;
+}
+.progressBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #F67442;
+    transform-origin: 0%;
 }

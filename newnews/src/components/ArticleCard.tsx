@@ -15,7 +15,7 @@ interface Card {
     url: string,
     title: string,
     page : boolean,
-    categoryId : number,
+    categoryId : number | string,
     onClick?:  void,
 }
 
@@ -26,13 +26,19 @@ interface Props {
 export const ArticleCard = ( { id, title, url, page, categoryId } : Card ) => {
     const navigate = useNavigate()
 
+    const categoryName: Record<string, number>= {
+        "Economy" : 1,
+        "Politics" : 2,
+        "Society" : 3,
+        "LifeAndCulture" : 4,
+        "ItAndScience" : 5,
+    }
+
     const [activeId, setActiveId] = useState<number>()
     const [marked, setMarked] = useState(true);
     const isLogin = useRecoilValue(LoginState)
-
     const userId = isLogin[0].id
     const newsId = id
-    const cateoryId = categoryId
     const pages = page
 
     const removeBookmark = useRemoveBookmark( userId, newsId )
@@ -41,7 +47,12 @@ export const ArticleCard = ( { id, title, url, page, categoryId } : Card ) => {
     const onClick = (id: number) => setActiveId(id);
     
     const onClickRead = () => {
-        navigate('/detail', { state: { newsId: newsId, categoryId: categoryId }})
+        if (typeof(categoryId) === 'string') {
+            const category = categoryName[categoryId]
+            navigate('/detail', { state: { newsId: newsId, categoryId: category }})
+        } else {
+            navigate('/detail', { state: { newsId: newsId, categoryId: categoryId }})
+        }
     }
     
     const onClickRemove = useCallback(() => {
@@ -49,17 +60,18 @@ export const ArticleCard = ( { id, title, url, page, categoryId } : Card ) => {
         if (marked) {
             removeBookmark.mutate({userId: userId, newsId :newsId})
         } else {
-            AddBookmark
+            AddBookmark.mutate({userId: userId, newsId :newsId})
         }
     }, [])
-        
+
+    
     return(
         <div>
             <div className={styles.articleCard} >
                 <div className={pages ? (styles.bookmarkArticleCard) : (styles.articleImg)} >
                     <img src={`${url}`} alt="" onClick={() => { onClickRead() }} />
                     <div className={styles.gradation}>
-                        <h3 onClick={() => { onClickRead() }}>{title}</h3>
+                        {pages ? (<h3 onClick={() => { onClickRead() }}>{title}</h3>) : (<h4 onClick={() => { onClickRead() }}>{title}</h4>) }
                         {marked ? <BsBookmarkCheckFill className={styles.arterIcons} onClick={()=>{onClickRemove()}}/> : <BsBookmarkPlus className={styles.icons} onClick={()=>setMarked(!marked)}/>}
                     </div>
                 </div>
