@@ -68,7 +68,7 @@ public class UserService {
     public WatchedResponseDto findTendency(Long userId) {
         if(userRepository.findById(userId).isEmpty()){
             throw new IllegalArgumentException("해당 유저가 존재하지 않습니다.");
-        };
+        }
 
         WatchedResponseDto watchedResponseDto = watchedRepository.countWatchedCategory(userId);
         return watchedResponseDto;
