@@ -1,7 +1,7 @@
 import findspark
 from pyspark.sql import SparkSession
 
-from konlpy.tag import Okt
+from pyspark.sql.functions import array_contains
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import DBSCAN
 
@@ -9,18 +9,6 @@ from fastapi import FastAPI
 
 # for CORS
 from fastapi.middleware.cors import CORSMiddleware
-
-# python - mysql
-import pandas as pd
-import pymysql
-from sqlalchemy import create_engine
-from sqlalchemy import text
-pymysql.install_as_MySQLdb()
-
-# db연결
-db_connection_str = 'mysql+pymysql://${DB_NAME_PASSWORD}@${DB_LOCATION}/${DB_DATABASE}'
-db_connection = create_engine(db_connection_str)
-conn = db_connection.connect()
 
 app = FastAPI()
 app.router.redirect_slashes = False
@@ -41,51 +29,37 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-datas = pd.read_sql(text("select * from news n left join news_image ni on n.news_id = ni.news_news_id limit 100;"), conn)
-
 @app.get("/fast/api/search")
 def search(keyword: str):
-    global datas
-    data = datas[:]
     findspark.init()
-    # # spark 세션 연결
-    # spark = SparkSession.builder.master('local').config("spark.hadoop.dfs.client.use.datanode.hostname", "true").getOrCreate()
-    # data = spark.read.json("${HDFS_LOCATION}", encoding='euc-kr')
-    # pandas_df = data.select('*').toPandas()
+    # spark 세션 연결
+    data_parameter = "hdfs://" + ${DB_DOMAIN} + '/' + ${DB_DOMAIN_2} + '/' + ${DB_DOMAIN3} + '/' + ${DB_DOMAIN4}
+    spark = SparkSession.builder.master('local').config("spark.hadoop.dfs.client.use.datanode.hostname", "true").getOrCreate()
+    data = spark.read.json(data_parameter, encoding='utf8')
+    data = data.select('*').filter(array_contains(data.nouns, keyword)).toPandas()
 
-    # test를 위한 mySQL에서 데이터 가져오기
+    try:
+        # tf-idf
+        tfidf_vectorizer = TfidfVectorizer(min_df=3, ngram_range=(1, 5))
+        tfidf_vectorizer.fit(text)
+        vector = tfidf_vectorizer.transform(text).toarray()
 
-    print(data.head())
+        # DBSCAN
+        model = DBSCAN(eps=0.3, min_samples=3, metric='cosine')
+        result = model.fit_predict(vector)
+        data['result'] = result
+        data = data.drop(
+            columns=["content", "reporter", "press", "nouns"])
+        unique_df = data.drop_duplicates(subset=["result"], keep="first").reset_index(drop=True)
+        unique_df = unique_df.to_dict(orient='records')
+        for i in range(len(unique_df)):
+            unique_df[i]['img'] = unique_df[i]['img'][0][1]
 
-    # 명사 추출
-    print('명사추출 들어갑니다')
-    okt = Okt()
-    noun_list = []
-    for content in data['content']:
-        nouns = okt.nouns(content)
-        noun_list.append(nouns)
-
-    data['nouns'] = noun_list
-
-    # TF-IDF
-    print('TF-IDF 들어갑니다')
-    text = [" ".join(noun) for noun in data['nouns']]
-    tfidf_vectorizer = TfidfVectorizer(min_df=5, ngram_range=(1, 5))
-    tfidf_vectorizer.fit(text)
-    vector = tfidf_vectorizer.transform(text).toarray()
-
-    # DBSCAN
-    print('DBSCAN 들어갑니다')
-    model = DBSCAN(eps=0.3, min_samples=3, metric='cosine')
-    result = model.fit_predict(vector)
-    data['result'] = result
-    print('unique_df들어갑니다~')
-    data = data.drop(columns=["content", "newsimage_id", "news_news_id", "reporter", "press", "news_date", "nouns", "description"])
-    unique_df = data.drop_duplicates(subset=["result"], keep="first").reset_index(drop=True)
-    print('unique_df들어갑니다2')
-    
-    # unique_df = unique_df.drop([1], axis=0, inplace=False)
-    unique_df = unique_df.to_dict(orient = 'records')
-
-    return unique_df
+        return unique_df
+    except:
+        unique_df = data.drop(columns=["content", "reporter", "press", "nouns"])
+        unique_df = unique_df.to_dict(orient='records')
+        for i in range(len(unique_df)):
+            unique_df[i]['img'] = unique_df[i]['img'][0][1]
+        return unique_df
 
