@@ -34,5 +34,3 @@ export default function Bell({ stroke, fill }: BellProps): ReactElement {
         </svg>
     );
     }
-
-{/* <Bell stroke="#F67442" fill="#F67442" className={styles.iconsAfter} onClick={() => {navigate('/bell')}} /> */}

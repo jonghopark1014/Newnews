@@ -11,6 +11,8 @@ $mobile: "only screen and (max-width: 720px)";
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-text-size-adjust: 100%;
+	--circle-size: clamp(2.5rem, 6vw, 5rem);
+	--spacing: clamp(1rem, 6vw, 2rem);
 }
 body {
 	margin: 0;

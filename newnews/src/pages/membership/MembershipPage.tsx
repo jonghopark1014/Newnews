@@ -207,10 +207,10 @@ export function MemberShipPage() {
         setPasswordChk(passwordChkfirmCurrent)
 
         if (password === passwordChkfirmCurrent) {
-            setPasswordChkMessage('비밀번호를 똑같습니다')
+            setPasswordChkMessage('비밀번호가 똑같습니다')
             setIspasswordChk(true)
         } else {
-            setPasswordChkMessage('비밀번호가 틀렸습니다')
+            setPasswordChkMessage('비밀번호가 틀립니다')
             setIspasswordChk(false)
         }
         },
