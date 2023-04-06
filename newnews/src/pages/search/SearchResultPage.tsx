@@ -30,6 +30,8 @@ export function SearchResultPage(){
 
     const keyword = location.state.keyword
     const searchKeyword = useSearchKeyword(keyword)
+    // 로딩
+    const [loading, setLoading] = useState(false)
 
     const isLogin = useRecoilValue(LoginState);
     // 로그인되어있는지 확인
@@ -39,7 +41,14 @@ export function SearchResultPage(){
     
     useEffect(()=> {
         setData(searchKeyword.data)
-
+        if (searchKeyword.isLoading) {
+            setLoading(true)
+            console.log('로딩중')
+        }
+        if (searchKeyword.isSuccess) {
+            setLoading(false)
+            console.log('성공')
+        }
         if (newsData?.length === 0) {
             navigate('/search/error')
         }
@@ -52,7 +61,7 @@ export function SearchResultPage(){
             viewport={{ root: scrollRef }}/> */}
             <SearchBar/>
             {newsData && newsData.map((item, index) =>
-                <div className={styles.step}>
+                <div className={styles.step} key={index}>
                     <div>
                         <div className={styles.circle}><i className={styles.fa}></i></div>
                     </div>
@@ -61,6 +70,25 @@ export function SearchResultPage(){
                     </div>
                 </div>
             )}
+            {loading && 
+                <div className={styles.loading}>
+                    <div className={styles.example}>
+                        <div className={styles.block}>
+                            <div className={styles.item}></div>
+                            <div className={styles.item}></div>
+                            <div className={styles.item}></div>
+                            <div className={styles.item}></div>
+                            <div className={styles.item}></div>
+                            <div className={styles.item}></div>
+                            <div className={styles.item}></div>
+                            <div className={styles.item}></div>
+                        </div>
+                    </div>
+                    <h3 className={styles.description}>
+                        키워드 추출중입니다
+                    </h3>
+                </div>
+            }
         </section>
     )
 }
