@@ -9,7 +9,7 @@ import { topicAtom, topicStateType } from '@/stores/NewsTopics';
 
 import '@/styles/main/MainPageStyles.scss';
 
-const SIZE = 10;
+const SIZE = 100;
 const SEC = 3;
 
 interface newsMain {
@@ -36,60 +36,38 @@ export function MainPageContent(){
     const [news, setNews] = useState<newsMain[] | undefined>();
     // topicState : {토픽설정에서 고른 토픽들, 지금 클릭한 토픽}
     const [topicState, setTopicState] = useRecoilState<topicStateType>(topicAtom);
-    // 처음엔 경제로 받아오기
+    // 처음엔 연관주제가 아닌 다음 토픽으로 받아오기
     const [categoryId, setCategoryId] = useState<number>(1)
     // 로그인, 연관뉴스 메세지
     const [alarm, setAlarm] = useState<null | string>(null);
     // 후속기사들
     const useNewsAfter = useMainNewsAfter();
     // 그외 토픽에 따른 기사들
-    const maincategoryNews = useMaincategoryNews(0, 5);
+    const maincategoryNews = useMaincategoryNews(0, SIZE);
     // 현재 보고있는 뉴스의 index
     let ioIndex: any;
+    let start_x, end_x
+
+    useEffect(()=>{
+        const mainContent = document.querySelector('.main-page-content')
+        mainContent?.addEventListener('touchstart', (e)=> {
+            console.log('start', typeof(e), e)
+            start_x = e
+        })
+        mainContent?.addEventListener('touchend', (e)=> {
+            console.log('end', typeof(e), e)
+            end_x = e
+        })
+    }, [])
     
     useEffect(()=>{
         setCategoryId(categoryName[topicState.focused])
-        // intersectionObserver 옵션
-        // root : viewport로 판단할 타겟
-        // threshold: 관찰할 타겟이 얼마나 보일때 callback 할 지, 0~1
-        const options = {
-            root: document.querySelector('.main-page-content'),
-            rootMargin: '0px',
-            threshold: 1
-        }
-
-        const io = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                // entry의 target으로 DOM에 접근
-                const $target = entry.target;
-                const newsElems = document.querySelectorAll<HTMLElement>('.main-page-content-card');
-                let news;
-                // 화면에 노출 상태에 따라 해당 엘리먼트의 class를 컨트롤
-                if (entry.isIntersecting) {
-                    ioIndex = Number($target.id);
-                    // console.log(ioIndex);
-                    if (newsElems[ioIndex - 1]) {
-                        // newsElems[ioIndex - 1].classList.add();
-                    }
-                    if (newsElems[ioIndex]) {
-                        // newsElems[ioIndex].classList.add();
-                    }
-                    if (newsElems[ioIndex + 1]) {
-                        // newsElems[ioIndex + 1].classList.add();
-                    }
-                } else {
-                    // $target.classList.remove("screening");
-                }
-            });
-        }, options);
-
         // 뉴스별 useQuery 다르게 요청
         if (topicState.focused === "연관뉴스") {
             if (isLogin.isLogin) {
                 useNewsAfter.mutate({ userId: isLogin.id, page: 0, size: SIZE}, {
                     onSuccess: (data) => {
                         if (data.data.content.length > 0) {
-                            console.log("data", data.data.content);
                             setNews(data.data.content);
                         } else {
                             setAlarm(`연관뉴스가 없습니다.\n ${SEC}초후 페이지를 이동합니다.`)
@@ -110,26 +88,54 @@ export function MainPageContent(){
         } else { // 정치, 경제, 사회, ...
             maincategoryNews
             if (maincategoryNews.isSuccess) {
-                console.log(maincategoryNews.data.data.content)
                 setNews(maincategoryNews.data.data.content)
             }
         }
+    }, [topicState.focused, maincategoryNews.isSuccess])
+    
+    useEffect(()=>{
         const newsElems = document.querySelectorAll<HTMLElement>('.main-page-content-card');
-        const mainpage = document.querySelector('.main-page-content');
-        mainpage
         for (let i = 0; i < newsElems.length; i++) {
-            newsElems[i].id = `page-${i}`;
+            newsElems[i].id = String(i)
+        }
+        // intersectionObserver 옵션
+        // root : viewport로 판단할 타겟
+        // threshold: 관찰할 타겟이 얼마나 보일때 callback 할 지, 0~1
+        const options = {
+            root: document.querySelector('.main-page-content'),
+            rootMargin: '0px',
+            threshold: 0.99
+        }
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                // entry의 target으로 DOM에 접근
+                const target = entry.target;
+                const newsElems = document.querySelectorAll<HTMLElement>('.main-page-content-card');
+                let news;
+                // 화면에 노출 상태에 따라 해당 엘리먼트의 class를 컨트롤
+                if (entry.isIntersecting) {
+                    ioIndex = Number(target.id);
+                    if (newsElems[ioIndex - 1]) {
+                        // newsElems[ioIndex - 1].classList.add();
+                    }
+                    if (newsElems[ioIndex]) {
+                        // newsElems[ioIndex].classList.add();
+                    }
+                    if (newsElems[ioIndex + 1]) {
+                        // newsElems[ioIndex + 1].classList.add();
+                    }
+                } else {
+                    // $target.classList.remove("screening");
+                }
+            });
+        }, options);
+        for (let i = 0; i < newsElems.length; i++) {
             // 카드들 observer 등록
             io.observe(newsElems[i]);
+            // 카드들 좌우 슬라이드 동작 추가(모바일)
         }
-        if (mainpage) {
-            mainpage.addEventListener('scroll', (e)=>{
-                // console.log(ioIndex);
-            })
-        }
-        
-        // reorder()
-    }, [topicState.focused, maincategoryNews.isSuccess])
+    }, [news])
+
 
     return (
         <div className="main-page-content">

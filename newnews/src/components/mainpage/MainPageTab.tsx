@@ -30,9 +30,6 @@ export function MainPageTab(){
         for (let i = 0; i < elems.length; i++){
             if (elems[i].dataset.focus === "true"){
                 boundingRectX = elems[i].offsetLeft * 1;
-                console.log(elems[i].offsetLeft)
-                console.log(elems[i])
-                console.log(boundingRectX)
                 boundingRectWidth = elems[i].getBoundingClientRect().width * 1;
             }
         }

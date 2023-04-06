@@ -77,12 +77,12 @@ export function MyPage(){
     const modalHandle = () => {
         return setModal(!modal)
     }
-    const onClcikWithdrawal = () =>{
+    const onClickWithdrawal = () =>{
         // userDropout.mutate({ userId: userId, password: password})
         // navigate('/')
     }
 
-    const onLgoinToggleModal = useCallback (() => {
+    const onLoginToggleModal = useCallback (() => {
             setAlarm(!alarm);
     }, [alarm])
 
@@ -102,10 +102,10 @@ export function MyPage(){
             </ResponsiveContainer>
             <div>
                 <Button children="탈퇴하기" width={100} onClick={()=>{modalHandle()}} onKeyDown={()=>{}}></Button>
-                <BiLogOut onClick={() => {onClickLogout()}} className={styles.icons}/>
+                <Button children="로그아웃" width={100} onClick={()=>{onClickLogout()}} onKeyDown={()=>{}}></Button>
             </div>
-            {modal && <Modal children={"정말로 탈퇴하시겠습니까?"} onClickToggleModal={modalHandle} onClickChoice={onClcikWithdrawal}/>}
-            {alarm && <MemberShipModal children={"로그인이 필요한 페이지 입니다. 로그인 페이지로 이동합니다."} onClickToggleModal={onLgoinToggleModal}/>}
+            {modal && <Modal children={"정말로 탈퇴하시겠습니까?"} onClickToggleModal={modalHandle} onClickChoice={onClickWithdrawal}/>}
+            {alarm && <MemberShipModal children={"로그인이 필요한 페이지 입니다. 로그인 페이지로 이동합니다."} onClickToggleModal={onLoginToggleModal}/>}
         </section>
     )
 }
