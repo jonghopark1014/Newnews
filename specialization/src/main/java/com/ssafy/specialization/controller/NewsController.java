@@ -54,6 +54,7 @@ public class NewsController {
             userId = -1L;
         }
 
+
         NewsResponseDto news = newsService.getNewsWithIsBookmark(userId, newsId, categoryId);
         return Response.success(HttpStatus.OK, news);
     }

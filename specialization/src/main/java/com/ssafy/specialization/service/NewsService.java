@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,23 +30,23 @@ public class NewsService {
     private final UserRepository userRepository;
     private final BookmarkRepository bookmarkRepository;
 
-    public NewsResponseDto getNews(Long newsId) {
-        News news = newsRepository.findById(newsId).orElseThrow(
-                () -> new IllegalArgumentException("해당하는 뉴스가 없습니다.")
-        );
-
-        return NewsResponseDto.builder()
-                .id(news.getId())
-                .title(news.getTitle())
-                .content(news.getContent())
-                .press(news.getPress())
-                .reporter(news.getReporter())
-                .newsDate(news.getNewsDate())
-                .newsImageList(
-                        getNewsImageResponseDto(news.getNewsImageList())
-                )
-                .build();
-    }
+//    public NewsResponseDto getNews(Long newsId) {
+//        News news = newsRepository.findById(newsId).orElseThrow(
+//                () -> new IllegalArgumentException("해당하는 뉴스가 없습니다.")
+//        );
+//
+//        return NewsResponseDto.builder()
+//                .id(news.getId())
+//                .title(news.getTitle())
+//                .content(news.getContent())
+//                .press(news.getPress())
+//                .reporter(news.getReporter())
+//                .newsDate(news.getNewsDate())
+//                .newsImageList(
+//                        getNewsImageResponseDto(news.getNewsImageList())
+//                )
+//                .build();
+//    }
 
     public Page<RelatedNewsResponseDto> getRelatedNews(Long userId, Pageable pageable) {
         Page<Notification> notificationList = notificationRepository.findAllWithRelativeNewsByUserId(userId, pageable);
@@ -88,27 +87,6 @@ public class NewsService {
         });
     }
 
-    //== 서비스 내부에서 사용하는 메서드 ==//
-
-    private List<NewsImageResponseDto> getNewsImageResponseDto(List<NewsImage> newsImageList) {
-        return newsImageList.stream().map(
-                (newsImage) -> NewsImageResponseDto.builder()
-                        .url(newsImage.getUrl())
-                        .description(newsImage.getDescription())
-                        .build()
-        ).collect(Collectors.toList());
-    }
-
-    private String getThumbnailImg(News n) {
-        List<NewsImage> newsImageList = n.getNewsImageList();
-        String imageUrl = "";
-        if (!newsImageList.isEmpty()) {
-            NewsImage newsImage = newsImageList.get(0);
-            imageUrl = newsImage.getUrl();
-        }
-        return imageUrl;
-    }
-
     @Transactional
     public RelatedNewsOneResponseDto getRelatedNewsOne(Long newsId, Long preNewsId, Long userId) {
         News preNews = newsRepository.findById(preNewsId).orElseThrow(
@@ -131,7 +109,7 @@ public class NewsService {
                 )
                 .build();
 
-        User user = userRepository.findWatchedListById(userId);
+        User user = userRepository.findWatchedListById(userId).orElseThrow(()->new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
         Watched.createWatched(user, news);
 
         notificationRepository.deleteByUserIdAndNewsId(user.getId(), preNewsId);
@@ -156,13 +134,35 @@ public class NewsService {
 
         if(userId == -1) return createNewsResponseDto(news, false);
 
-        User user = userRepository.findWatchedListById(userId);
+        User user = userRepository.findWatchedListById(userId).orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다"));
+
         Watched.createWatched(user, news);
 
         if(bookmarkRepository.findByUserIdAndNewsId(userId, newsId).isEmpty())
             return createNewsResponseDto(news, false);
         else
             return createNewsResponseDto(news, true);
+    }
+
+    //== 서비스 내부에서 사용하는 메서드 ==//
+
+    private List<NewsImageResponseDto> getNewsImageResponseDto(List<NewsImage> newsImageList) {
+        return newsImageList.stream().map(
+                (newsImage) -> NewsImageResponseDto.builder()
+                        .url(newsImage.getUrl())
+                        .description(newsImage.getDescription())
+                        .build()
+        ).collect(Collectors.toList());
+    }
+
+    private String getThumbnailImg(News n) {
+        List<NewsImage> newsImageList = n.getNewsImageList();
+        String imageUrl = "";
+        if (!newsImageList.isEmpty()) {
+            NewsImage newsImage = newsImageList.get(0);
+            imageUrl = newsImage.getUrl();
+        }
+        return imageUrl;
     }
 
     private NewsResponseDto createNewsResponseDto(News news, boolean bookmarked) {

@@ -31,6 +31,8 @@ public class User {
     private List<Bookmark> bookmarkList = new ArrayList<>();
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Watched> watchedList = new HashSet<>();
+    @OneToMany(mappedBy = "user")
+    private Set<SearchHistory> searchHistoryList = new HashSet<>();
 
     @Builder
     public User(String password, int yearOfBirth, Sex sex, String username) {
