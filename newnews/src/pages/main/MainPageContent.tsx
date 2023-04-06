@@ -1,7 +1,8 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { MainPageContentCard } from "@/components/mainpage/MainPageContentCard";
+import MemberShipModal from '@/components/membership/MemberShipModal';
 import useMaincategoryNews from '@/hooks/main/useMaincategoryNews';
 import useMainNewsAfter from '@/hooks/main/useMainNewsAfter';
 import { LoginState } from '@/states/LoginState';
@@ -19,7 +20,6 @@ interface newsMain {
     press : string,
     newsImage : string,
 };
-
 const categoryName: Record<string, number>= {
     "연관뉴스" : 1,
     "경제" : 1,
@@ -39,26 +39,46 @@ export function MainPageContent(){
     // 처음엔 연관주제가 아닌 다음 토픽으로 받아오기
     const [categoryId, setCategoryId] = useState<number>(1)
     // 로그인, 연관뉴스 메세지
-    const [alarm, setAlarm] = useState<null | string>(null);
+    const [alarm, setAlarm] = useState<string>('');
+    const [notLoginModal, setNotLoginModal] = useState<boolean>(false)
+    const [noNewsModal, setNoNewsModal] = useState<boolean>(false)
     // 후속기사들
     const useNewsAfter = useMainNewsAfter();
     // 그외 토픽에 따른 기사들
     const maincategoryNews = useMaincategoryNews(0, SIZE);
+
+    const onClickToggleLoginModal = useCallback(() => {
+        setNotLoginModal(!notLoginModal);
+        setTopicState({ topics: topicState.topics, focused: topicState.topics[1]})
+    }, [notLoginModal]);
+    const onClickToggleNewsModal = useCallback(() => {
+        setNoNewsModal(!noNewsModal);
+        setTopicState({ topics: topicState.topics, focused: topicState.topics[1]})
+    }, [noNewsModal]);
+
     // 현재 보고있는 뉴스의 index
     let ioIndex: any;
-    let start_x, end_x
+    // let start_x, end_x
 
-    useEffect(()=>{
-        const mainContent = document.querySelector('.main-page-content')
-        mainContent?.addEventListener('touchstart', (e)=> {
-            console.log('start', typeof(e), e)
-            start_x = e
-        })
-        mainContent?.addEventListener('touchend', (e)=> {
-            console.log('end', typeof(e), e)
-            end_x = e
-        })
-    }, [])
+    // useEffect(()=>{
+    //     const mainContent = document.querySelector('.main-page-content')
+    //     if (mainContent) {
+            
+    //         mainContent.addEventListener('touchstart', (e)=>{
+    //             console.log('start', e.touches[0].pageX)
+    //             start_x = e.touches[0].pageX
+    //         })
+    //     }
+    //     mainContent?.addEventListener('touchend', (e: Event)=> {
+    //         console.log('end', e.changedTouches[0].pageX)
+    //         end_x = e.changedTouches[0].pageX
+    //         if (start_x > end_x) {
+    //             if (ioIndex > 0) {
+    //                 setTopicState({topicState.topics, })
+    //             }
+    //         }
+    //     })
+    // }, [])
     
     useEffect(()=>{
         setCategoryId(categoryName[topicState.focused])
@@ -70,20 +90,12 @@ export function MainPageContent(){
                         if (data.data.content.length > 0) {
                             setNews(data.data.content);
                         } else {
-                            setAlarm(`연관뉴스가 없습니다.\n ${SEC}초후 페이지를 이동합니다.`)
-                            setTimeout(()=>{
-                                setAlarm(null); 
-                                setTopicState({topics: topicState.topics, focused: topicState.topics[1]}); 
-                            }, SEC * 1000)
+                            setNoNewsModal(true)
                         }
                     }
                 });
             } else {
-                setAlarm(`로그인시 이용가능합니다.\n ${SEC}초후 페이지를 이동합니다.`)
-                setTimeout(()=>{ 
-                    setAlarm(null); 
-                    setTopicState({topics: topicState.topics, focused: topicState.topics[1]}); 
-                }, SEC * 1000)
+                setNotLoginModal(true)
             }
         } else { // 정치, 경제, 사회, ...
             maincategoryNews
@@ -140,7 +152,8 @@ export function MainPageContent(){
     return (
         <div className="main-page-content">
             {news && news.map((news, index)=>{return <MainPageContentCard categoryId={categoryId} newsId={news.newsId} preNewsId={news.preNewsId} title={news.title} press={news.press} newsImage={news.newsImage} newsIndex={index} key={index}/>})}
-            {alarm && <div className="main-page-alarm"><h3>{alarm}</h3></div>}
+            {notLoginModal && <MemberShipModal onClickToggleModal={ onClickToggleLoginModal } children={`로그인시 이용가능합니다.`}/>}
+            {noNewsModal && <MemberShipModal onClickToggleModal={ onClickToggleNewsModal } children={`연관뉴스가 없습니다.\n ${SEC}초후 페이지를 이동합니다.`}/>}
         </div>
     )
 }
