@@ -33,6 +33,7 @@ export function PopularContent( ) {
                 { popularData !== undefined && popularData.map((item, index) =>
                     <p className={styles.popularContent} key={index}> {item.rank}. {item.keyword} </p>
                 )}
+                { popularData === undefined && <p className={styles.popularContent}>추천검색어가 없습니다.</p>}
             </div>
         </div>
     )

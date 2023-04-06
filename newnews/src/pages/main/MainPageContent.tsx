@@ -153,7 +153,7 @@ export function MainPageContent(){
         <div className="main-page-content">
             {news && news.map((news, index)=>{return <MainPageContentCard categoryId={categoryId} newsId={news.newsId} preNewsId={news.preNewsId} title={news.title} press={news.press} newsImage={news.newsImage} newsIndex={index} key={index}/>})}
             {notLoginModal && <MemberShipModal onClickToggleModal={ onClickToggleLoginModal } children={`로그인시 이용가능합니다.`}/>}
-            {noNewsModal && <MemberShipModal onClickToggleModal={ onClickToggleNewsModal } children={`연관뉴스가 없습니다.\n ${SEC}초후 페이지를 이동합니다.`}/>}
+            {noNewsModal && <MemberShipModal onClickToggleModal={ onClickToggleNewsModal } children={`연관뉴스가 없습니다.`}/>}
         </div>
     )
 }

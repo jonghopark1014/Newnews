@@ -40,7 +40,6 @@ export function SearchResultPage(){
     const isLogBoolean = isLogin[0].isLogin
     // 아이디 
     const userId = isLogin[0].id
-    const keyword = location.state.keyword
     const username = isLogin[0].username
 
     const searchSave =  useSearchSave()
@@ -48,12 +47,12 @@ export function SearchResultPage(){
     // const username = isLogin[0].username
     // const keyword = location.state.keyword
     // const searchSave =  useSearchSave(keyword, username)
-    const searchKeyword = useSearchKeyword(keyword)
-    
     
     useEffect(()=> {
+        searchSave.mutate({keyword: keyword, username: username})
         setData(searchKeyword.data)
         if (searchKeyword.isLoading) {
+            setData(undefined)
             setLoading(true)
             console.log('로딩중')
         }
@@ -66,7 +65,6 @@ export function SearchResultPage(){
         }
         
     }, [keyword])
-
 
     return (
         <section className={styles.searchSection}>
@@ -99,7 +97,7 @@ export function SearchResultPage(){
                         </div>
                     </div>
                     <h3 className={styles.description}>
-                        키워드 추출중입니다
+                        "{keyword}" 검색중입니다
                     </h3>
                 </div>
             }
