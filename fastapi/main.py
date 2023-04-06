@@ -33,7 +33,7 @@ app.add_middleware(
 def search(keyword: str):
     findspark.init()
     # spark 세션 연결
-    data_parameter = "hdfs://" + ${DB_DOMAIN_1} + ':' + ${DB_PORT} + '/' + ${DB_DOMAIN_2} + '/' + ${DB_DOMAIN_3} + '/*'
+    data_parameter = "hdfs://" + str(${DB_DOMAIN_1}) + ':' + str(${DB_PORT}) + '/' + str(${DB_DOMAIN_2}) + '/' + str(${DB_DOMAIN_3}) + '/*'
     spark = SparkSession.builder.master('local').config("spark.hadoop.dfs.client.use.datanode.hostname", "true").getOrCreate()
     data = spark.read.json(data_parameter, encoding='utf8')
     data = data.select('*').filter(array_contains(data.nouns, keyword)).toPandas()
