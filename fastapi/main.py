@@ -39,6 +39,7 @@ def search(keyword: str):
     data = data.select('*').filter(array_contains(data.nouns, keyword)).toPandas()
 
     try:
+        print("try")
         # tf-idf
         tfidf_vectorizer = TfidfVectorizer(min_df=3, ngram_range=(1, 5))
         tfidf_vectorizer.fit(text)
@@ -57,6 +58,7 @@ def search(keyword: str):
 
         return unique_df
     except:
+        print("except")
         unique_df = data.drop(columns=["content", "reporter", "press", "nouns"])
         unique_df = unique_df.to_dict(orient='records')
         for i in range(len(unique_df)):
