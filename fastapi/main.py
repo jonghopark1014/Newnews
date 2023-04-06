@@ -38,7 +38,10 @@ def search(keyword: str):
     print("=============================자료 읽기======================")
     data = spark.read.json(data_parameter, encoding='utf8')
     print("=========================자료 전처리==========================")
-    data = data.select('*').filter(array_contains(data.nouns, keyword)).toPandas()
+    data = data.select(col('dtype'), col('news_id'), col('title'), col('nouns'), col('img')).filter(array_contains(data.nouns, keyword))
+    print(data)
+    data.cache()
+    data = data.toPandas()
 
     try:
         print("try")
@@ -56,7 +59,7 @@ def search(keyword: str):
         data['result'] = result
         print("DB_DROP")
         data = data.drop(
-            columns=["content", "reporter", "press", "nouns"])
+            columns=["nouns"])
         print("DB_DROP_DUPLICATES")
         unique_df = data.drop_duplicates(subset=["result"], keep="first").reset_index(drop=True)
         unique_df = unique_df.to_dict(orient='records')
