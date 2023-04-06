@@ -54,19 +54,15 @@ export function SearchResultPage(){
         if (searchKeyword.isLoading) {
             setData(undefined)
             setLoading(true)
-            console.log('로딩중')
         }
         if (searchKeyword.isSuccess) {
-            setLoading(false)
             setData(searchKeyword.data.data)
-            console.log('성공')
-        }
-        if (searchKeyword.isError) {
-            if (newsData?.length === 0) {
+            setLoading(false)
+            if (searchKeyword.data.length === 0) {
                 navigate('/search/error')
             }
         }
-    }, [keyword])
+    }, [keyword, searchKeyword.data])
 
     return (
         <section className={styles.searchSection}>
