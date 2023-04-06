@@ -41,16 +41,20 @@ def search(keyword: str):
     try:
         print("try")
         # tf-idf
+        print("tf-idf")
         tfidf_vectorizer = TfidfVectorizer(min_df=3, ngram_range=(1, 5))
         tfidf_vectorizer.fit(text)
         vector = tfidf_vectorizer.transform(text).toarray()
 
         # DBSCAN
+        print("DBSCAN")
         model = DBSCAN(eps=0.3, min_samples=3, metric='cosine')
         result = model.fit_predict(vector)
         data['result'] = result
+        print("DB_DROP")
         data = data.drop(
             columns=["content", "reporter", "press", "nouns"])
+        print("DB_DROP_DUPLICATES")
         unique_df = data.drop_duplicates(subset=["result"], keep="first").reset_index(drop=True)
         unique_df = unique_df.to_dict(orient='records')
         for i in range(len(unique_df)):
@@ -60,6 +64,7 @@ def search(keyword: str):
     except:
         print("except")
         unique_df = data.drop(columns=["content", "reporter", "press", "nouns"])
+        unique_df = data.drop_duplicates(subset=["title"], keep="first").reset_index(drop=True)
         unique_df = unique_df.to_dict(orient='records')
         for i in range(len(unique_df)):
             unique_df[i]['img'] = unique_df[i]['img'][0][1]
