@@ -26,7 +26,7 @@ export function PopularContent( ) {
             setPopularData(searchKeywordRank.data.data)
             }
     }, [searchKeywordRank]);
-        
+    console.log(popularData)
     return (
         <div>
             <div className={styles.popularContentGrid} >
