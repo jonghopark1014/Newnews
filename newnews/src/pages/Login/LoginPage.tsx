@@ -120,12 +120,12 @@ export function LoginPage() {
                     <input  
                     type="email" placeholder="아이디를 입력해주세요" value={username} onChange={onChangeUsername}/> 
                 </div>
-                <form className={styles.pwInput}>
+                <div className={styles.pwInput}>
                     <HiOutlineLockClosed className={styles.icons} />
                     <hr />
                     <input  
                     type="password" placeholder="비밀번호를 입력해주세요" autoComplete="off" value={password} onChange={onChangePassword} onKeyDown={keyDown}/>
-                </form>
+                </div>
             {/* 아이디저장 자동로그인 체크박스 */}
             <div className={styles.checkBox}>
                 <input type="checkbox" name="" id="saveId" onChange={handleEchange} checked={checkBox}/>

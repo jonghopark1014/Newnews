@@ -17,12 +17,13 @@ type footerState = 'icons' | 'icons-now';
 export function Footer(){
     const pageState = location.pathname.slice(1)
     const isLogin = useRecoilValue(LoginState)
+    const userId = isLogin[0].id
     const [bookmark, setBookmark] = useState([])
 
     const bookmarkList = useBookmarkList()
     
     useEffect(()=>{
-        bookmarkList.mutate({userId : isLogin[0].id},{
+        bookmarkList.mutate({userId : userId},{
             onSuccess : (data) =>{
                 setBookmark(data.data) }
         })
