@@ -87,14 +87,17 @@ export function MainPageContent(){
             if (isLogin.isLogin) {
                 useNewsAfter.mutate({ userId: isLogin.id, page: 0, size: SIZE}, {
                     onSuccess: (data) => {
+                        console.log(data.data)
                         if (data.data.content.length > 0) {
                             setNews(data.data.content);
                         } else {
+                            setNews([])
                             setNoNewsModal(true)
                         }
                     }
                 });
             } else {
+                setNews([])
                 setNotLoginModal(true)
             }
         } else { // 정치, 경제, 사회, ...
