@@ -57,12 +57,12 @@ export function SearchResultPage(){
         if (searchKeyword.isSuccess) {
             setData(searchKeyword.data)
             setLoading(false)
-            if (searchKeyword.data.length === 0) {
+            if (searchKeyword.data === "데이터가 없습니다") {
                 navigate('/search/error')
             }
         }
     }, [keyword, searchKeyword.data])
-    
+    console.log(searchKeyword.data)
     return (
         <section className={styles.searchSection}>
             {/* <motion.div className={styles.progressBar} style={{ scaleX: scrollYProgress }} initial={{ opacity: 0 }}
