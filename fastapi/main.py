@@ -35,9 +35,12 @@ def search(keyword: str):
     # spark 세션 연결
     data_parameter = f"hdfs://${DB_DOMAIN_1}:${DB_PORT}/${DB_DOMAIN_2}/${DB_DOMAIN_3}/${DB_DOMAIN_4}/{keyword}/*"
     spark = SparkSession.builder.master('local').config("spark.hadoop.dfs.client.use.datanode.hostname", "true").getOrCreate()
-    data = spark.read.json(data_parameter, encoding='utf8')
+    try:  
+        data = spark.read.json(data_parameter, encoding='utf8')
     # print(data)
-    data = data.toPandas()
+        data = data.toPandas()
+    except:  
+        return '데이터가 없습니다'
 
     try:
         print("try")
