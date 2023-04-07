@@ -10,10 +10,8 @@ const fetcher = (variables: { category: string}) => axios.post(SERVER_URL + API_
 const useMainNewsAll = () => {
     return useMutation(fetcher, {
         onSuccess: (data, variables) => {
-            console.log(`${variables.category} 카테고리뉴스성공`, data);
         },
         onError: (error, variables) => {
-            console.log(`${variables.category} 카테고리뉴스에러`, error);
         }
     });
 }

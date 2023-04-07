@@ -10,10 +10,8 @@ const fetcher = (variables: { userId: number | null | undefined }) => axios.post
 const useBookmarkList = () => {
     return useMutation(fetcher, {
         onSuccess: (data) => {
-            console.log('북마크성공', data);
         },
         onError: (error) => {
-            console.log('북마크에러', error);
         }
     });
 }

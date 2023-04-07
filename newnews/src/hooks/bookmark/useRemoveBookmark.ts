@@ -13,10 +13,8 @@ const useRemoveBookmark = (userId: number| null | undefined, newsId: number) => 
     return useMutation(fetcher, {
         onSuccess: (data) => {
             queryClient.invalidateQueries(MAIN_NEWS_DETAIL, { refetchInactive: true });
-            console.log('북마크제거성공', data);
         },
         onError: (error) => {
-            console.log('북마크제거에러', error);
         }
     });
 }

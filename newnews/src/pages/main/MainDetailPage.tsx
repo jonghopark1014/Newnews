@@ -78,7 +78,6 @@ export function MainDetailPage() {
     useEffect(()=>{
         if (useMainDetail.isSuccess) {
             setNewsDetail(useMainDetail.data.data);
-            console.log(newsDetail)
             setMarked(newsDetail.bookmark)
         }
     }, [useMainDetail]);

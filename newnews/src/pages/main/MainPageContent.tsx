@@ -58,27 +58,6 @@ export function MainPageContent(){
 
     // 현재 보고있는 뉴스의 index
     let ioIndex: any;
-    // let start_x, end_x
-
-    // useEffect(()=>{
-    //     const mainContent = document.querySelector('.main-page-content')
-    //     if (mainContent) {
-            
-    //         mainContent.addEventListener('touchstart', (e)=>{
-    //             console.log('start', e.touches[0].pageX)
-    //             start_x = e.touches[0].pageX
-    //         })
-    //     }
-    //     mainContent?.addEventListener('touchend', (e: Event)=> {
-    //         console.log('end', e.changedTouches[0].pageX)
-    //         end_x = e.changedTouches[0].pageX
-    //         if (start_x > end_x) {
-    //             if (ioIndex > 0) {
-    //                 setTopicState({topicState.topics, })
-    //             }
-    //         }
-    //     })
-    // }, [])
     
     useEffect(()=>{
         setCategoryId(categoryName[topicState.focused])
@@ -87,7 +66,6 @@ export function MainPageContent(){
             if (isLogin.isLogin) {
                 useNewsAfter.mutate({ userId: isLogin.id, page: 0, size: SIZE}, {
                     onSuccess: (data) => {
-                        console.log(data.data)
                         if (data.data.content.length > 0) {
                             setNews(data.data.content);
                         } else {

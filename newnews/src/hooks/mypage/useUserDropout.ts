@@ -15,10 +15,8 @@ const fetcher = (variables: { userId: number| null | undefined, password: string
 const useUserDropout = ( userId: number| null | undefined, password: string | null | undefined) => {
     return useMutation(fetcher, {
         onSuccess: (data) => {
-            console.log('탈퇴성공', data, userId, password);
         },
         onError: (error) => {
-            console.log('탈퇴에러', error, userId, password);
         }
     });
 }

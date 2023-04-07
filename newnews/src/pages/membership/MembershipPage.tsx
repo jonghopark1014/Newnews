@@ -121,7 +121,6 @@ export function MemberShipPage() {
                 withCredentials: true,
             })
             .then((res) => {
-                console.log('response:', res)
             if (!isMember) {
                 onClickToggleDuplicationModal()
             }
