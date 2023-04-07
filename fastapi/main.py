@@ -33,14 +33,13 @@ app.add_middleware(
 def search(keyword: str):
     findspark.init()
     # spark 세션 연결
-    data_parameter = f"hdfs://${DB_DOMAIN_1}:${DB_PORT}/${DB_DOMAIN_2}/${DB_DOMAIN_3}/*"
+    data_parameter = f"hdfs://${DB_DOMAIN_1}:${DB_PORT}/${DB_DOMAIN_2}/${DB_DOMAIN_3}/${DB_DOMAIN_4}/{keyword}"
     spark = SparkSession.builder.master('local').config("spark.hadoop.dfs.client.use.datanode.hostname", "true").getOrCreate()
     print("=============================자료 읽기======================")
     data = spark.read.json(data_parameter, encoding='utf8')
     print("=========================자료 전처리==========================")
-    data = data.select(col('dtype'), col('news_id'), col('title'), col('nouns'), col('img')).filter(array_contains(data.nouns, keyword))
-    print(data)
-    data.cache()
+    # data = data.select(col('dtype'), col('news_id'), col('title'), col('nouns'), col('img')).filter(array_contains(data.nouns, keyword))
+    # print(data)
     data = data.toPandas()
 
     try:
@@ -62,6 +61,7 @@ def search(keyword: str):
             columns=["nouns"])
         print("DB_DROP_DUPLICATES")
         unique_df = data.drop_duplicates(subset=["result"], keep="first").reset_index(drop=True)
+        unique_df = data.drop(columns=["content", "reporter", "press", "nouns"])
         unique_df = unique_df.to_dict(orient='records')
         for i in range(len(unique_df)):
             unique_df[i]['img'] = unique_df[i]['img'][0][1]
