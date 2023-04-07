@@ -12,11 +12,12 @@ import styles from "@/styles/ArticleCard.module.scss"
 
 interface Card {
     id: number,
-    url: string,
+    url?: string,
     title: string,
     page : boolean,
     categoryId : number | string,
     onClick?:  void,
+    Img? : string
 }
 
 interface Props {

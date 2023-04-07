@@ -154,7 +154,7 @@ export function LoginPage() {
                 <p>아이디 찾기 |</p>
                 <p>비밀번호 찾기</p>
             </div>
-            {isLog && <MemberShipModal onClickToggleModal={onClickToggleModal} children="로그인 되어있습니다"/>}
+            {isLog && <MemberShipModal onClickToggleModal={onClickToggleModal} children="로그인 되었습니다"/>}
         </div>
     )
 }
