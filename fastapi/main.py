@@ -61,14 +61,16 @@ def search(keyword: str):
         unique_df = data.drop(columns=["nouns"])
         unique_df = unique_df.to_dict(orient='records')
         for i in range(len(unique_df)):
-            unique_df[i]['img'] = unique_df[i]['img'][1]
-
+            unique_df[i]['img'] = unique_df[i]['img'][0][1]
+        print(unique_df)
         return unique_df
     except:
         print("except")
         unique_df = data.drop_duplicates(subset=["title"], keep="first").reset_index(drop=True)
         unique_df = data.drop(columns=["nouns"])
         unique_df = unique_df.to_dict(orient='records')
+        
         for i in range(len(unique_df)):
-                unique_df[i]['img'] = unique_df[i]['img'][1]
+            unique_df[i]['img'] = unique_df[i]['img'][0][1]
+        print(unique_df)
         return unique_df
