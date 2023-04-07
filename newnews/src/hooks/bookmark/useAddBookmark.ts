@@ -13,10 +13,8 @@ const useAddBookmark = () => {
     return useMutation(fetcher, {
         onSuccess: (data) => {
             queryClient.invalidateQueries(MAIN_NEWS_DETAIL, { refetchInactive: true });
-            console.log('북마크성공', data);
         },
         onError: (error) => {
-            console.log('북마크에러', error);
         }
     });
 }

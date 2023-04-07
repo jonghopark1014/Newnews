@@ -18,7 +18,6 @@ export const KakaoRedirect = () => {
     //         'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'
     //     }
     // }).then((res) => {
-    //     console.log(res)
     //     // res에 포함된 토큰 받아서 원하는 로직을 하면된다.
     // })
     // }, [])

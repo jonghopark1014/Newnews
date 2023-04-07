@@ -15,10 +15,8 @@ const fetcher = (variables: { userId: number | null | undefined, page: number, s
 const useMainNewsAfter = () => {
     return useMutation(fetcher, {
         onSuccess: (data) => {
-            console.log('연관뉴스성공', data);
         },
         onError: (error) => {
-            console.log('연관뉴스에러', error);
         }
     });
 }

@@ -23,7 +23,6 @@ export function SearchBar(){
         e.currentTarget.parentElement?.parentElement?.parentElement?.classList.add(styles.active);
     };
     const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-        console.log("onBlur", e)
 
         if (e.target.value.length === 0) {
         e.currentTarget.parentElement?.parentElement?.parentElement?.classList.remove(styles.active);

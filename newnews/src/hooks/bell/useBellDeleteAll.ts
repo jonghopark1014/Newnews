@@ -11,10 +11,8 @@ const fetcher = ( variable :{userId: number | null | undefined } ) => axios.dele
 const useBellDeleteAll = (userId: number | null | undefined ) => {
     return useMutation(fetcher, {
         onSuccess: (data) => {
-            console.log('알람제거 성공', data);
         },
         onError: (error) => {
-            console.log('알람제거 에러', error);
         }
     });
 }

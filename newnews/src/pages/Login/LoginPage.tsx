@@ -145,7 +145,6 @@ export function LoginPage() {
                     <GoogleLogin onSuccess={(credentialRespose) =>{
                     }}
                     onError={() =>{
-                        console.log('login Failed')
                     }}/>
                 </GoogleOAuthProvider>
             </div>

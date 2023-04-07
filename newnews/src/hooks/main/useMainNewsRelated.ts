@@ -10,10 +10,8 @@ const fetcher = (variables: { newsId: number, preNewsId: number, userId: number 
 const useMainNewsRelated = () => {
     return useMutation(fetcher, {
         onSuccess: (data) => {
-            console.log('연관뉴스내용성공', data);
         },
         onError: (error) => {
-            console.log('연관뉴스내용에러', error);
         }
     });
 }
