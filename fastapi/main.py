@@ -64,7 +64,10 @@ def search(keyword: str):
         unique_df = data.drop(columns=["nouns"])
         unique_df = unique_df.to_dict(orient='records')
         for i in range(len(unique_df)):
-            unique_df[i]['img'] = unique_df[i]['img'][0][1]
+            if len(unique_df[i]['img']) > 1:  
+                unique_df[i]['img'] = unique_df[i]['img'][0][1]
+            else:  
+                unique_df[i]['img'] = unique_df[i]['img'][0]
 
         return unique_df
     except:
@@ -73,6 +76,9 @@ def search(keyword: str):
         unique_df = data.drop(columns=["nouns"])
         unique_df = unique_df.to_dict(orient='records')
         for i in range(len(unique_df)):
-            unique_df[i]['img'] = unique_df[i]['img'][0][1]
+            if len(unique_df[i]['img']) > 1:  
+                unique_df[i]['img'] = unique_df[i]['img'][0][1]
+            else:  
+                unique_df[i]['img'] = unique_df[i]['img'][0]
         return unique_df
 
