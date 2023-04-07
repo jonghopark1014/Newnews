@@ -1,11 +1,11 @@
 package com.ssafy.specialization.service;
 
+import com.ssafy.specialization.dto.NewsResponseDto;
 import com.ssafy.specialization.entity.News;
 import com.ssafy.specialization.entity.NewsImage;
 import com.ssafy.specialization.entity.dtype.Economy;
 import com.ssafy.specialization.repository.EconomyRepository;
 import com.ssafy.specialization.repository.NewsRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,6 +14,9 @@ import org.springframework.test.annotation.Commit;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @Transactional
@@ -39,16 +42,29 @@ class NewsServiceTest {
     }
 
     @Test
+    void 북마크뉴스성공체크(){
+        NewsResponseDto dto = newsService.getNewsWithIsBookmark(1L, 1L,1);
+        assertThat(dto.getTitle()).isEqualTo("야옹");
+        dto = newsService.getNewsWithIsBookmark(1L, 1L,1);
+        assertThat(dto.getTitle()).isEqualTo("야옹");
+    }
+
+    @Test
+    void 북마크뉴스실페체크() {
+        assertThrows(IllegalArgumentException.class, () -> newsService.getNewsWithIsBookmark(1L, 111111111L,1));
+    }
+
+    @Test
     void 하위타입데이터조회(){
-        Optional<Economy> economy = economyRepository.findById(4L);
+        Optional<Economy> economy = economyRepository.findById(1L);
         Economy economy1 = economy.get();
-        Assertions.assertThat(economy1.getReporter()).isEqualTo("1");
+        assertThat(economy1.getReporter()).isEqualTo("1");
     }
 
     @Test
     void 하위타입데이터조회1(){
-        Optional<News> news = newsRepository.findById(4L);
+        Optional<News> news = newsRepository.findById(1L);
         News news1 = news.get();
-        Assertions.assertThat(news1.getReporter()).isEqualTo("1");
+        assertThat(news1.getReporter()).isEqualTo("1");
     }
 }

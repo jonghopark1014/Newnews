@@ -1,6 +1,5 @@
 package com.ssafy.specialization.entity;
 
-import com.ssafy.specialization.entity.enums.Press;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,8 +20,6 @@ public abstract class News {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-//    @Enumerated(EnumType.STRING)
-//    private Category category;
     private String title;
     private String content;
     private LocalDateTime newsDate;
@@ -31,10 +28,6 @@ public abstract class News {
 
     @OneToMany(mappedBy = "news", cascade = CascadeType.ALL)
     private List<NewsImage> newsImageList = new ArrayList<>();
-
-    public News(String title, String content, String newsDate, String reporter, Press press, NewsImage... newsImages){
-
-    }
 
     protected void setTitle(String title) {
         this.title = title;
@@ -54,7 +47,9 @@ public abstract class News {
 
     protected void setPress(String press) {
         this.press = press;
+
     }
+
     protected void addNewsImage(NewsImage newsImage) {
         this.newsImageList.add(newsImage);
         newsImage.setNews(this);

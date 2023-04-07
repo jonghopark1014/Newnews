@@ -4,6 +4,8 @@ import com.ssafy.specialization.dto.NotificationListResponseDto;
 import com.ssafy.specialization.entity.News;
 import com.ssafy.specialization.entity.Notification;
 import com.ssafy.specialization.entity.User;
+import com.ssafy.specialization.entity.Watched;
+import com.ssafy.specialization.repository.CustomNotificationRepository;
 import com.ssafy.specialization.repository.NewsRepository;
 import com.ssafy.specialization.repository.NotificationRepository;
 import com.ssafy.specialization.repository.UserRepository;
@@ -22,6 +24,7 @@ public class NotificationService {
     private final NotificationRepository notificationRepository;
     private final UserRepository userRepository;
     private final NewsRepository newsRepository;
+    private final CustomNotificationRepository customNotificationRepository;
 
     //알림 추가
     @Transactional
@@ -34,10 +37,10 @@ public class NotificationService {
         News news = newsRepository.findById(newsId)
                 .orElseThrow(() -> new IllegalArgumentException("뉴스가 비어있습니다."));
 
-        Notification notification = Notification.builder()
-                .user(user)
-                .news(news)
-                .build();
+        //버그 방지용 추후 제거 예정
+        Watched watched = Watched.createWatched(user, news);
+
+        Notification notification = Notification.createNotification(user, news, watched);
 
         Notification savedNotification = notificationRepository.save(notification);
         return savedNotification.getId();
@@ -84,14 +87,6 @@ public class NotificationService {
 //    }
 
     public List<NotificationListResponseDto> getNotificationList(Long userId) {
-        List<Notification> notificationList = notificationRepository.findAllByUserId(userId);
-
-        return notificationList.stream().map(
-                (notification -> new NotificationListResponseDto(
-                        notification.getNews().getId(),
-                        notification.getWatched().getNews().getId(),
-                        notification.getWatched().getNews().getTitle()
-                ))
-        ).collect(Collectors.toList());
+        return customNotificationRepository.getNotificationList(userId);
     }
 }

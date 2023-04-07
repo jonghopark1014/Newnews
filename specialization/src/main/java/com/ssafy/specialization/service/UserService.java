@@ -1,8 +1,10 @@
 package com.ssafy.specialization.service;
 
 import com.ssafy.specialization.dto.JoinRequestDto;
+import com.ssafy.specialization.dto.WatchedResponseDto;
 import com.ssafy.specialization.entity.User;
 import com.ssafy.specialization.repository.UserRepository;
+import com.ssafy.specialization.repository.WatchedRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -12,7 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-import static com.ssafy.specialization.entity.enums.Sex.*;
+import static com.ssafy.specialization.entity.enums.Sex.FEMALE;
+import static com.ssafy.specialization.entity.enums.Sex.MALE;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +24,7 @@ public class UserService {
 
     private final PasswordEncoder encoder;
     private final UserRepository userRepository;
+    private final WatchedRepository watchedRepository;
 
     @Transactional
     public long join(JoinRequestDto requestDto) {
@@ -59,5 +63,14 @@ public class UserService {
     public boolean isExistUsername(String username) {
         Optional<User> findUser = userRepository.findByUsername(username);
         return findUser.isEmpty() ? false : true;
+    }
+
+    public WatchedResponseDto findTendency(Long userId) {
+        if(userRepository.findById(userId).isEmpty()){
+            throw new IllegalArgumentException("해당 유저가 존재하지 않습니다.");
+        }
+
+        WatchedResponseDto watchedResponseDto = watchedRepository.countWatchedCategory(userId);
+        return watchedResponseDto;
     }
 }

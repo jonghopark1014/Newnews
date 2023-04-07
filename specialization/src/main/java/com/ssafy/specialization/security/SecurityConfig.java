@@ -45,22 +45,25 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http
-                .csrf().disable()
-                .cors().configurationSource(corsConfiguration())
-                .and()
-                .authorizeRequests()
-                .antMatchers("/api/regist").permitAll()
-                .anyRequest().permitAll()
-                .and()
-                .formLogin().disable()
-                .logout()
-                .logoutUrl("/api/logout")
-                .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
-                .and()
-                .apply(new MyCustomFilter())
-                .and()
-                .build();
+        http
+            .csrf().disable()
+            .cors().configurationSource(corsConfiguration());
+
+        http
+            .authorizeRequests()
+            .antMatchers("/api/regist").permitAll()
+            .anyRequest().permitAll();
+
+        http
+            .formLogin().disable()
+            .logout()
+            .logoutUrl("/api/logout")
+            .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler());
+
+        http
+            .apply(new MyCustomFilter());
+
+        return http.build();
     }
 
     @Bean
@@ -90,9 +93,9 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfiguration() {
         CorsConfiguration cors = new CorsConfiguration();
 
-        cors.setAllowedOrigins(Arrays.asList("https://localhost:5173", "http://localhost:5173", "https://j8b309.p.ssafy.io"));
-        cors.addAllowedHeader("*");
-        cors.addAllowedMethod("*");
+        cors.setAllowedOrigins(Arrays.asList("https://localhost:3000", "http://localhost:3000", "https://j8b309.p.ssafy.io"));
+        cors.setAllowedHeaders(Arrays.asList("*"));
+        cors.setAllowedMethods(Arrays.asList("*"));
         cors.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

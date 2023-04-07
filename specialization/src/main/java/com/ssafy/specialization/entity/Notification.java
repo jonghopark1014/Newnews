@@ -28,13 +28,6 @@ public class Notification {
     @JoinColumn(name = "watched_id")
     private Watched watched;
 
-    @Builder
-    public Notification(User user, News news, Watched watched) {
-        this.user = user;
-        this.news = news;
-        this.watched = watched;
-    }
-
     //연관관계 메소드
     private void setUser(User user){
         this.user = user;

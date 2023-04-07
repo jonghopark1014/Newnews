@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor // 테스트 시 Dto 생성 용도
+//@AllArgsConstructor // 테스트 시 Dto 생성 용도
 public class JoinRequestDto {
 
     private String username;

@@ -1,7 +1,6 @@
 package com.ssafy.specialization.controller;
 
 import com.ssafy.specialization.dto.NotificationListResponseDto;
-import com.ssafy.specialization.dto.UserHistoryRequestDto;
 import com.ssafy.specialization.response.Response;
 import com.ssafy.specialization.service.NotificationService;
 import lombok.RequiredArgsConstructor;
@@ -25,15 +24,15 @@ public class NotificationController {
 //        return Response.success(HttpStatus.OK);
 //    }
 
-    @PostMapping("/delete/all")
-    public ResponseEntity deleteAllNotification(@RequestBody Long userId) {
+    @DeleteMapping("/delete/all/{userId}")
+    public ResponseEntity deleteAllNotification(@PathVariable("userId") Long userId) {
             notificationService.deleteAll(userId);
             return Response.success(HttpStatus.OK);
     }
 
-    @PostMapping("/delete")
-    public ResponseEntity deleteNotification(@RequestBody UserHistoryRequestDto userHistoryRequestDto){
-            notificationService.delete(userHistoryRequestDto.getUserId(), userHistoryRequestDto.getNewsId());
+    @DeleteMapping("/delete/{userId}/{newsId}")
+    public ResponseEntity deleteNotification(@PathVariable("userId")Long userId, @PathVariable("newsId")Long newsId){
+            notificationService.delete(userId, newsId);
             return Response.success(HttpStatus.OK);
     }
 
