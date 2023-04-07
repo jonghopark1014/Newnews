@@ -86,13 +86,24 @@
                 background-position: center bottom;
                 transform-origin: top;
                 transition: transform 0.1s;
+                // 제목
                 > h3 {
                     position: absolute;
-                    top: 58%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    line-height: 1.4;
+                    top: 55%;
                     margin: 1rem;
-                    font-size: 1.5rem;
+                    height: 4rem;
+                    width: 90%;
+                    font-size: 1.5rem;  
                     color: #fff;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    word-break: keep-all; 
                 }
+                // 신문사
                 > h4 {
                     position: absolute;
                     bottom: 0;
