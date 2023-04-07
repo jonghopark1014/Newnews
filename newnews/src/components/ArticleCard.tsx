@@ -24,7 +24,7 @@ interface Props {
     data: Array<Card>;
 };
 
-export const ArticleCard = ( { id, title, url, page, categoryId } : Card ) => {
+export const ArticleCard = ( { id, title, url, Img, page, categoryId } : Card ) => {
     const navigate = useNavigate()
 
     const categoryName: Record<string, number>= {
@@ -70,7 +70,7 @@ export const ArticleCard = ( { id, title, url, page, categoryId } : Card ) => {
         <div>
             <div className={styles.articleCard} >
                 <div className={pages ? (styles.bookmarkArticleCard) : (styles.articleImg)} >
-                    <img src={`${url}`} alt="" onClick={() => { onClickRead() }} />
+                    { url ? (<img src={`${url}`} alt="" onClick={() => { onClickRead() }} />) : (<img src={`${Img}`} alt="" onClick={() => { onClickRead() }} />)}
                     <div className={styles.gradation}>
                         {pages ? (<h3 onClick={() => { onClickRead() }}>{title}</h3>) : (<h4 onClick={() => { onClickRead() }}>{title}</h4>) }
                         {marked ? <BsBookmarkCheckFill className={styles.arterIcons} onClick={()=>{onClickRemove()}}/> : <BsBookmarkPlus className={styles.icons} onClick={()=>setMarked(!marked)}/>}
