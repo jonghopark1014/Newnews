@@ -12,7 +12,7 @@ import useSearchSave from "@/hooks/search/useSearchSave";
 import styles from "@/styles/search/SearchPages.module.scss"
 
 interface Iporps{
-    Img: string,
+    img: string,
     title: string,
     dtype : string
     news_id : number
@@ -50,20 +50,21 @@ export function SearchResultPage(){
     
     useEffect(()=> {
         searchSave.mutate({keyword: keyword, username: username})
-        setData(searchKeyword.data)
         if (searchKeyword.isLoading) {
             setData(undefined)
             setLoading(true)
         }
         if (searchKeyword.isSuccess) {
-            setData(searchKeyword.data.data)
+            setData(searchKeyword.data)
             setLoading(false)
             if (searchKeyword.data.length === 0) {
                 navigate('/search/error')
             }
         }
     }, [keyword, searchKeyword.data])
-
+    
+    console.log(searchKeyword)
+    console.log('newsData', newsData)
     return (
         <section className={styles.searchSection}>
             {/* <motion.div className={styles.progressBar} style={{ scaleX: scrollYProgress }} initial={{ opacity: 0 }}
@@ -73,10 +74,10 @@ export function SearchResultPage(){
             {newsData && newsData.map((item, index) =>
                 <div className={styles.step} key={index}>
                     <div>
-                        <div className={styles.circle}><i className={styles.fa}></i></div>
+                        <div className={styles.circle}><i className={styles.fa}>{item.title}</i></div>
                     </div>
                     <div>
-                        <ArticleCard  title={item.title} id={item.news_id} categoryId={item.dtype} url={item.Img} page={false} />
+                        <ArticleCard  title={item.title} id={item.news_id} categoryId={item.dtype} Img={item.img} page={false} />
                     </div>
                 </div>
             )}
