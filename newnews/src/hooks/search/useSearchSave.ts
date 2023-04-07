@@ -10,10 +10,8 @@ const fetcher = (variables: { keyword: string, username : string | null | undefi
 const useSearchSave = ( ) => {
     return useMutation(fetcher, {
         onSuccess: (data) => {
-            console.log('검색 저장', data);
         },
         onError: (error) => {
-            console.log('검색 저장 실패', error);
         }
     });
 }

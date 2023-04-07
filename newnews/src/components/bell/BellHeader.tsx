@@ -24,7 +24,6 @@ export function BellHeader(){
     const userId = isLogin[0].id
     const [isOpenModal, setOpenModal] = useState<boolean>(false);
     const bellDeleteAll = useBellDeleteAll(userId)
-    console.log(userId)
     /**
      * 알림 전체 삭제
      */

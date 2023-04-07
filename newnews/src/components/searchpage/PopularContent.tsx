@@ -27,7 +27,6 @@ export function PopularContent( ) {
             setPopularData(searchKeywordRank.data.data)
             }
     }, [searchKeywordRank]);
-    console.log(popularData)
 
     const onClickSearch = (keyword : string) => {
         navigate('/result', { state: { keyword: keyword }})
