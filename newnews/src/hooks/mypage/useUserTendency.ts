@@ -23,7 +23,6 @@ const useUserTendency = (userId: number | null | undefined) => {
         staleTime: 0, cacheTime: 60 * 5 * 1000,
         refetchOnWindowFocus: false, refetchOnReconnect: false,
         onSuccess: (data)=>{
-            console.log("성향성공", data.data)
             setTendency(data.data)
         }
     });
