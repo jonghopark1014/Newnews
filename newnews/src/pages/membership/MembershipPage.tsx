@@ -20,11 +20,13 @@ interface Iprops{
 
 export function MemberShipPage() {
     const navigate = useNavigate()
+    const [alarm, setAlarm] = useState<null | string>(null);
+
     const isLogin = useRecoilValue(LoginState);
     const isLog = isLogin[0].isLogin
     useEffect(() => {
         if (isLog) {
-            alert('로그인이 되어있습니다')
+            setAlarm("로그인이 되어있습니다.")
             navigate('/');
         }
     }, [isLogin, navigate])
@@ -119,7 +121,6 @@ export function MemberShipPage() {
                 withCredentials: true,
             })
             .then((res) => {
-            console.log('response:', res)
             if (!isMember) {
                 onClickToggleDuplicationModal()
             }
@@ -136,6 +137,7 @@ export function MemberShipPage() {
             }
             })
             } catch (err) {
+            setDuplicationModal(true)
             console.error(err)
             }
         } 
@@ -156,13 +158,11 @@ export function MemberShipPage() {
                         setIsUsername(false)
                         onClickToggleEmailModal()
                     } else {
-                        console.log(res.data.status)
                         setMember(true)
                         onClickToggleModal()
                     }
                 })
             } catch (err) {
-                console.log(err)
                 setUsername('')
                 onClickToggleErrorModal()
                 
@@ -206,10 +206,10 @@ export function MemberShipPage() {
         setPasswordChk(passwordChkfirmCurrent)
 
         if (password === passwordChkfirmCurrent) {
-            setPasswordChkMessage('비밀번호를 똑같습니다')
+            setPasswordChkMessage('비밀번호가 똑같습니다')
             setIspasswordChk(true)
         } else {
-            setPasswordChkMessage('비밀번호가 틀렸습니다')
+            setPasswordChkMessage('비밀번호가 틀립니다')
             setIspasswordChk(false)
         }
         },
@@ -290,6 +290,10 @@ export function MemberShipPage() {
             { isPasswordModal && <MemberShipModal onClickToggleModal={ onClickTogglePasswordModal } children="비밀번호를 확인해주세요"/>}
             { isSexModal && <MemberShipModal onClickToggleModal={ onClickToggleSexModal } children="성별을 선택해주세요"/>}
             { isEmailModal && <MemberShipModal onClickToggleModal={ onClickToggleEmailModal } children="이메일 형식을 확인해주세요"/>}
+            {alarm && 
+                <div className={styles.alarm}>
+                    <h3>{alarm}</h3>
+                </div>}
             <div className={styles.buttonGrid}>
                 <Button children={"가입하기"} onClick={()=>{onSubmitMemberShip({username, password, passwordChk, sex, yearOfBirth})}}></Button>
             </div>

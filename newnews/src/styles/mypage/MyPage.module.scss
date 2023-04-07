@@ -1,4 +1,3 @@
-
 @keyframes graphspread {
     from{
         width: 3vw;
@@ -9,71 +8,50 @@
         opacity: 1;
     }
 }
-
 .mypage {
     display: flex;
     flex-direction: column;
     width: 100vw;
     height: 80vh;
-    // justify-content: center;
-    // align-items: center;
-    .content {
+    > div:nth-child(1) {
+        align-self: center;
+    }
+    > div:nth-child(2) {
         display: flex;
-        flex-direction: column;
-        height: 60%;
-        width: 80%;
-        p {
-
-        }
-        .outside {
-            align-self: center;
-            width: 100px;
-            height: 100px;
-            background-color: #0096ED;
-            clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
-            .inside {
-                position: relative;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                align-self: center;
-                width: 100px;
-                height: 100px;
-                background-color: #fff;
-                clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
-            }
-        }
-        .line {
-            top: 50%;
-            left: 50%;
-            position: absolute;
-            height: 1px;
-            width: 3vw;
-            background-color: #0096ED;
-            transform-origin: 0%;
-            transition: transform 0.5s;
-            animation: graphspread 0.5s ease 0s 1 forwards;
-            p {
-                
-            }
+        justify-content: space-between;
+        margin: 0 10% 0 10%;
+    }
+    .alarm {
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: min(80vw, 400px);
+        height: min(20vh, 240px);
+        background-color: #fff;
+        border-radius: 6px;
+        box-shadow: 0px 4px 4px #36363640;
+    }
+    .icons{
+        width: 13%;
+        height: 100%;
+        :hover{
+            color: #0096ED;
         }
     }
-    .dropout{
+    .buttonGrid{
         display: flex;
-        margin: 5% auto 0 10%;
-        button {
-            margin: 0;
-            font-weight: 500;
-            font-size: medium;
-            text-align: center;
-            // text: #F67442;
-            background-color: #fff;
-            color: #363636;
-            height: 40px;
-            border-color: #fff;
-            border-radius: 6px;
-            box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-        }
-    }    
+        position: relative;
+        top: 70vh;
+        width: 100%;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .bttonGrid{
+        
+    }
 }
 

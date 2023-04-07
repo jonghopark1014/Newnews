@@ -10,10 +10,8 @@ const fetcher = (variables: { userId: number | null | undefined }) => axios.post
 const useBellList = () => {
     return useMutation(fetcher, {
         onSuccess: (data) => {
-            console.log('알람성공', data);
         },
         onError: (error) => {
-            console.log('알람에러', error);
         }
     });
 }

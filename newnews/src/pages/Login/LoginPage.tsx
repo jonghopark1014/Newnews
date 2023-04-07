@@ -4,8 +4,9 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { LoginState } from '@/states/LoginState';
 import { HiOutlineUsers, HiOutlineLockClosed } from "react-icons/hi";
 import axios from "axios";
+import { useCookies } from "react-cookie"
 
-import { SERVER_URL } from "@/utils/urls"
+import { SERVER_URL, REST_API_KEY } from "@/utils/urls"
 import { Button } from "@/components/Button";
 import MemberShipModal from "@/components/membership/MemberShipModal";
 import { KakaoLogin } from "@/components/login/Kakao";
@@ -16,20 +17,23 @@ import { GoogleLogin } from '@react-oauth/google';
 
 import styles from "@/styles/login/Login.module.scss"
 
+const SEC = 1.5;
 
 interface Iprops{
     username : string
     password : string
 }
-const REST_API_KEY = '758949398062-ossaflmuh3pmgl7igje8cvqmgf9cpoi1.apps.googleusercontent.com'
 
 export function LoginPage() {
     const navigate = useNavigate()
     const API = `${SERVER_URL}/api/login`;
+    const [cookies, setCookie, removeCookie] = useCookies(["rememberUserId"])
+    const [checkBox, setCheckBox]= useState<boolean>(false)
+    const [alarm, setAlarm] = useState<null | string>(null);
     
     //
     const isLogin = useRecoilValue(LoginState);
-    const isLog = isLogin[0]?.isLogin
+    const isLog = isLogin[0].isLogin
     const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState);
 
     // 로그인
@@ -44,13 +48,17 @@ export function LoginPage() {
 
     useEffect(() => {
         if (isLog) {
-            alert('로그인이 되어있습니다')
-            navigate('/');
-        }
-    }, [isLogin, navigate])
+            setTimeout(()=>{
+                navigate('/') },
+                 SEC * 1000)
+        } else {
+            if (cookies.rememberUserId !== undefined) {
+                setUsername(cookies.rememberUserId)
+                setCheckBox(true)
+            }}
+    }, [isLogin, checkBox])
 
     async function onSubmitLogin({username, password}: Iprops) {
-
         try {
         await axios
             .post(API, {
@@ -61,18 +69,25 @@ export function LoginPage() {
                 withCredentials: true,
             })
             .then((res) => {
-                console.log('response', res.data)
+                localStorage.clear()
                 setIsLoggedIn([{isLogin: true, username: username, password:password, id: res.data.id}])
+                localStorage.setItem('id', res.data.id)
+                localStorage.setItem('token', res.data.token)
                 setTimeout(()=> {
                     navigate("/");
-                }, 2000);
+                }, SEC * 1000);
             })
             } catch (err) {
                 console.error(err)
             }
         }
-    
 
+    function keyDown (e: React.KeyboardEvent<HTMLInputElement>) {
+        if (e.code === "Enter") {
+            e.preventDefault(); 
+            onSubmitLogin({username, password})
+        }
+    }
 
     /**
      * 
@@ -84,7 +99,16 @@ export function LoginPage() {
     const onChangePassword = (e : React.ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
     };
-    
+    /**
+     * 체크박스 true false
+     * @param e 아이디저장 
+     */
+    const handleEchange = (e : React.FocusEvent<HTMLInputElement>) => {
+        setCheckBox(e.target.checked)
+        if (!e.target.checked) {
+            removeCookie('rememberUserId')
+        }
+    }
 
     return(
         <div className={styles.container}>
@@ -96,16 +120,16 @@ export function LoginPage() {
                     <input  
                     type="email" placeholder="아이디를 입력해주세요" value={username} onChange={onChangeUsername}/> 
                 </div>
-                <form className={styles.pwInput}>
+                <div className={styles.pwInput}>
                     <HiOutlineLockClosed className={styles.icons} />
                     <hr />
                     <input  
-                    type="password" placeholder="비밀번호를 입력해주세요" autoComplete="off" value={password} onChange={onChangePassword}/>
-                </form>
+                    type="password" placeholder="비밀번호를 입력해주세요" autoComplete="off" value={password} onChange={onChangePassword} onKeyDown={keyDown}/>
+                </div>
             {/* 아이디저장 자동로그인 체크박스 */}
             <div className={styles.checkBox}>
-                <input type="checkbox" name="" id="idSave" />
-                <label htmlFor="">아이디 저장</label> 
+                <input type="checkbox" name="" id="saveId" onChange={handleEchange} checked={checkBox}/>
+                <label htmlFor="saveId">아이디 저장</label> 
                 <input type="checkbox" name="" id="" />
                 <label htmlFor="">자동 로그인</label>
             </div>
@@ -119,10 +143,8 @@ export function LoginPage() {
             <KakaoLogin />
                 <GoogleOAuthProvider clientId={`${REST_API_KEY}`}>
                     <GoogleLogin onSuccess={(credentialRespose) =>{
-                        console.log(credentialRespose)
                     }}
                     onError={() =>{
-                        console.log('login Failed')
                     }}/>
                 </GoogleOAuthProvider>
             </div>
@@ -132,7 +154,7 @@ export function LoginPage() {
                 <p>아이디 찾기 |</p>
                 <p>비밀번호 찾기</p>
             </div>
-            {isLog && <MemberShipModal onClickToggleModal={onClickToggleModal} children="로그인 되어있습니다"/>}
+            {isLog && <MemberShipModal onClickToggleModal={onClickToggleModal} children="로그인 되었습니다"/>}
         </div>
     )
 }

@@ -18,9 +18,11 @@ import { MainPage } from '@/pages/main/MainPage';
 import { BookMarkPage } from '@/pages/bookmark/BookMarkPage';
 import { MyPage } from '@/pages/mypage/MyPage';
 import { BellPages } from '@/pages/bell/BellPages';
+import { BellNonePage } from './pages/bell/BellNonePage';
 import { MainPageSetTopics } from '@/pages/main/MainPageSetTopics';
 import { MainDetailPage } from '@/pages/main/MainDetailPage'
 import './index.scss'
+import { MainRelatedDetailPage } from './pages/main/MainRelatedDetailPage';
 
 const container = document.getElementById('root') as HTMLElement;
 const queryClient = new QueryClient();
@@ -37,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: 'topics',
         element: <MainPageSetTopics />,
+      },
+      {
+        path: 'relatedDetail',
+        element: <MainRelatedDetailPage />,
       },
       {
         path: 'detail',
@@ -99,6 +105,10 @@ const router = createBrowserRouter([
         path: 'bell',
         element: <BellPages />,
       },
+      {
+        path: 'bell/none',
+        element: <BellNonePage />,
+      },
     ]
   },
   //로그인페이지
@@ -139,7 +149,6 @@ const router = createBrowserRouter([
 createRoot(container).render(
   <QueryClientProvider client={queryClient}>
     <RecoilRoot>
-      <div id="blank"> </div>
       <RouterProvider router={router} />
     </RecoilRoot>
   </QueryClientProvider>

@@ -7,7 +7,6 @@ export function GoogleLogin() {
     const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?scope=email%20openid&response_type=code&redirect_uri=${REDIRECT_URI}&client_id=${REST_API_KEY}`
     
     const googleSocialLogin = useGoogleLogin({
-        onSuccess: (codeResponse) => console.log(codeResponse),
         flow: 'auth-code',
     })
     return(

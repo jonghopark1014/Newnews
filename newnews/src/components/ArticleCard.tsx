@@ -1,69 +1,82 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from "recoil";
 import { BsBookmarkPlus, BsBookmarkCheckFill } from "react-icons/bs";
-import styles from "../styles/ArticleCard.module.scss"
-import bondee from "../assets/bondee.jpg"
 
+import useRemoveBookmark from "@/hooks/bookmark/useRemoveBookmark";
+import useAddBookmark from "@/hooks/bookmark/useAddBookmark";
+import useMainNewsDetail from "@/hooks/main/useMainNewsDetail";
+import { LoginState } from '@/states/LoginState';
+
+import styles from "@/styles/ArticleCard.module.scss"
 
 interface Card {
-    id?: number,
+    id: number,
     url?: string,
-    title?: string,
-    width?: number,
-    height?: number,
+    title: string,
+    page : boolean,
+    categoryId : number | string,
     onClick?:  void,
+    Img? : string
 }
 
 interface Props {
     data: Array<Card>;
 };
 
-// export const ArticleCard = ({data}: Props) => {
-export const ArticleCard = ({width, height} : Card ) => {
-    const [activeId, setActiveId] = useState<number>()
+export const ArticleCard = ( { id, title, url, page, categoryId } : Card ) => {
+    const navigate = useNavigate()
 
+    const categoryName: Record<string, number>= {
+        "Economy" : 1,
+        "Politics" : 2,
+        "Society" : 3,
+        "LifeAndCulture" : 4,
+        "ItAndScience" : 5,
+    }
+
+    const [activeId, setActiveId] = useState<number>()
+    const [marked, setMarked] = useState(true);
+    const isLogin = useRecoilValue(LoginState)
+    const userId = isLogin[0].id
+    const newsId = id
+    const pages = page
+
+    const removeBookmark = useRemoveBookmark( userId, newsId )
+    const AddBookmark = useAddBookmark()
+    
     const onClick = (id: number) => setActiveId(id);
     
-    useEffect(() =>{
-        const articleCard = document.querySelector<HTMLElement>('#articleCard')
-
-        if (articleCard) {
-            articleCard.style.width =`${width}%`
-            articleCard.style.height =`${height}px`
-        }        
-    }, [])
-    
-        const [marked, setMarked] = useState(true);
-        const bookMark = (state: boolean)=>{
-            if (state) {
-                return (
-                    <BsBookmarkPlus className={styles.icons} onClick={()=>setMarked(!marked)}/>
-                )
-            } else {
-                return (
-                    <BsBookmarkCheckFill className={styles.arterIcons} onClick={()=>setMarked(!marked)}/>
-                )
-            }
+    const onClickRead = () => {
+        if (typeof(categoryId) === 'string') {
+            const category = categoryName[categoryId]
+            navigate('/detail', { state: { newsId: newsId, categoryId: category }})
+        } else {
+            navigate('/detail', { state: { newsId: newsId, categoryId: categoryId }})
         }
-    return(
+    }
+    
+    const onClickRemove = useCallback(() => {
+        setMarked(!marked)
+        if (marked) {
+            removeBookmark.mutate({userId: userId, newsId :newsId})
+        } else {
+            AddBookmark.mutate({userId: userId, newsId :newsId})
+        }
+    }, [])
 
-        <div  className={styles.articleCard}>
-            {/* {data.map(card => (
-            <div
-            key={card.id}
-            className={`${styles.articleImg} ${activeId === card.id ? 'active' : ''}`}
-            onClick={() => onClick(card.id)}
-            style={{ backgroundImage: `url(${card.url})` }}>
-            <h3>{card.title}</h3>
-            </div>))} */}
-            <div id='articleCard' className={styles.articleImg}>
-                <img src={bondee} />
-                {/* <img src={`${url}`} alt="" /> */}
-                <div className={styles.gradation}>
-                    <h3>본디 신상정보 사실이 아니다본디 신상정보 사실이 아니다본디 신상정보 사실이 아니다 </h3>
-                    {bookMark(marked)}
+    
+    return(
+        <div>
+            <div className={styles.articleCard} >
+                <div className={pages ? (styles.bookmarkArticleCard) : (styles.articleImg)} >
+                    <img src={`${url}`} alt="" onClick={() => { onClickRead() }} />
+                    <div className={styles.gradation}>
+                        {pages ? (<h3 onClick={() => { onClickRead() }}>{title}</h3>) : (<h4 onClick={() => { onClickRead() }}>{title}</h4>) }
+                        {marked ? <BsBookmarkCheckFill className={styles.arterIcons} onClick={()=>{onClickRemove()}}/> : <BsBookmarkPlus className={styles.icons} onClick={()=>setMarked(!marked)}/>}
+                    </div>
                 </div>
             </div>
         </div>
-        
     )
 }

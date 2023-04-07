@@ -9,28 +9,31 @@ import styles from "@/styles/bell/BellComponents.module.scss";
 
 interface Iprops{
     children : string,
-    preNewsId: number,
+    preNewsId: number | null | undefined,
     newsId: number | null | undefined,
 }
 
 export const BellComponents = ({ children, preNewsId, newsId } : Iprops) =>{
+    // const categoryName: Record<string, number>= {
+    //     "Economy" : 1,
+    //     "Politics" : 2,
+    //     "Society" : 3,
+    //     "LifeAndCulture" : 4,
+    //     "ItAndScience" : 5,
+    // }
+    // const categoryId = categoryName[category]
     const navigate = useNavigate()
-    const BellDelete = useBellDelete()
     const isLogin = useRecoilValue(LoginState)
-    const isLog = isLogin[0].id
-    const preNews = preNewsId
-
-    console.log('isLog', isLog)
-    console.log('pre', preNews)
-
-    const onClcikDeleteBell = () =>{
-        console.log(BellDelete.mutate({ userId: isLog, newsId : preNews}))
+    const userId = isLogin[0].id
+    const bellDelete = useBellDelete(userId , newsId)
+    
+    const onClickRead = () => {
+        bellDelete.mutate({ userId: userId, newsId : newsId })
+        navigate('/relatedDetail', { state: { newsId: newsId, preNewsId: preNewsId }})
     }
 
-
-
     return (
-        <div className={styles.bellGrid} onClick={() =>{ navigate('/detail', { state: { newsId: newsId, preNewsId: preNewsId }}) }}>
+        <div className={styles.bellGrid} onClick={() =>{ onClickRead() }}>
             <IoEarth className={styles.icons}/>
             <h4> 지난번에 보신 <span>{children}</span> 에 대한 연관된 뉴스가 있습니다</h4>
         </div>

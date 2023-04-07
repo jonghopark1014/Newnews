@@ -1,11 +1,18 @@
-import "@/styles/main/MainPageStyles.scss";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+
+import { LoginState } from "@/states/LoginState";
+import { topicAtom } from "@/stores/NewsTopics";
+import "@/styles/main/MainPageStyles.scss";
+
+// import useBellDelete from "@/hooks/bell/useBellDelete";
 
 
 interface Iprops {
+    categoryId: number
     newsId: number,
-    preNewsId : number,
+    preNewsId? : number,
     title: string,
     press: string,
     newsImage: string,
@@ -14,10 +21,26 @@ interface Iprops {
 
 export function MainPageContentCard(props: Iprops){
     const navigate = useNavigate();
+    
     const title = props.title;
     const press = props.press;
     const newsImage = props.newsImage;
     const newsIndex = props.newsIndex + 1;
+
+    const topicState = useRecoilValue(topicAtom);
+    const isLogin = useRecoilValue(LoginState)
+    const userId = isLogin[0].id
+
+    // const bellDelete = useBellDelete(userId, props.newsId)
+
+    const address = ()=>{
+        if (topicState.focused === "연관뉴스") {
+            // bellDelete.mutate({ userId: userId, newsId : props.newsId})
+            navigate("/relatedDetail", { state: { newsId: props.newsId, preNewsId: props.preNewsId }})
+        } else {
+            navigate("/detail", { state: { newsId: props.newsId, categoryId: props.categoryId }})
+        }
+    }
 
     useEffect(()=>{
         const newsCardUpper = document.querySelector<HTMLElement>(`div.main-page-content-card:nth-child(${newsIndex})>.upper-half`);
@@ -32,7 +55,7 @@ export function MainPageContentCard(props: Iprops){
     }, [newsImage]);
 
     return (
-        <div className="main-page-content-card page no-anim" onClick={()=>navigate("/detail", { state: { newsId: props.newsId, preNewsId: props.preNewsId } })}>
+        <div className="main-page-content-card page no-anim" onClick={()=>address()}>
             <div className="upper-half">
 
             </div>

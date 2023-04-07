@@ -18,9 +18,9 @@ export default function MemberShipModal( {children, onClickToggleModal} : Iprops
         <section className={styles.modalSection}>
             <div className={styles.modalGrid}>
                 <div className={styles.textGrid}>
-                    <h3>{children}</h3>
+                    <h4>{children}</h4>
                     <br />
-                    <Button onClick={() => {onClickToggleModal()}} children={"확인"}></Button>
+                    <Button onClick={() => {onClickToggleModal()}}  children={"확인"}></Button>
                 </div>
             </div>
         </section>

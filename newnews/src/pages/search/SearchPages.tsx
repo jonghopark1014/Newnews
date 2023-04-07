@@ -1,22 +1,24 @@
-import { SearchBar } from "../../components/SearchBar";
-import styles from "@/styles/search/SearchPages.module.scss"
-import { Button } from "../../components/Button";
-import { ArticleCard} from "../../components/ArticleCard"
-import { PopularContent } from "../../components/searchpage/PopularContent";
-import { useRecoilState } from 'recoil';
-import { LoginState } from '@/states/LoginState';
+import { useRecoilValue } from 'recoil';
+import { useEffect } from 'react';
+import { useLocation, useNavigate } from "react-router-dom";
 
+import { LoginState } from '@/states/LoginState';
+import { SearchBar } from "@/components/searchpage/SearchBar";
+import { PopularContent } from "@/components/searchpage/PopularContent";
+
+import styles from "@/styles/search/SearchPages.module.scss"
 
 /**
  * 
  * @returns 검색페이지 보여주기
 */
 export function SearchPages(){
-    const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState);
-    
+    const location = useLocation()
+    const isLogin = useRecoilValue(LoginState)
+
     return (
         <section className={styles.searchSection}>
-            <SearchBar/>
+            <SearchBar />
             <div>
                 <h2 className={styles.popularSearchTerms}>
                     추천 키워드

@@ -5,7 +5,6 @@
     height: 80vh;
     justify-content: center;
     align-items: center;
-    gap: min(2rem, 5vw);
     .formStyle{
         height: 60%;
         width: 80%;
@@ -27,8 +26,7 @@
     input[type='checkbox'] {
         display: flex;
         flex-direction: row;
-        width: 10%;
-        
+        width: 100%;
     }
     span{
         color: #F67442;
@@ -38,10 +36,6 @@
         height: 18%;
         flex-direction: column;
         justify-content: flex-start;
-        margin-top: 5%;
-        input{
-            place-self: center center;
-        }
         .emailGrid{
             display: flex;
             justify-content: space-between;
@@ -52,20 +46,21 @@
         height: 15%;
         flex-direction: column;
         justify-content: flex-start;
-        margin-top: 5%;
+        margin-top: 10%;
     }
     .passwordConfirm{
         display: flex;
         height: 15%;
         flex-direction: column;
         justify-content: flex-start;
-        margin-top: 5%;
+        margin-top: 10%;
     }
     .sex{
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        margin-top: 5%;
+        margin-top: 10%;
+
         div{
             display: flex;
             width: 40%;
@@ -82,13 +77,12 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        margin-top: 5%;
-        
+        margin-top: 10%;
     }
     .buttonGrid{
-        display: flex;
+        position: relative;
         margin-left: auto;
-        margin-top: 5%;
+        margin-top: 20%;
         margin-right: 10%;
     }
 }
@@ -127,39 +121,3 @@
 // }
 // }
 
-// @media all and (max-width: 768px) {
-// .input-forms {
-//     padding: 50px;
-//     input{
-//     width: 300px;
-//     }
-// }
-// }
-
-// .signup-wrapper {
-// display: flex;
-// flex-direction: column;
-// align-items: center;
-
-// .input-forms {
-//     background-color: #ffffff;
-//     border-radius: 10px;
-//     display: flex;
-//     flex-direction: column;
-
-//     .input-label {
-//     font-size: 1.2rem;
-//     font-weight: bold;
-//     color: #363636;
-//     }
-
-//     .input-forms-item {
-//     padding: 7px 0;
-//     .error-message {
-//         font-size: 1rem;
-//         color: 0096ED;
-//         font-weight: bold;
-//     }
-//     }
-// }
-// }
