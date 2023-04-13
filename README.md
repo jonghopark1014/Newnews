@@ -5,15 +5,13 @@
 <br>
 <br>
 
-## 서비스 배경
+# 서비스 배경
 
-혹시 평소에 궁금했던 뉴스에 대한 후속 뉴스를 보았던 경험이 있나요?
+혹시 궁금했던 뉴스에 대한 후속 뉴스를 보았던 경험이 있나요?
 
-평소에 뉴스에 관심없이 지내다 보면 세상이 어떻게 흘러가는지, 다른 사람이 무엇을 이야기 하는지 모를 때가 종종있습니다.
+평상시 뉴스에 관심없이 지내다 보면 세상이 어떻게 흘러가는지, 다른 사람이 무엇을 이야기 하는지 모를 때가 종종있습니다.
 
-특히, 선거철에는 굉장히 많은 후속 뉴스들이 발생합니다. 
-
-이러한 정보들을 손쉽게 파악하고자 ”NEWNEWS”를 서비스하게 되었습니다.
+이러한 정보들을 손쉽게 파악하고자 <b>”NEWNEWS”</b>를 서비스하게 되었습니다.
 
 <br>
 <br>
@@ -44,20 +42,34 @@
 
 - 실시간 validation check
 - 수정 필요한 입력에 대한 시각적인 표시 제공
+<div style="display: flex; justify-content: center;"><img src="https://drive.google.com/uc?export=view&id=1aSD2psiU4Gmx8doAX85EqP13a5RWvAmw" style="width: 200px; border-radius:20px;"></div>
 
 ### 연관뉴스
 
 - 사용자가 시청한 뉴스와 연관된 뉴스를 모아서 보여줌
+<div style="display: flex; justify-content: center;"><img src="https://drive.google.com/uc?export=view&id=1EvHxpbVS_7UD2C91-yUVZTOTuBOjWCOo" style="width: 200px; border-radius:20px;">&emsp;<img src="https://drive.google.com/uc?export=view&id=1aR9C54VfFw9X1MtN3lho8LbFkHYJ4svp" style="width: 200px; border-radius:20px;"></div>
 
 ### 뉴스
 
 - 뉴스를 최신순으로 보여줌
 - 원하는 카테고리를 선택하여 추천받을 수 있음
+<div style="display: flex; justify-content: center;"><img src="https://drive.google.com/uc?export=view&id=1NpqV_kFkPVxphMEoDOdKCVtwEZkT-qS1" style="width: 200px; border-radius:20px;"></div>
 
-### 성향분석(마이페이지)
+### 북마크
+
+- 북마크를 눌러 저장하고 북마크탭에서 저장한 뉴스 확인 가능
+
+<div style="display: flex; justify-content: center;"><img src="https://drive.google.com/uc?export=view&id=1BB6WDq6HfECbWNASqF6nrF7WRp99aX6f" style="width: 200px; border-radius:20px;"></div>
+
+### 검색
+
+- 검색한 키워드를 기반으로 키워드와 관련된 사건의 흐름을 파악할 수 있음
+<div style="display: flex; justify-content: center;"><img src="https://drive.google.com/uc?export=view&id=1HskJIkp_O9Ndt4to4fUBJeyOzmFadr0w" style="width: 200px; border-radius:20px;"></div>
+
+### 성향분석
 
 - 봤던 뉴스의 카테고리 기반으로 성향 분석해줌
-
+<div style="display: flex; justify-content: center;"><img src="https://drive.google.com/uc?export=view&id=10iPk2LeWlb0_KXC5UEqNi-wAw8OaT0o9" style="width: 200px; border-radius:20px;"></div>
 <br>
 <br>
 
@@ -109,25 +121,29 @@
 
 - IDE : Visual Studio Code `1.75.1`
 - language
-    - Typescript `4.9.4`
+    - Typescript `4.9.5`
     - node js `18.13.0`
 - Framework
     - react `18.2.0`
     - react toolkit `1.9.1`
-- Http : Axios `1.2.3`
+- Http : Axios `1.3.4`
+- sass : sass `1.59.3`
+- build tool : vite `4.2.0`
 - formatter
-    - eslint `8.32.0`
-    - prettier `2.8.3`
-- router : react-router-dom `6.7.0`
+    - eslint `8.36.0`
+    - prettier `2.8.4`
+- router : react-router-dom `6.9.0`
 - state management tool
-    - reduxjs/toolkit `1.9.1`
-- Library
-    
-    ```json
-      "@emotion/react": "^11.10.5",  "@emotion/styled": "^11.10.5",  "@mui/material": "^5.11.5",  "@reduxjs/toolkit": "^1.9.1",  "@testing-library/jest-dom": "^5.16.5",  "@testing-library/react": "^13.4.0",  "@testing-library/user-event": "^13.5.0",  "@types/jest": "^27.5.2",  "@types/node": "^16.18.11",  "@types/react": "^18.0.27",  "@types/react-dom": "^18.0.10",  "@types/react-router-dom": "^5.3.3",  "@types/styled-components": "^5.1.26",  "axios": "^1.2.3",  "eslint-config-prettier": "^8.6.0",  "eslint-plugin-prettier": "^4.2.1",  "moment": "^2.29.4",  "openvidu-browser": "^2.25.0",  "prettier": "^2.8.3",  "react": "^18.2.0",  "react-dom": "^18.2.0",  "react-icons": "^4.7.1",  "react-redux": "^8.0.5",  "react-router-dom": "^6.7.0",  "react-scripts": "5.0.1",  "styled-components": "^5.3.6",  "swiper": "^9.0.2",  "typescript": "^4.9.4",  "web-vitals": "^2.1.4"
-    ```
-    
-<br>
+    - recoil: `0.7.7`
+    - recoil-persist: `4.2.0`
+- Library   
+    - react-corekit/sleep: `1.1.0`
+    - react-query `4.27.0`
+    - animate.css `4.1.1`
+    - react-icons `4.8.0`
+    - react-intersection-observer `9.4.3`
+    - recharts: `2.5.0`
+    - babel/preset-typescript `7.21.4`
 <br>
 
 # ✨ Back End Stack ✨
@@ -172,7 +188,7 @@
 - Ubuntu `20.0.4`
 - Nginx `1.18.0`
 - Docker `20.10.23`
-- Jenkins `Jenkins/jenkins:lts-jdk11`(Image tag name)
+- Jenkins `Jenkinsci/blueocean`(Image tag name)
 
 <br>
 <br>
@@ -189,11 +205,17 @@
   <img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white">
 </div>
 
+<br>
+
 ## 📰 Big-Data
 
-- Kafka
-- Hadoop
-- Spark
+- Java `open-jdk-11`
+- Hadoop `3.3.5`
+- Spark `3.3.2`
+    - python `3.8.0`
+- Zookeeper `3.7.1`
+- Kafka `3.4.0`
+  - scala `2.12`
 
 <br>
 <br>
@@ -205,13 +227,15 @@
 </div>
 
 <br>
+<br>
 
-### ✨ 기술 특이점
+# 기술 특이점
 
-- 실시간 크롤링을 통해 Kafka, Spark를 통해 HDFS에 적재합니다.
-- Kafka를 도입하여 적재 중 끊김과 같은 에러 상태가 발생하더라도 정상적으로 작동하도록 하였습니다.
-- Spark에서 TF-IDF, DBSCAN, Cosine 유사도를 통해 키워드를 추출합니다.
+- 실시간 크롤링 데이터를 프로듀서를 통해 Kafka, Spark에 전달 후 SparkStreaming으로 실시간 처리를 하고 foreachBatch를 이용하여 데이터를 배치 처리하여 HDFS와 DB에 적재합니다.
+- Spark에서 TF-IDF, DBSCAN를 사용하여 다양한 뉴스 사이의 군집을 파악하여 검색어와 관련된 뉴스의 흐름을 편리하게 제공합니다.
+- Spark에서 실시간으로 크롤링되는 데이터와 사용자가 읽은 뉴스 데이터 간 Cosine 유사도를 통해 연관 뉴스를 파악하여 제공합니다.
 - Mysql에 저장한 뉴스들은 최대 3달까지 저장 후 삭제하여 최적화 하였습니다.
+- Spring Security를 도입하여 비인증 사용자의 요청을 체계적으로 처리했습니다.
 
 <br>
 <br>
@@ -254,24 +278,5 @@
 
 | 박진성     | 이기용   | 이성복   | 왕현석  | 박종호  | 곽승엽  |
 | ---------- | ---------- | ---------- | --------- | --------- | ------- |
-| <img src="https://drive.google.com/uc?export=view&id=1Ra15FntprFzCG3Qj8W5EKPLo7Zp9XyhL" width="100"> | <img src="https://drive.google.com/uc?export=view&id=1_rJb34sLDMXUvDyNCtEZXycO1Mpkh4QX" width="100">  | <img src="https://drive.google.com/uc?export=view&id=1g4QdVInpdGzcVhGxD9lrdm4CB1y9b6Xr" width="100"> | <img src="https://drive.google.com/uc?export=view&id=1WV5tVuSbRtEhBI99eBzs1F2dxNACZ7Fl" width="100"> | <img src="https://drive.google.com/uc?export=view&id=149FLkXqQrkuhtZQBfW9uZmU3Q8Kswkhq" width="100">  | <img src="https://drive.google.com/uc?export=view&id=1Z_hj41miFy3Z9c84pZOJu6UfPri2wUn2" width="100">  |
-| Leader & FrontEnd | Frontend | Backend | Backend | Data Engineer | Data Engineer |
-
-<!-- ### 🐥 팀원 역할
-
-- 프론트엔드
-    - 박진성
-        - 팀장, 프론트 마스터, 오늘은 등을 해야지
-    - 이기용
-        - 프론트 마스터, 오늘 나랑 술 마실 사람~
-- 백엔드
-    - 이성복
-        - 공식문서 마스터
-    - 왕현석
-        - 나보다 노래 많이 아는사람?
-        - 어우 깜짝이야!
-- 데이터 엔지니어
-    - 박종호
-        - 대전에서 나 모르는 사람은 간첩
-    - 곽승엽
-        - 나는야 샤이보이~ -->
+|<img src="https://drive.google.com/uc?export=view&id=1Ra15FntprFzCG3Qj8W5EKPLo7Zp9XyhL" style="display:inline-block; overflow:hidden; width:100px; height:100px; object-fit:cover"> | <img src="https://drive.google.com/uc?export=view&id=1_rJb34sLDMXUvDyNCtEZXycO1Mpkh4QX" style="display:inline-block; overflow:hidden; width:100px; height:100px; object-fit:cover">  | <img src="https://drive.google.com/uc?export=view&id=1g4QdVInpdGzcVhGxD9lrdm4CB1y9b6Xr" style="display:inline-block; overflow:hidden; width:100px; height:100px; object-fit:cover"> | <img src="https://drive.google.com/uc?export=view&id=1WV5tVuSbRtEhBI99eBzs1F2dxNACZ7Fl" style="display:inline-block; overflow:hidden; width:100px; height:100px; object-fit:cover"> | <img src="https://drive.google.com/uc?export=view&id=149FLkXqQrkuhtZQBfW9uZmU3Q8Kswkhq" style="display:inline-block; overflow:hidden; width:100px; height:100px; object-fit:cover">  | <img src="https://drive.google.com/uc?export=view&id=1Z_hj41miFy3Z9c84pZOJu6UfPri2wUn2" style="display:inline-block; overflow:hidden; width:100px; height:100px; object-fit:cover"> |
+| Leader & FrontEnd | Frontend | Backend & Crawling | Backend | Data Engineer & Infra | Data Engineer & Infra |
