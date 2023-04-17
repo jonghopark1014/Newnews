@@ -42,34 +42,33 @@
 
 - 실시간 validation check
 - 수정 필요한 입력에 대한 시각적인 표시 제공
-<div style="display: flex; justify-content: center;"><img src="https://drive.google.com/uc?export=view&id=1aSD2psiU4Gmx8doAX85EqP13a5RWvAmw" style="width: 200px; border-radius:20px;"></div>
+<center><img src="https://drive.google.com/uc?export=view&id=1aSD2psiU4Gmx8doAX85EqP13a5RWvAmw" width="200" style="width: 200px; border-radius:20px;">&emsp;<img src="https://drive.google.com/uc?export=view&id=1fPGZyWJjKvSBMGaNolFcFDlc7a-yRdDa" width="200" style="width:200px; border-radius:20px;"></center>
 
 ### 연관뉴스
 
 - 사용자가 시청한 뉴스와 연관된 뉴스를 모아서 보여줌
-<div style="display: flex; justify-content: center;"><img src="https://drive.google.com/uc?export=view&id=1EvHxpbVS_7UD2C91-yUVZTOTuBOjWCOo" style="width: 200px; border-radius:20px;">&emsp;<img src="https://drive.google.com/uc?export=view&id=1aR9C54VfFw9X1MtN3lho8LbFkHYJ4svp" style="width: 200px; border-radius:20px;"></div>
+<center><img src="https://drive.google.com/uc?export=view&id=1EvHxpbVS_7UD2C91-yUVZTOTuBOjWCOo" width="200" style="border-radius:20px;">&emsp;<img src="https://drive.google.com/uc?export=view&id=1aR9C54VfFw9X1MtN3lho8LbFkHYJ4svp" width="200" style="border-radius:20px;"></center>
 
 ### 뉴스
 
 - 뉴스를 최신순으로 보여줌
 - 원하는 카테고리를 선택하여 추천받을 수 있음
-<div style="display: flex; justify-content: center;"><img src="https://drive.google.com/uc?export=view&id=1NpqV_kFkPVxphMEoDOdKCVtwEZkT-qS1" style="width: 200px; border-radius:20px;"></div>
+<center><img src="https://drive.google.com/uc?export=view&id=1NpqV_kFkPVxphMEoDOdKCVtwEZkT-qS1" width="200" style="border-radius:20px;"></center>
 
 ### 북마크
 
 - 북마크를 눌러 저장하고 북마크탭에서 저장한 뉴스 확인 가능
-
-<div style="display: flex; justify-content: center;"><img src="https://drive.google.com/uc?export=view&id=1BB6WDq6HfECbWNASqF6nrF7WRp99aX6f" style="width: 200px; border-radius:20px;"></div>
+<center><img src="https://drive.google.com/uc?export=view&id=1BB6WDq6HfECbWNASqF6nrF7WRp99aX6f" width="200" style="border-radius:20px;"></center>
 
 ### 검색
 
 - 검색한 키워드를 기반으로 키워드와 관련된 사건의 흐름을 파악할 수 있음
-<div style="display: flex; justify-content: center;"><img src="https://drive.google.com/uc?export=view&id=1HskJIkp_O9Ndt4to4fUBJeyOzmFadr0w" style="width: 200px; border-radius:20px;"></div>
+<center><img src="https://drive.google.com/uc?export=view&id=1HskJIkp_O9Ndt4to4fUBJeyOzmFadr0w" width="200" style="border-radius:20px;"></center>
 
 ### 성향분석
 
 - 봤던 뉴스의 카테고리 기반으로 성향 분석해줌
-<div style="display: flex; justify-content: center;"><img src="https://drive.google.com/uc?export=view&id=10iPk2LeWlb0_KXC5UEqNi-wAw8OaT0o9" style="width: 200px; border-radius:20px;"></div>
+<center><img src="https://drive.google.com/uc?export=view&id=10iPk2LeWlb0_KXC5UEqNi-wAw8OaT0o9" width="200" style="border-radius:20px;"></center>
 <br>
 <br>
 
