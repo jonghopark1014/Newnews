@@ -21,11 +21,11 @@ pipeline{
         stage('Build') {
             steps {
                 script{
-                    sh "sed -i 's/\${DB_USERNAME}/${DB_USERNAME}/' '${WORKSPACE}/specialization/src/main/resources/application.yml'"
-                    sh "sed -i 's/\${DB_PASSWORD}/${DB_PASSWORD}/' '${WORKSPACE}/specialization/src/main/resources/application.yml'"
-                    sh "sed -i 's/\${DB_PORT}/${DB_PORT}/' '${WORKSPACE}/specialization/src/main/resources/application.yml'"
-                    sh "sed -i 's/\${DB_DOMAIN}/${DB_DOMAIN}/' '${WORKSPACE}/specialization/src/main/resources/application.yml'"
-                    sh "docker build -t ${BACK_NAME} ./specialization/."
+                    sh "sed -i 's/\${DB_USERNAME}/${DB_USERNAME}/' '${WORKSPACE}/newnews_be/src/main/resources/application.yml'"
+                    sh "sed -i 's/\${DB_PASSWORD}/${DB_PASSWORD}/' '${WORKSPACE}/newnews_be/src/main/resources/application.yml'"
+                    sh "sed -i 's/\${DB_PORT}/${DB_PORT}/' '${WORKSPACE}/newnews_be/src/main/resources/application.yml'"
+                    sh "sed -i 's/\${DB_DOMAIN}/${DB_DOMAIN}/' '${WORKSPACE}/newnews_be/src/main/resources/application.yml'"
+                    sh "docker build -t ${BACK_NAME} ./newnews_be/."
                 }
             }
         }

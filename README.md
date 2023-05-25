@@ -101,6 +101,83 @@
 <br>
 <br>
 
+# Front End Component Tree
+
+```
+📦newnews
+ ┣ 📂node_modules
+ ┣ 📂public
+ ┃ ┣ 📜favicon.png
+ ┃ ┗ 📜vite.svg
+ ┣ 📂src
+ ┃ ┣ 📂assets
+ ┃ ┣ 📂components
+ ┃ ┃ ┣ 📂bell
+ ┃ ┃ ┣ 📂login
+ ┃ ┃ ┣ 📂mainpage
+ ┃ ┃ ┣ 📂membership
+ ┃ ┃ ┣ 📂searchpage
+ ┃ ┃ ┣ 📜AlertIcon.tsx
+ ┃ ┃ ┣ 📜ArticleCard.tsx
+ ┃ ┃ ┣ 📜Button.tsx
+ ┃ ┃ ┣ 📜Footer.tsx
+ ┃ ┃ ┣ 📜Header.tsx
+ ┃ ┃ ┗ 📜test.ts
+ ┃ ┣ 📂hooks
+ ┃ ┃ ┣ 📂bell
+ ┃ ┃ ┣ 📂bookmark
+ ┃ ┃ ┣ 📂main
+ ┃ ┃ ┣ 📂mypage
+ ┃ ┃ ┣ 📂search
+ ┃ ┃ ┣ 📜MobileChk.ts
+ ┃ ┃ ┗ 📜test.ts
+ ┃ ┣ 📂models
+ ┃ ┣ 📂pages
+ ┃ ┃ ┣ 📂bell
+ ┃ ┃ ┣ 📂bookmark
+ ┃ ┃ ┣ 📂Login
+ ┃ ┃ ┣ 📂main
+ ┃ ┃ ┣ 📂membership
+ ┃ ┃ ┣ 📂mypage
+ ┃ ┃ ┣ 📂search
+ ┃ ┃ ┣ 📜DefaultPages.tsx
+ ┃ ┃ ┗ 📜test.ts
+ ┃ ┣ 📂states
+ ┃ ┣ 📂stores
+ ┃ ┣ 📂styles
+ ┃ ┃ ┣ 📂bell
+ ┃ ┃ ┣ 📂bookmark
+ ┃ ┃ ┣ 📂login
+ ┃ ┃ ┣ 📂main
+ ┃ ┃ ┣ 📂membership
+ ┃ ┃ ┣ 📂mypage
+ ┃ ┃ ┣ 📂search
+ ┃ ┃ ┣ 📜ArticleCard.module.scss
+ ┃ ┃ ┣ 📜Button.module.scss
+ ┃ ┃ ┣ 📜FooterBar.scss
+ ┃ ┃ ┣ 📜Header.module.scss
+ ┃ ┃ ┗ 📜Modal.module.scss
+ ┃ ┣ 📂utils
+ ┃ ┣ 📜index.scss
+ ┃ ┣ 📜main.tsx
+ ┃ ┣ 📜reset.scss
+ ┃ ┗ 📜vite-env.d.ts
+ ┣ 📜.env.production
+ ┣ 📜.eslintignore
+ ┣ 📜.eslintrc.cjs
+ ┣ 📜.gitignore
+ ┣ 📜.prettierignore
+ ┣ 📜Dockerfile
+ ┣ 📜index.html
+ ┣ 📜nginx.conf
+ ┣ 📜package-lock.json
+ ┣ 📜package.json
+ ┣ 📜prettier.config.cjs
+ ┣ 📜tsconfig.json
+ ┣ 📜tsconfig.node.json
+ ┗ 📜vite.config.ts
+```
+
 # ✨ Front End Stack ✨
 
 <div align="center">
@@ -120,30 +197,24 @@
 
 - IDE : Visual Studio Code `1.75.1`
 - language
-    - Typescript `4.9.5`
-    - node js `18.13.0`
+  - Typescript `4.9.5`
+  - node js `18.13.0`
 - Framework
-    - react `18.2.0`
-    - react toolkit `1.9.1`
+  - react `18.2.0`
+  - react toolkit `1.9.1`
 - Http : Axios `1.3.4`
 - sass : sass `1.59.3`
 - build tool : vite `4.2.0`
 - formatter
-    - eslint `8.36.0`
-    - prettier `2.8.4`
+  - eslint `8.36.0`
+  - prettier `2.8.4`
 - router : react-router-dom `6.9.0`
 - state management tool
-    - recoil: `0.7.7`
-    - recoil-persist: `4.2.0`
-- Library   
-    - react-corekit/sleep: `1.1.0`
-    - react-query `4.27.0`
-    - animate.css `4.1.1`
-    - react-icons `4.8.0`
-    - react-intersection-observer `9.4.3`
-    - recharts: `2.5.0`
-    - babel/preset-typescript `7.21.4`
-<br>
+  - recoil: `0.7.7`
+  - recoil-persist: `4.2.0`
+- Library
+  - react-corekit/sleep: `1.1.0` - react-query `4.27.0` - animate.css `4.1.1` - react-icons `4.8.0` - react-intersection-observer `9.4.3` - recharts: `2.5.0` - babel/preset-typescript `7.21.4`
+    <br>
 
 # ✨ Back End Stack ✨
 
@@ -170,11 +241,11 @@
 - IDE : Intellij IDEA `2020.3`
 - language : Java openjdk `11.0.15 2022-04-19 LTS`
 - Springboot `2.7.9`
-    - devtools
-    - Spring Data JPA
-    - Lombok
-    - Spring Security
-    - Spring Web
+  - devtools
+  - Spring Data JPA
+  - Lombok
+  - Spring Security
+  - Spring Web
 - Gradle `7.6.1`
 
 ## 📚 DB
@@ -211,10 +282,22 @@
 - Java `open-jdk-11`
 - Hadoop `3.3.5`
 - Spark `3.3.2`
-    - python `3.8.0`
+  - python `3.8.0`
 - Zookeeper `3.7.1`
 - Kafka `3.4.0`
   - scala `2.12`
+
+<br>
+<br>
+
+# 💥 데이터 파이프라인
+
+<div width="100%">
+  <img src="https://drive.google.com/uc?export=download&id=1ILoFbjvHvj4GLa4D00Zdny42GLabr09Y" width="100%">
+</div>
+
+- 뉴스 크롤링 데이터를 Kafka topic - [news]에 메시지 전송
+- SparkStreaming을 통해 실시간 뉴스 데이터를 처리하고, foreachBatch를 이용해 데이터를 배치처리하여 HDFS와 DB에 적재
 
 <br>
 <br>
@@ -230,7 +313,6 @@
 
 # 기술 특이점
 
-- 실시간 크롤링 데이터를 프로듀서를 통해 Kafka, Spark에 전달 후 SparkStreaming으로 실시간 처리를 하고 foreachBatch를 이용하여 데이터를 배치 처리하여 HDFS와 DB에 적재합니다.
 - Spark에서 TF-IDF, DBSCAN를 사용하여 다양한 뉴스 사이의 군집을 파악하여 검색어와 관련된 뉴스의 흐름을 편리하게 제공합니다.
 - Spark에서 실시간으로 크롤링되는 데이터와 사용자가 읽은 뉴스 데이터 간 Cosine 유사도를 통해 연관 뉴스를 파악하여 제공합니다.
 - Mysql에 저장한 뉴스들은 최대 3달까지 저장 후 삭제하여 최적화 하였습니다.
@@ -267,15 +349,14 @@
   <img src="https://drive.google.com/uc?export=view&id=1ry1M5-B62D_1AKB0DSvGPDixvURlE-B7" width="100%">
 </div>
 
-[ER Diagram](https://www.erdcloud.com/d/xtL5NYsYb5aaKLXFM)
----
+## [ER Diagram](https://www.erdcloud.com/d/xtL5NYsYb5aaKLXFM)
 
 <br>
 <br>
 
 ## 🍀 NEWNEWS 팀의 개발자들을 소개합니다!!
 
-| 박진성     | 이기용   | 이성복   | 왕현석  | 박종호  | 곽승엽  |
-| ---------- | ---------- | ---------- | --------- | --------- | ------- |
-|<img src="https://drive.google.com/uc?export=view&id=1Ra15FntprFzCG3Qj8W5EKPLo7Zp9XyhL" style="display:inline-block; overflow:hidden; width:100px; height:100px; object-fit:cover"> | <img src="https://drive.google.com/uc?export=view&id=1_rJb34sLDMXUvDyNCtEZXycO1Mpkh4QX" style="display:inline-block; overflow:hidden; width:100px; height:100px; object-fit:cover">  | <img src="https://drive.google.com/uc?export=view&id=1g4QdVInpdGzcVhGxD9lrdm4CB1y9b6Xr" style="display:inline-block; overflow:hidden; width:100px; height:100px; object-fit:cover"> | <img src="https://drive.google.com/uc?export=view&id=1WV5tVuSbRtEhBI99eBzs1F2dxNACZ7Fl" style="display:inline-block; overflow:hidden; width:100px; height:100px; object-fit:cover"> | <img src="https://drive.google.com/uc?export=view&id=149FLkXqQrkuhtZQBfW9uZmU3Q8Kswkhq" style="display:inline-block; overflow:hidden; width:100px; height:100px; object-fit:cover">  | <img src="https://drive.google.com/uc?export=view&id=1Z_hj41miFy3Z9c84pZOJu6UfPri2wUn2" style="display:inline-block; overflow:hidden; width:100px; height:100px; object-fit:cover"> |
-| Leader & FrontEnd | Frontend | Backend & Crawling | Backend | Data Engineer & Infra | Data Engineer & Infra |
+| [박진성](https://github.com/ssg-js)                                                                                                                                                 | [이기용](https://github.com/KI-DG)                                                                                                                                                  | [이성복](https://github.com/seungbok3240)                                                                                                                                           | [왕현석](https://github.com/sjj02055)                                                                                                                                               | [박종호](https://github.com/jonghopark1014)                                                                                                                                         | [곽승엽](https://github.com/Yeop-seung)                                                                                                                                             |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <img src="https://drive.google.com/uc?export=view&id=1Ra15FntprFzCG3Qj8W5EKPLo7Zp9XyhL" style="display:inline-block; overflow:hidden; width:100px; height:100px; object-fit:cover"> | <img src="https://drive.google.com/uc?export=view&id=1_rJb34sLDMXUvDyNCtEZXycO1Mpkh4QX" style="display:inline-block; overflow:hidden; width:100px; height:100px; object-fit:cover"> | <img src="https://drive.google.com/uc?export=view&id=1g4QdVInpdGzcVhGxD9lrdm4CB1y9b6Xr" style="display:inline-block; overflow:hidden; width:100px; height:100px; object-fit:cover"> | <img src="https://drive.google.com/uc?export=view&id=1WV5tVuSbRtEhBI99eBzs1F2dxNACZ7Fl" style="display:inline-block; overflow:hidden; width:100px; height:100px; object-fit:cover"> | <img src="https://drive.google.com/uc?export=view&id=149FLkXqQrkuhtZQBfW9uZmU3Q8Kswkhq" style="display:inline-block; overflow:hidden; width:100px; height:100px; object-fit:cover"> | <img src="https://drive.google.com/uc?export=view&id=1Z_hj41miFy3Z9c84pZOJu6UfPri2wUn2" style="display:inline-block; overflow:hidden; width:100px; height:100px; object-fit:cover"> |
+| Leader & FrontEnd                                                                                                                                                                   | Frontend                                                                                                                                                                            | Backend & Crawling                                                                                                                                                                  | Backend                                                                                                                                                                             | Data Engineer & Infra                                                                                                                                                               | Data Engineer & Infra                                                                                                                                                               |
